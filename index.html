@@ -1,11 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUYISENGE Jean Chrisostom - Interactive CV</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>TUYISENGE Jean Chrisostom - CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-bg: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #e0e7ff 100%);
+            --dark-primary-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e1b4b 100%);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --dark-glass-bg: rgba(15, 23, 42, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --dark-glass-border: rgba(255, 255, 255, 0.1);
+            --emerald-gradient: linear-gradient(135deg, #10b981, #3b82f6);
+            --purple-gradient: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --dark-text-primary: #f9fafb;
+            --dark-text-secondary: #d1d5db;
+        }
+
+        .dark {
+            --primary-bg: var(--dark-primary-bg);
+            --glass-bg: var(--dark-glass-bg);
+            --glass-border: var(--dark-glass-border);
+            --text-primary: var(--dark-text-primary);
+            --text-secondary: var(--dark-text-secondary);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,1163 +37,1082 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
             overflow-x: hidden;
-            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .dark body {
+            color: var(--dark-text-primary);
         }
 
         /* Animated Background */
-        .animated-background {
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #dfffe2, #c0f7d1, #a8e6cf);
+            background: var(--primary-bg);
             z-index: -1;
             overflow: hidden;
         }
 
-        .floating-shape {
+        .gradient-orb {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.15;
-            animation: float 20s infinite ease-in-out;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
         }
 
-        .floating-emoji {
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #8b5cf6, #3b82f6);
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #06b6d4, #3b82f6);
+            top: -100px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ec4899, #f97316);
+            bottom: -100px;
+            left: 10%;
+            animation-delay: -10s;
+        }
+
+        .particle {
             position: absolute;
-            font-size: 4rem;
-            opacity: 0.1;
-            color: #2e8b57;
-            animation: floatEmoji 15s infinite ease-in-out;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(59,130,246,0.4) 100%);
+            border-radius: 50%;
+            animation: particleFloat 25s linear infinite;
+        }
+
+        .dark .particle {
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(59,130,246,0.2) 100%);
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            25% { transform: translate(100px, -100px) rotate(90deg) scale(1.2); }
-            50% { transform: translate(-100px, -50px) rotate(180deg) scale(0.8); }
-            75% { transform: translate(50px, 100px) rotate(270deg) scale(1.1); }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(15px) rotate(240deg); }
         }
 
-        @keyframes floatEmoji {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(50px, -30px) rotate(5deg); }
-            66% { transform: translate(-30px, 20px) rotate(-5deg); }
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
         }
 
-        /* Main Container */
-        .main-container {
-            min-height: 100vh;
-            position: relative;
-            z-index: 1;
+        /* Glass morphism effect */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
-        /* Form Styles */
-        .form-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
+        .dark .glass {
+            background: var(--dark-glass-bg);
+            border: 1px solid var(--dark-glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        .form-card {
-            width: 100%;
-            max-width: 28rem;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            padding: 2rem;
-            animation: slideUp 0.6s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .emoji-display {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: scaleIn 0.5s ease-out;
-        }
-
-        @keyframes scaleIn {
-            from { transform: scale(0); }
-            to { transform: scale(1); }
-        }
-
-        .form-title {
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, #059669, #10b981);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-description {
-            color: #6b7280;
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 0.5rem;
-            background: #dcfce7;
-            border-radius: 0.25rem;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(45deg, #22c55e, #10b981);
-            border-radius: 0.25rem;
-            transition: width 0.5s ease;
-        }
-
-        .form-content {
-            animation: slideInRight 0.3s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .form-label {
-            display: block;
-            font-size: 1.125rem;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #d1fae5;
-            border-radius: 0.5rem;
-            font-size: 1.125rem;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #22c55e;
-            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
-        }
-
-        .form-buttons {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 1rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 0.875rem;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #d1fae5;
-            color: #059669;
-        }
-
-        .btn-outline:hover {
-            border-color: #22c55e;
-        }
-
-        .btn-outline:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #22c55e, #10b981);
-            color: white;
-            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(45deg, #16a34a, #059669);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* CV Page Styles */
-        .cv-container {
-            min-height: 100vh;
-            padding: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cv-content {
-            max-width: 64rem;
+        /* Container and layout */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
         }
 
-        .welcome-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: slideDown 0.6s ease-out;
+        /* Profile Header */
+        .profile-header {
+            margin-bottom: 3rem;
+            padding: 3rem;
+            animation: slideInUp 0.8s ease-out;
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .welcome-badge {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
-            background: linear-gradient(45deg, #059669, #10b981);
-            color: white;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            font-size: 1.125rem;
-        }
-
-        .welcome-text {
-            color: #6b7280;
-        }
-
-        .cv-grid {
+        .profile-content {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 2fr 1fr;
             gap: 2rem;
+            align-items: center;
         }
 
-        @media (min-width: 1024px) {
-            .cv-grid {
-                grid-template-columns: 1fr 2fr;
-            }
-        }
-
-        .cv-sidebar, .cv-main {
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        .cv-main {
-            animation: slideInRight 0.6s ease-out;
-            animation-delay: 0.2s;
-            animation-fill-mode: both;
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .card {
-            background: white;
-            border: 1px solid #dcfce7;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-header {
-            padding: 1.5rem;
-            text-align: center;
-            border-bottom: 1px solid #f0fdf4;
-        }
-
-        .card-content {
-            padding: 1.5rem;
+        .profile-image-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
         }
 
         .profile-image {
-            width: 9rem;
-            height: 9rem;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #059669;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            margin-bottom: 1rem;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: profilePulse 2s ease-in-out infinite alternate;
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 3px solid white;
+            animation: pulse 2s infinite;
+        }
+
+        .profile-info {
+            text-align: center;
         }
 
         .profile-name {
-            font-size: 1.5rem;
-            color: #059669;
-            margin-bottom: 0.5rem;
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--emerald-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: textGlow 3s ease-in-out infinite alternate;
         }
 
         .profile-title {
-            color: #6b7280;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            background: linear-gradient(45deg, #059669, #10b981);
-            color: white;
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
             font-size: 0.875rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            transition: transform 0.2s ease;
         }
 
+        .badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge-emerald {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .badge-purple {
+            background: rgba(139, 92, 246, 0.1);
+            color: #7c3aed;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            transform: translateX(0);
+        }
+
+        .social-link:hover {
+            transform: translateX(5px) translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-instagram {
+            background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+        }
+
+        .social-facebook {
+            background: #1877f2;
+        }
+
+        .social-email {
+            background: #10b981;
+        }
+
+        .social-link i {
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        /* Contact Info */
         .contact-info {
-            margin: 1.5rem 0;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            font-size: 0.875rem;
+            padding: 1rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.2s ease;
+        }
+
+        .dark .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
         }
 
         .contact-icon {
-            width: 1rem;
-            height: 1rem;
-            color: #059669;
-        }
-
-        .contact-text {
-            color: #374151;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-            padding-top: 1rem;
-            border-top: 1px solid #dcfce7;
-        }
-
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 2.5rem;
-            height: 2.5rem;
-            border: 1px solid #d1fae5;
-            border-radius: 0.5rem;
-            color: #374151;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            transform: scale(1.05);
-            border-color: #22c55e;
-        }
-
-        .download-btn {
-            width: 100%;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            background: linear-gradient(45deg, #059669, #10b981);
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        .contact-details h4 {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        /* CV Content */
+        .cv-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .cv-section {
+            padding: 2rem;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: var(--emerald-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
             color: white;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .download-btn:hover {
-            transform: scale(1.05);
+            font-size: 1.5rem;
         }
 
         .section-title {
-            color: #059669;
-            border-bottom: 1px solid #dcfce7;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
+            font-size: 2rem;
+            font-weight: 600;
+            background: var(--emerald-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
+        /* Personal Statement */
+        .personal-statement p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        /* Education */
         .education-item {
-            border-left: 2px solid #d1fae5;
-            padding-left: 1rem;
-            margin-bottom: 1.5rem;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #3b82f6;
+            border-radius: 50%;
         }
 
         .education-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: between;
             align-items: flex-start;
             margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .education-title {
-            font-size: 1.125rem;
-            color: #1f2937;
-        }
-
-        .education-school {
-            color: #6b7280;
+        .education-institution {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
         }
 
         .education-year {
-            background: #dcfce7;
-            color: #059669;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            white-space: nowrap;
-        }
-
-        .education-description {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
             font-size: 0.875rem;
-            color: #6b7280;
+            font-weight: 500;
         }
 
-        .skills-category {
-            margin-bottom: 1rem;
-        }
-
-        .skills-category-title {
-            font-size: 0.875rem;
-            color: #059669;
+        .education-degree {
+            color: var(--text-secondary);
             margin-bottom: 0.5rem;
         }
 
-        .skills-list {
+        .education-grade {
+            color: #10b981;
+            font-weight: 500;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .skill-category i {
+            margin-right: 0.75rem;
+            color: #8b5cf6;
+        }
+
+        .skill-items {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
 
-        .skill-tag {
-            background: #f0fdf4;
-            color: #059669;
-            border: 1px solid #d1fae5;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem;
+        .skill-item {
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
             font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: scaleInDelay 0.3s ease-out;
+            color: #7c3aed;
+            transition: transform 0.2s ease;
         }
 
-        .skill-tag:hover {
-            background: #059669;
-            color: white;
+        .skill-item:hover {
+            transform: translateY(-2px);
         }
 
-        @keyframes scaleInDelay {
-            from { opacity: 0; transform: scale(0); }
-            to { opacity: 1; transform: scale(1); }
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
         }
 
-        .achievements-list, .interests-list {
-            list-style: none;
+        .dark .language-item {
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .achievements-item, .interests-item {
+        /* Two column layout for achievements and interests */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .achievement-item, .interest-item {
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
+            padding: 1rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            transition: transform 0.2s ease;
         }
 
-        .bullet-point {
-            width: 0.5rem;
-            height: 0.5rem;
+        .achievement-item {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .interest-item {
+            background: rgba(244, 63, 94, 0.1);
+        }
+
+        .achievement-item:hover, .interest-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .achievement-bullet, .interest-bullet {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
+            margin-right: 1rem;
             margin-top: 0.5rem;
             flex-shrink: 0;
         }
 
         .achievement-bullet {
-            background: #22c55e;
+            background: #f59e0b;
         }
 
         .interest-bullet {
-            background: #14b8a6;
+            background: #f43f5a;
         }
 
-        .back-button {
-            text-align: center;
-            margin: 2rem 0;
-            animation: fadeIn 0.6s ease-out 1s both;
+        /* References */
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
+        .reference-item {
+            padding: 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .reference-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .reference-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-role {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-phone {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .reference-phone:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
         .footer {
             text-align: center;
-            margin: 2rem 0;
-            padding-top: 2rem;
-            border-top: 1px solid #dcfce7;
-            animation: fadeIn 0.6s ease-out 1.2s both;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
         }
 
-        .footer-text {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-bottom: 0.25rem;
+        .footer-content {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
         }
 
-        .footer-subtext {
-            font-size: 0.75rem;
-            color: #9ca3af;
+        /* Dark mode toggle */
+        .dark-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 100;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .dark-toggle:hover {
+            transform: scale(1.1);
         }
 
-        /* Hidden class */
-        .hidden {
-            display: none;
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes profilePulse {
+            0% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+            100% { box-shadow: 0 25px 50px rgba(16, 185, 129, 0.2); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes textGlow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .cv-grid {
+            .container {
+                padding: 1rem;
+            }
+
+            .profile-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .profile-name {
+                font-size: 2rem;
+            }
+
+            .contact-info {
                 grid-template-columns: 1fr;
             }
-            
-            .education-header {
-                flex-direction: column;
-                align-items: flex-start;
+
+            .two-column {
+                grid-template-columns: 1fr;
             }
-            
-            .education-year {
-                margin-top: 0.25rem;
+
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .form-card {
-                margin: 1rem;
+
+            .references-grid {
+                grid-template-columns: 1fr;
             }
+
+            .dark-toggle {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
+    <!-- Dark mode toggle -->
+    <button class="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
+
     <!-- Animated Background -->
-    <div class="animated-background" id="animatedBg">
-        <div class="floating-emoji" style="top: 10%; left: 5%; animation-delay: 0s;">🌱</div>
-        <div class="floating-emoji" style="bottom: 10%; right: 5%; animation-delay: 2s;">📚</div>
-        <div class="floating-emoji" style="top: 50%; right: 20%; animation-delay: 4s;">🎓</div>
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div id="particles-container"></div>
     </div>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Entry Form -->
-        <div id="entryForm" class="form-container">
-            <div class="form-card">
-                <div class="form-header">
-                    <div class="emoji-display" id="currentEmoji">👋</div>
-                    <h1 class="form-title">Welcome! Let's get to know you</h1>
-                    <p class="form-description">Step <span id="stepNumber">1</span> of 4</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+    <div class="container">
+        <!-- Profile Header -->
+        <header class="profile-header glass animate-on-scroll">
+            <div class="profile-content">
+                <!-- Profile Image -->
+                <div class="profile-image-container">
+                    <img src="https://i.postimg.cc/2b6dF0Tg/chrisostom.jpg" 
+                         alt="TUYISENGE Jean Chrisostom" 
+                         class="profile-image"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjNmNGY2Ii8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjgwIiByPSIzMCIgZmlsbD0iIzlmYTNhOCIvPgo8cGF0aCBkPSJNNjAgMTQwYzAtMjIuMDkxIDE3LjkwOS00MCA0MC00MHM0MCAxNy45MDkgNDAgNDB2NDBINjB2LTQweiIgZmlsbD0iIzlmYTNhOCIvPgo8L3N2Zz4='">
+                    <div class="status-indicator"></div>
+                </div>
+
+                <!-- Name and Title -->
+                <div class="profile-info">
+                    <h1 class="profile-name">TUYISENGE<br>Jean Chrisostom</h1>
+                    <p class="profile-title">Student Teacher & Language Education Specialist</p>
+                    <div class="badges">
+                        <span class="badge badge-emerald">Student Teacher</span>
+                        <span class="badge badge-blue">Language Education</span>
+                        <span class="badge badge-purple">Web Developer</span>
                     </div>
                 </div>
-                
-                <div class="form-content">
-                    <label class="form-label" id="currentLabel">What should I call you?</label>
-                    <p class="form-description" id="currentDescription">Your nickname or preferred name</p>
-                    <input 
-                        type="text" 
-                        class="form-input" 
-                        id="currentInput" 
-                        placeholder="e.g., Alex, Sam, Chris..."
-                        autocomplete="off"
-                    >
-                </div>
-                
-                <div class="form-buttons">
-                    <button class="btn btn-outline" id="backBtn" disabled>Back</button>
-                    <button class="btn btn-primary" id="nextBtn" disabled>Next</button>
+
+                <!-- Social Links -->
+                <div class="social-links">
+                    <a href="https://www.instagram.com/blad_danger/" target="_blank" class="social-link social-instagram">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </a>
+                    <a href="https://www.facebook.com/tuyisengejeanchrisostom" target="_blank" class="social-link social-facebook">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </a>
+                    <a href="mailto:tuyisengejeanchrisostome@gmail.com" class="social-link social-email">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </a>
                 </div>
             </div>
-        </div>
-        <div> <a href="Combined_CV
 
-        <!-- CV Page -->
-        <div id="cvPage" class="cv-container hidden">
-            <div class="cv-content">
-                <!-- Welcome Header -->
-                <div class="welcome-header">
-                    <div class="welcome-badge" id="welcomeBadge">
-                        Hey there! 👋 Welcome to my CV
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
                     </div>
-                    <p class="welcome-text" id="welcomeText">Here's my story...</p>
-                </div>
-
-                <!-- CV Grid -->
-                <div class="cv-grid">
-                    <!-- Sidebar -->
-                    <div class="cv-sidebar">
-                        <!-- Personal Info Card -->
-                        <div class="card">
-                            <div class="card-header">
-                                <img src="https://i.postimg.cc/2b6dF0Tg/chrisostom.jpg" alt="TUYISENGE Jean Chrisostom" class="profile-image">
-                                <h1 class="profile-name">TUYISENGE Jean Chrisostom</h1>
-                                <p class="profile-title">Student Teacher | Language Educator</p>
-                                <span class="status-badge">Available for opportunities</span>
-                            </div>
-                            
-                            <div class="card-content">
-                                <div class="contact-info">
-                                    <div class="contact-item">
-                                        <i class="fas fa-envelope contact-icon"></i>
-                                        <span class="contact-text">tuyisengejeanchrisostome@gmail.com</span>
-                                    </div>
-                                    <div class="contact-item">
-                                        <i class="fas fa-phone contact-icon"></i>
-                                        <span class="contact-text">0796177230</span>
-                                    </div>
-                                    <div class="contact-item">
-                                        <i class="fas fa-map-marker-alt contact-icon"></i>
-                                        <span class="contact-text">Karumuna Village, Kanzenze Cell, Ntarama Sector</span>
-                                    </div>
-                                    <div class="contact-item">
-                                        <i class="fas fa-calendar contact-icon"></i>
-                                        <span class="contact-text">27/09/2006 | 🇷🇼 Rwandan</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="social-links">
-                                    <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
-                                    <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
-                                    <a href="#" class="social-btn"><i class="fas fa-globe"></i></a>
-                                </div>
-                                
-                                <button class="download-btn">
-                                    <i class="fas fa-download"></i>
-                                    Download CV
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Fun Connection Card -->
-                        <div class="card" id="funFactCard">
-                            <div class="card-header">
-                                <h3 class="section-title">✨ Fun Connection</h3>
-                            </div>
-                            <div class="card-content">
-                                <p id="funFactText" class="contact-text"></p>
-                            </div>
-                        </div>
-                        
-                        <!-- References Card -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="section-title">References</h3>
-                            </div>
-                            <div class="card-content">
-                                <div style="margin-bottom: 1rem;">
-                                    <p class="contact-text" style="font-weight: 500;">NTABARONKERARIMWE SAIDATH</p>
-                                    <p class="contact-text" style="font-size: 0.75rem; color: #6b7280;">Parent</p>
-                                    <p class="contact-text" style="font-size: 0.75rem; color: #6b7280;">📞 0722321340</p>
-                                </div>
-                                <div>
-                                    <p class="contact-text" style="font-weight: 500;">TUYIZERE JEAN MARIE VIANNEY</p>
-                                    <p class="contact-text" style="font-size: 0.75rem; color: #6b7280;">Brother & Teacher</p>
-                                    <p class="contact-text" style="font-size: 0.75rem; color: #6b7280;">📞 0729407012</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Main Content -->
-                    <div class="cv-main">
-                        <!-- Personal Statement -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 class="section-title">Personal Statement</h2>
-                            </div>
-                            <div class="card-content">
-                                <p id="personalStatement" class="contact-text" style="line-height: 1.6;">
-                                    I am a hardworking and disciplined student teacher with strong communication skills and a passion for language education. 
-                                    Currently pursuing a Diploma in Language Education at TTC Matimba, I aim to become an impactful teacher who inspires students 
-                                    and supports Rwanda's educational development.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Education -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 class="section-title">Education</h2>
-                            </div>
-                            <div class="card-content">
-                                <div class="education-item">
-                                    <div class="education-header">
-                                        <div>
-                                            <h4 class="education-title">Diploma in Language Education</h4>
-                                            <p class="education-school">TTC Matimba</p>
-                                        </div>
-                                        <span class="education-year">2024</span>
-                                    </div>
-                                    <p class="education-description">Specialized in language teaching methodologies and educational practices.</p>
-                                </div>
-                                
-                                <div class="education-item">
-                                    <div class="education-header">
-                                        <div>
-                                            <h4 class="education-title">O'Level Certificate</h4>
-                                            <p class="education-school">G.S Nyirarukobwa</p>
-                                        </div>
-                                        <span class="education-year">2022–2023</span>
-                                    </div>
-                                    <p class="education-description">Aggregate: 4B – A | Strong performance in academic subjects.</p>
-                                </div>
-
-                                <div class="education-item">
-                                    <div class="education-header">
-                                        <div>
-                                            <h4 class="education-title">Senior 1 Completion</h4>
-                                            <p class="education-school">Ingenzi Trinity School</p>
-                                        </div>
-                                        <span class="education-year">2021</span>
-                                    </div>
-                                </div>
-
-                                <div class="education-item">
-                                    <div class="education-header">
-                                        <div>
-                                            <h4 class="education-title">Primary Certificate</h4>
-                                            <p class="education-school">G.S Nyirarukobwa</p>
-                                        </div>
-                                        <span class="education-year">2010–2020</span>
-                                    </div>
-                                    <p class="education-description">Aggregate: 12 – A | Excellent foundation in primary education.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Skills -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 class="section-title">Skills</h2>
-                            </div>
-                            <div class="card-content">
-                                <div class="skills-category">
-                                    <h4 class="skills-category-title">Languages</h4>
-                                    <div class="skills-list">
-                                        <span class="skill-tag">Kinyarwanda (Native)</span>
-                                        <span class="skill-tag">English (Proficient)</span>
-                                        <span class="skill-tag">French (Basic)</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills-category">
-                                    <h4 class="skills-category-title">Teaching</h4>
-                                    <div class="skills-list">
-                                        <span class="skill-tag">Creative lesson planning</span>
-                                        <span class="skill-tag">Student-centered methodologies</span>
-                                        <span class="skill-tag">Material preparation</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills-category">
-                                    <h4 class="skills-category-title">Computing</h4>
-                                    <div class="skills-list">
-                                        <span class="skill-tag">MS Office Suite</span>
-                                        <span class="skill-tag">Online forms</span>
-                                        <span class="skill-tag">AI tools (ChatGPT, Gemini, Copilot)</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills-category">
-                                    <h4 class="skills-category-title">Soft Skills</h4>
-                                    <div class="skills-list">
-                                        <span class="skill-tag">Discipline</span>
-                                        <span class="skill-tag">Teamwork</span>
-                                        <span class="skill-tag">Creativity</span>
-                                        <span class="skill-tag">Problem Solving</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Achievements -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 class="section-title"><i class="fas fa-award" style="margin-right: 0.5rem;"></i>Achievements</h2>
-                            </div>
-                            <div class="card-content">
-                                <ul class="achievements-list">
-                                    <li class="achievements-item">
-                                        <div class="bullet-point achievement-bullet"></div>
-                                        <p class="contact-text">Head Boy at GS Nyirarukobwa</p>
-                                    </li>
-                                    <li class="achievements-item">
-                                        <div class="bullet-point achievement-bullet"></div>
-                                        <p class="contact-text">Participant in school language competitions</p>
-                                    </li>
-                                    <li class="achievements-item">
-                                        <div class="bullet-point achievement-bullet"></div>
-                                        <p class="contact-text">Peer learning support and study group leader</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Interests -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 class="section-title"><i class="fas fa-book-open" style="margin-right: 0.5rem;"></i>Interests</h2>
-                            </div>
-                            <div class="card-content">
-                                <ul class="interests-list">
-                                    <li class="interests-item">
-                                        <div class="bullet-point interest-bullet"></div>
-                                        <p class="contact-text">Reading bilingual books</p>
-                                    </li>
-                                    <li class="interests-item">
-                                        <div class="bullet-point interest-bullet"></div>
-                                        <p class="contact-text">Participating in educational debates and online courses</p>
-                                    </li>
-                                    <li class="interests-item">
-                                        <div class="bullet-point interest-bullet"></div>
-                                        <p class="contact-text">Exploring technology in education</p>
-                                    </li>
-                                    <li class="interests-item">
-                                        <div class="bullet-point interest-bullet"></div>
-                                        <p class="contact-text">Weekend academic planning and study</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <p><a href="tel:0796717230" style="color: inherit; text-decoration: none;">0796717230</a></p>
                     </div>
                 </div>
-
-                <!-- Back Button -->
-                <div class="back-button">
-                    <button class="btn btn-outline" id="backToCVBtn">← Back to Form</button>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>tuyisengejeanchrisostome@gmail.com</p>
+                    </div>
                 </div>
-
-                <!-- Footer -->
-                <div class="footer">
-                    <p class="footer-text">© 2024 TUYISENGE Jean Chrisostom. All rights reserved.</p>
-                    <p class="footer-subtext">Crafted with passion by me ✨</p>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Location</h4>
+                        <p>Karumuna Village, Kanzenze Cell, Ntarama Sector, Bugesera District</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Birthday</h4>
+                        <p>27/09/2006</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Nationality</h4>
+                        <p>Rwandan</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </header>
+
+        <!-- CV Content -->
+        <main class="cv-content">
+            <!-- Personal Statement -->
+            <section class="cv-section glass personal-statement animate-on-scroll">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h2 class="section-title">Personal Statement</h2>
+                </div>
+                <p>I am a hardworking and disciplined student teacher with strong communication skills and a passion for language education. Currently pursuing a Diploma in Language Education at TTC Matimba, I aim to become an impactful teacher who inspires students and supports Rwanda's educational development.</p>
+            </section>
+
+            <!-- Education -->
+            <section class="cv-section glass animate-on-scroll">
+                <div class="section-header">
+                    <div class="section-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="section-title" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Education</h2>
+                </div>
+                <div class="education-timeline">
+                    <div class="education-item">
+                        <div class="education-header">
+                            <h3 class="education-institution">TTC Matimba</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <span class="education-year">2024</span>
+                                <span class="badge badge-emerald" style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem;">Current</span>
+                            </div>
+                        </div>
+                        <p class="education-degree">Diploma in Language Education</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-header">
+                            <h3 class="education-institution">G.S NYIRARUKOBWA</h3>
+                            <span class="education-year">2022–2023</span>
+                        </div>
+                        <p class="education-degree">O'Level Certificate</p>
+                        <p class="education-grade">Aggregate: 48 – A</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-header">
+                            <h3 class="education-institution">INGENZI TRINITY SCHOOL</h3>
+                            <span class="education-year">2021</span>
+                        </div>
+                        <p class="education-degree">Completed Senior 1</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="education-header">
+                            <h3 class="education-institution">G.S NYIRARUKOBWA</h3>
+                            <span class="education-year">2010–2020</span>
+                        </div>
+                        <p class="education-degree">Primary Certificate</p>
+                        <p class="education-grade">Aggregate: 12 – A</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills -->
+            <section class="cv-section glass animate-on-scroll">
+                <div class="section-header">
+                    <div class="section-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h2 class="section-title" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Skills</h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-language"></i>Languages</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <div class="language-item">
+                                <span>Kinyarwanda</span>
+                                <span class="badge badge-emerald">Native</span>
+                            </div>
+                            <div class="language-item">
+                                <span>English</span>
+                                <span class="badge badge-blue">Proficient</span>
+                            </div>
+                            <div class="language-item">
+                                <span>French</span>
+                                <span class="badge badge-purple">Basic</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-laptop"></i>Computing</h3>
+                        <div class="skill-items">
+                            <span class="skill-item">MS Office Suite</span>
+                            <span class="skill-item">Online forms</span>
+                            <span class="skill-item">AI tools (Copilot, Gemini, ChatGPT)</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-chalkboard-teacher"></i>Teaching</h3>
+                        <div class="skill-items">
+                            <span class="skill-item">Creative lesson planning</span>
+                            <span class="skill-item">Student-centered methodologies</span>
+                            <span class="skill-item">Material preparation</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-users"></i>Soft Skills</h3>
+                        <div class="skill-items">
+                            <span class="skill-item">Discipline</span>
+                            <span class="skill-item">Teamwork</span>
+                            <span class="skill-item">Creativity</span>
+                            <span class="skill-item">Problem solving</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Achievements and Interests -->
+            <div class="two-column">
+                <section class="cv-section glass animate-on-scroll">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2 class="section-title" style="background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Achievements</h2>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-bullet"></div>
+                        <p>Head Boy at GS NYIRARUKOBWA</p>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-bullet"></div>
+                        <p>Participant in school language competitions</p>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-bullet"></div>
+                        <p>Peer learning support and study group leader</p>
+                    </div>
+                </section>
+
+                <section class="cv-section glass animate-on-scroll">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: linear-gradient(135deg, #f43f5a, #e11d48);">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h2 class="section-title" style="background: linear-gradient(135deg, #f43f5a, #e11d48); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Interests</h2>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-bullet"></div>
+                        <p>Reading bilingual books</p>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-bullet"></div>
+                        <p>Participating in educational debates and online courses</p>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-bullet"></div>
+                        <p>Exploring technology in education</p>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-bullet"></div>
+                        <p>Weekend academic planning and study</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- References -->
+            <section class="cv-section glass animate-on-scroll">
+                <div class="section-header">
+                    <div class="section-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h2 class="section-title" style="background: linear-gradient(135deg, #6366f1, #4f46e5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">References</h2>
+                </div>
+                <div class="references-grid">
+                    <div class="reference-item">
+                        <h3 class="reference-name">NTABARONKERARIMWE SAIDATH</h3>
+                        <p class="reference-role">Parent</p>
+                        <a href="tel:0722321340" class="reference-phone">0722321340</a>
+                    </div>
+                    <div class="reference-item">
+                        <h3 class="reference-name">TUYIZERE JEAN MARIE VIANNEY</h3>
+                        <p class="reference-role">Brother & Teacher</p>
+                        <a href="tel:0729407012" class="reference-phone">0729407012</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content glass">
+                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    © 2024 TUYISENGE Jean Chrisostom. All rights reserved.
+                </p>
+                <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                    Built with modern web technologies
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script>
-        // Application State
-        const appState = {
-            currentStep: 0,
-            formData: {
-                nickname: '',
-                favoriteColor: '',
-                hobby: '',
-                funFact: ''
-            },
-            showCV: false
-        };
-
-        // Form Questions Data
-        const questions = [
-            {
-                key: 'nickname',
-                label: 'What should I call you?',
-                description: 'Your nickname or preferred name',
-                placeholder: 'e.g., Alex, Sam, Chris...',
-                emoji: '👋'
-            },
-            {
-                key: 'favoriteColor',
-                label: 'What\'s your favorite color?',
-                description: 'This will personalize your experience',
-                placeholder: 'e.g., Blue, Purple, Green...',
-                emoji: '🎨'
-            },
-            {
-                key: 'hobby',
-                label: 'What\'s your favorite hobby?',
-                description: 'Something you love doing in your free time',
-                placeholder: 'e.g., Reading, Gaming, Cooking...',
-                emoji: '🎯'
-            },
-            {
-                key: 'funFact',
-                label: 'Share a fun fact about yourself!',
-                description: 'Something interesting or quirky',
-                placeholder: 'e.g., I can solve a Rubik\'s cube...',
-                emoji: '✨'
-            }
-        ];
-
-        // DOM Elements
-        const entryForm = document.getElementById('entryForm');
-        const cvPage = document.getElementById('cvPage');
-        const currentEmoji = document.getElementById('currentEmoji');
-        const stepNumber = document.getElementById('stepNumber');
-        const progressFill = document.getElementById('progressFill');
-        const currentLabel = document.getElementById('currentLabel');
-        const currentDescription = document.getElementById('currentDescription');
-        const currentInput = document.getElementById('currentInput');
-        const backBtn = document.getElementById('backBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const backToCVBtn = document.getElementById('backToCVBtn');
-
-        // Initialize floating shapes
-        function initFloatingShapes() {
-            const bg = document.getElementById('animatedBg');
-            for (let i = 0; i < 8; i++) {
-                const shape = document.createElement('div');
-                shape.className = 'floating-shape';
-                
-                const size = Math.random() * 100 + 50;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 20 + 10;
-                const hue1 = 120 + Math.random() * 60;
-                const hue2 = 140 + Math.random() * 40;
-                
-                shape.style.width = size + 'px';
-                shape.style.height = size + 'px';
-                shape.style.left = x + '%';
-                shape.style.top = y + '%';
-                shape.style.background = `linear-gradient(135deg, hsl(${hue1}, 70%, 80%), hsl(${hue2}, 70%, 60%))`;
-                shape.style.animationDuration = duration + 's';
-                shape.style.animationDelay = Math.random() * 5 + 's';
-                
-                bg.appendChild(shape);
-            }
-        }
-
-        // Update form UI
-        function updateFormUI() {
-            const question = questions[appState.currentStep];
-            
-            // Update emoji with animation
-            currentEmoji.style.transform = 'scale(0)';
-            setTimeout(() => {
-                currentEmoji.textContent = question.emoji;
-                currentEmoji.style.transform = 'scale(1)';
-            }, 150);
-            
-            // Update content with slide animation
-            const content = document.querySelector('.form-content');
-            content.style.opacity = '0';
-            content.style.transform = 'translateX(50px)';
-            
-            setTimeout(() => {
-                currentLabel.textContent = question.label;
-                currentDescription.textContent = question.description;
-                currentInput.placeholder = question.placeholder;
-                currentInput.value = appState.formData[question.key];
-                
-                content.style.opacity = '1';
-                content.style.transform = 'translateX(0)';
-            }, 150);
-            
-            // Update progress
-            stepNumber.textContent = appState.currentStep + 1;
-            progressFill.style.width = `${((appState.currentStep + 1) / questions.length) * 100}%`;
-            
-            // Update buttons
-            backBtn.disabled = appState.currentStep === 0;
-            updateNextButton();
-            
-            // Focus input
-            setTimeout(() => currentInput.focus(), 300);
-        }
-
-        // Update next button state
-        function updateNextButton() {
-            const question = questions[appState.currentStep];
-            const isValid = appState.formData[question.key].trim().length > 0;
-            nextBtn.disabled = !isValid;
-            nextBtn.textContent = appState.currentStep === questions.length - 1 ? 'Enter CV' : 'Next';
-        }
-
-        // Handle form input
-        function handleInput(value) {
-            const question = questions[appState.currentStep];
-            appState.formData[question.key] = value;
-            updateNextButton();
-        }
-
-        // Handle next step
-        function handleNext() {
-            if (appState.currentStep < questions.length - 1) {
-                appState.currentStep++;
-                updateFormUI();
+        // Dark mode functionality
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'true');
             } else {
-                showCV();
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'false');
             }
         }
 
-        // Handle back step
-        function handleBack() {
-            if (appState.currentStep > 0) {
-                appState.currentStep--;
-                updateFormUI();
+        // Initialize dark mode from localStorage
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').className = 'fas fa-sun';
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+                
+                container.appendChild(particle);
             }
         }
 
-        // Show CV page
-        function showCV() {
-            // Hide form with animation
-            entryForm.style.opacity = '0';
-            entryForm.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                entryForm.classList.add('hidden');
-                cvPage.classList.remove('hidden');
-                
-                // Update CV content with personalization
-                updateCVContent();
-                
-                // Show CV with animation
-                cvPage.style.opacity = '0';
-                cvPage.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    cvPage.style.opacity = '1';
-                    cvPage.style.transform = 'scale(1)';
-                }, 50);
-            }, 500);
-        }
+        // Scroll animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            const windowHeight = window.innerHeight;
 
-        // Update CV content with personalization
-        function updateCVContent() {
-            const { nickname, favoriteColor, hobby, funFact } = appState.formData;
-            
-            // Update welcome message
-            document.getElementById('welcomeBadge').textContent = `Hey ${nickname}! 👋 Welcome to my CV`;
-            document.getElementById('welcomeText').textContent = `I see you love ${hobby} - that's awesome! Here's my story...`;
-            
-            // Update fun fact
-            document.getElementById('funFactText').textContent = 
-                `"${funFact}" - That's really interesting, ${nickname}! I love connecting with people who have unique stories.`;
-            
-            // Update personal statement
-            const personalStatement = document.getElementById('personalStatement');
-            personalStatement.innerHTML = `
-                I am a hardworking and disciplined student teacher with strong communication skills and a passion for language education. 
-                Currently pursuing a Diploma in Language Education at TTC Matimba, I aim to become an impactful teacher who inspires students 
-                and supports Rwanda's educational development. When I'm not studying, you might find me ${hobby.toLowerCase()} - 
-                just like you, ${nickname}!
-            `;
-            
-            // Add staggered animation to skill tags
-            const skillTags = document.querySelectorAll('.skill-tag');
-            skillTags.forEach((tag, index) => {
-                tag.style.animationDelay = `${0.6 + index * 0.1}s`;
-            });
-        }
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
 
-        // Show form page
-        function showForm() {
-            // Hide CV with animation
-            cvPage.style.opacity = '0';
-            cvPage.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                cvPage.classList.add('hidden');
-                entryForm.classList.remove('hidden');
-                
-                // Show form with animation
-                entryForm.style.opacity = '0';
-                entryForm.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    entryForm.style.opacity = '1';
-                    entryForm.style.transform = 'scale(1)';
-                }, 50);
-            }, 500);
-        }
-
-        // Event Listeners
-        currentInput.addEventListener('input', (e) => handleInput(e.target.value));
-        currentInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !nextBtn.disabled) {
-                handleNext();
-            }
-        });
-
-        nextBtn.addEventListener('click', handleNext);
-        backBtn.addEventListener('click', handleBack);
-        backToCVBtn.addEventListener('click', showForm);
-
-        // Add hover effects to buttons
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('mouseenter', function() {
-                if (!this.disabled) {
-                    this.style.transform = 'scale(1.05)';
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('animated');
                 }
             });
+        }
+
+        // Smooth scrolling for anchor links
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            animateOnScroll();
+            smoothScroll();
             
-            btn.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
+            // Add scroll event listener for animations
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Add staggered animation delays
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach((element, index) => {
+                element.style.animationDelay = (index * 0.1) + 's';
             });
         });
 
-        // Add hover effects to skill tags
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.querySelectorAll('.skill-tag').forEach(tag => {
-                    tag.addEventListener('mouseenter', function() {
-                        this.style.background = '#059669';
-                        this.style.color = 'white';
-                        this.style.transform = 'scale(1.05)';
-                    });
-                    
-                    tag.addEventListener('mouseleave', function() {
-                        this.style.background = '#f0fdf4';
-                        this.style.color = '#059669';
-                        this.style.transform = 'scale(1)';
-                    });
-                });
-            }, 1000);
+        // Parallax effect for background orbs
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const orbs = document.querySelectorAll('.gradient-orb');
+            
+            orbs.forEach((orb, index) => {
+                const speed = 0.5 + (index * 0.1);
+                orb.style.transform = `translateY(${scrolled * speed}px)`;
+            });
         });
 
-        // Initialize application
-        function init() {
-            initFloatingShapes();
-            updateFormUI();
+        // Add hover effects for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveElements = document.querySelectorAll('.contact-item, .achievement-item, .interest-item, .reference-item, .skill-item, .social-link');
             
-            // Add initial transition styles
-            entryForm.style.transition = 'all 0.5s ease';
-            cvPage.style.transition = 'all 0.5s ease';
-        }
-
-        // Start the application
-        init();
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
     </script>
-    <div>  <p> Click here to get the cv easily</p>
-            <a href="combined_cv">chrisostom cv</a>
-    </div>
 </body>
 </html>
-
-

@@ -150,10 +150,10 @@
             transition: all var(--transition-normal);
         }
         
-        /* Language Selector */
+        /* Language Selector - Moved to Bottom */
         .language-selector {
             position: fixed;
-            top: 2rem;
+            bottom: 2rem;
             right: 2rem;
             z-index: 1000;
         }
@@ -173,6 +173,7 @@
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             color: var(--dark);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
         
         .language-btn:hover {
@@ -182,7 +183,7 @@
         
         .language-dropdown {
             position: absolute;
-            top: 70px;
+            bottom: 70px;
             right: 0;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -221,7 +222,7 @@
             color: white;
         }
         
-        /* Header & Navigation */
+        /* Header & Navigation - TRANSPARENT */
         header {
             padding: 1.5rem 0;
             position: fixed;
@@ -229,9 +230,17 @@
             left: 0;
             width: 100%;
             z-index: 999;
-            backdrop-filter: blur(20px);
-            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.3); /* More transparent */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* More subtle border */
+            transition: all var(--transition-normal);
+        }
+        
+        /* Header becomes more visible on scroll */
+        header.scrolled {
+            background: rgba(15, 23, 42, 0.8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
         }
         
         .nav-container {
@@ -251,8 +260,8 @@
             width: 50px;
             height: 50px;
             border-radius: 12px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -276,9 +285,9 @@
         }
         
         .logo-image {
-            height: 80px;
+            height: 60px;
             width: auto;
-            border-radius: 15px;
+            border-radius: 12px;
             transition: all var(--transition-normal);
             object-fit: contain;
         }
@@ -314,17 +323,21 @@
             transition: all var(--transition-fast);
             position: relative;
             overflow: hidden;
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .nav-links a:hover {
-            background: rgba(129, 140, 248, 0.2);
+            background: rgba(129, 140, 248, 0.3);
             transform: translateY(-2px);
+            border-color: var(--primary);
         }
         
         .nav-links a.active {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+            border-color: transparent;
         }
         
         /* Hero Section */
@@ -572,7 +585,7 @@
             box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
         }
         
-        /* Projects Section */
+        /* Projects Section - Updated with new project */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -926,7 +939,7 @@
         
         @media (max-width: 768px) {
             .language-selector {
-                top: 1.5rem;
+                bottom: 1.5rem;
                 right: 1.5rem;
             }
             
@@ -963,7 +976,7 @@
             }
             
             .logo-image {
-                height: 60px;
+                height: 50px;
             }
             
             .logo-text {
@@ -1023,7 +1036,7 @@
     <div class="gradient-orb orb-2"></div>
     <div class="gradient-orb orb-3"></div>
     
-    <!-- Language Selector -->
+    <!-- Language Selector - MOVED TO BOTTOM -->
     <div class="language-selector">
         <div class="language-btn glass" id="languageBtn">
             EN
@@ -1062,8 +1075,8 @@
         </div>
     </div>
     
-    <!-- Header & Navigation -->
-    <header class="glass">
+    <!-- Header & Navigation - TRANSPARENT -->
+    <header id="mainHeader">
         <div class="container nav-container">
             <!-- Menu Button BEFORE Logo -->
             <div class="nav-left">
@@ -1193,7 +1206,7 @@
         </div>
     </section>
     
-    <!-- Projects Section -->
+    <!-- Projects Section - Updated with School Project -->
     <section id="projects">
         <div class="container">
             <h2 class="section-title" id="projectsTitle">My Projects</h2>
@@ -1221,19 +1234,20 @@
                 
                 <div class="project-card glass">
                     <div class="project-icon">
-                        <i class="fas fa-graduation-cap"></i>
+                        <i class="fas fa-school"></i>
                     </div>
-                    <h3 id="project2Title">Language Learning Portal</h3>
-                    <p id="project2Desc">An interactive platform for language students with exercises, progress tracking, and multimedia resources for enhanced learning.</p>
+                    <h3 id="project2Title">IMENA Trinity College</h3>
+                    <p id="project2Desc">A school project website for IMENA Trinity College showcasing educational programs, faculty, and student achievements.</p>
                     
                     <div class="project-tags">
+                        <span class="project-tag">School Project</span>
                         <span class="project-tag">Education</span>
                         <span class="project-tag">Web Development</span>
-                        <span class="project-tag">Interactive</span>
+                        <span class="project-tag">HTML/CSS</span>
                     </div>
                     
-                    <a href="#" class="btn btn-secondary">
-                        <i class="fas fa-code"></i> <span id="btnViewCode">View Code</span>
+                    <a href="https://tuyisengenge-jean-chrisostom.github.io/IMENA-TRINITY-COLLEGE/" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i> <span id="btnLiveDemo2">Live Demo</span>
                     </a>
                 </div>
                 
@@ -1251,7 +1265,7 @@
                     </div>
                     
                     <a href="#" class="btn btn-secondary">
-                        <i class="fas fa-code"></i> <span id="btnViewCode2">View Code</span>
+                        <i class="fas fa-code"></i> <span id="btnViewCode">View Code</span>
                     </a>
                 </div>
             </div>
@@ -1407,13 +1421,13 @@
                 projectsSubtitle: "Innovative solutions blending education and technology.",
                 project1Title: "Modern CV Builder",
                 project1Desc: "A sophisticated web application for creating professional, modern resumes with real-time preview and multiple template options.",
-                project2Title: "Language Learning Portal",
-                project2Desc: "An interactive platform for language students with exercises, progress tracking, and multimedia resources for enhanced learning.",
+                project2Title: "IMENA Trinity College",
+                project2Desc: "A school project website for IMENA Trinity College showcasing educational programs, faculty, and student achievements.",
                 project3Title: "Teacher Toolkit",
                 project3Desc: "A collection of digital tools for educators including lesson planners, assessment creators, and classroom management utilities.",
                 btnLiveDemo: "Live Demo",
+                btnLiveDemo2: "Live Demo",
                 btnViewCode: "View Code",
-                btnViewCode2: "View Code",
                 
                 // Contact Section
                 contactTitle: "Get In Touch",
@@ -1478,13 +1492,13 @@
                 projectsSubtitle: "Ibikoresho bishya bivanga uburezi n'ikoranabuhanga.",
                 project1Title: "Modern CV Builder",
                 project1Desc: "Porogaramu ya web y'icyorezo yo gukora CV nziza z'umwuga zireba ibintu byose mu gihe.",
-                project2Title: "Urukurikirane rwo Kwiga Indimi",
-                project2Desc: "Urubuga rwihariye rwo kwiga indimi rifite ibyifuzo, kurikirana imikurire, n'ibikoresho byinshi byo kwiga.",
+                project2Title: "IMENA Trinity College",
+                project2Desc: "Urupapuro rw'ishuri rwa IMENA Trinity College rwereka porogaramu z'uburezi, abarimu, n'ibyagezweho n'abanyeshuri.",
                 project3Title: "Ibikoresho by'Umwarimu",
                 project3Desc: "Ibikoresho bya digitale by'abarimu birimo gutegura amasomo, gukora ibyemezo, n'ibikoresho byo gukora ishuri.",
                 btnLiveDemo: "Reba Demo",
+                btnLiveDemo2: "Reba Demo",
                 btnViewCode: "Reba Kode",
-                btnViewCode2: "Reba Kode",
                 
                 // Contact Section
                 contactTitle: "Twandikire",
@@ -1549,13 +1563,13 @@
                 projectsSubtitle: "Solutions innovantes mélangeant éducation et technologie.",
                 project1Title: "Modern CV Builder",
                 project1Desc: "Une application web sophistiquée pour créer des CV professionnels et modernes avec prévisualisation en temps réel et plusieurs options de modèles.",
-                project2Title: "Portail d'Apprentissage des Langues",
-                project2Desc: "Une plateforme interactive pour les étudiants en langues avec exercices, suivi des progrès et ressources multimédias pour un apprentissage amélioré.",
+                project2Title: "IMENA Trinity College",
+                project2Desc: "Un site web de projet scolaire pour IMENA Trinity College présentant les programmes éducatifs, le corps professoral et les réalisations des étudiants.",
                 project3Title: "Boîte à Outils de l'Enseignant",
                 project3Desc: "Une collection d'outils numériques pour les éducateurs incluant des planificateurs de leçons, des créateurs d'évaluations et des utilitaires de gestion de classe.",
                 btnLiveDemo: "Démo en Direct",
+                btnLiveDemo2: "Démo en Direct",
                 btnViewCode: "Voir le Code",
-                btnViewCode2: "Voir le Code",
                 
                 // Contact Section
                 contactTitle: "Me Contacter",
@@ -1648,6 +1662,16 @@
                     mobileNav.classList.remove('active');
                     document.body.style.overflow = '';
                 });
+            });
+            
+            // Header scroll effect - makes header more visible when scrolling
+            const header = document.getElementById('mainHeader');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
             });
             
             // Form submission

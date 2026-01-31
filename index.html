@@ -3,7 +3,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" contzent="width=device-width, initial-scale=1.0">
   <title>TUYISENGE Jean Chrisostom</title>
 
   <!-- Favicon (optional) -->
@@ -113,7 +113,7 @@
                 <a href="#contact" class="btn btn-secondary">
                     <i class="fas fa-paper-plane"></i> <span id="btnContact">Contact Me</span>
                 </a>
-                <a href="https://wa.me/25096717230" target="_blank" class="btn btn-accent">
+                <a href="https://wa.me/250796717230" target="_blank" class="btn btn-accent">
                     <i class="fab fa-whatsapp"></i> <span id="btnWhatsapp">WhatsApp</span>
                 </a>
             </div>
@@ -293,7 +293,7 @@
                         </div>
                         <div class="contact-details">
                             <h3 id="contactPhone">Phone / WhatsApp</h3>
-                            <p>+250 967 172 300</p>
+                            <p>+250796717230</p>
                         </div>
                     </div>
                     
@@ -362,7 +362,7 @@
                 <a href="https://www.facebook.com/tuyisengejeanchrisostom" target="_blank" class="social-link">
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a href="https://wa.me/25096717230" target="_blank" class="social-link">
+                <a href="https://wa.me/250796717230" target="_blank" class="social-link">
                     <i class="fab fa-whatsapp"></i>
                 </a>
                 <a href="mailto:tuyisengejeanchrisostome@gmail.com" class="social-link">
@@ -671,6 +671,40 @@
                 }
             });
             
+            // Auto-email functionality when user finishes adding email
+            const emailInput = document.getElementById('email');
+            emailInput.addEventListener('blur', function() {
+                const email = this.value.trim();
+                
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email && emailRegex.test(email)) {
+                    // Email is valid - automatically send email
+                    this.style.borderColor = '#34d399';
+                    this.style.boxShadow = '0 0 10px rgba(52, 211, 153, 0.3)';
+                    
+                    console.log('Valid email entered: ' + email);
+                    
+                    // Automatically open email client with pre-filled subject and body
+                    const name = document.getElementById('name').value || 'User';
+                    const subject = document.getElementById('subject').value || 'Message from Portfolio';
+                    const message = document.getElementById('message').value || '';
+                    
+                    const mailtoLink = `mailto:tuyisengejeanchrisostome@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+                    
+                    // Auto-send after a short delay for better UX
+                    setTimeout(() => {
+                        window.open(mailtoLink, '_blank');
+                    }, 500);
+                }
+            });
+            
+            // Clear the border styling when user focuses back on email field
+            emailInput.addEventListener('focus', function() {
+                this.style.borderColor = '';
+                this.style.boxShadow = '';
+            });
+            
             // Form submission
             const messageForm = document.getElementById('messageForm');
             const formMessage = document.getElementById('formMessage');
@@ -689,7 +723,7 @@
                 
                 // Create WhatsApp message
                 const whatsappMessage = `*New Message from Portfolio Website*\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n\n*Message:*\n${messageText}`;
-                const whatsappLink = `https://wa.me/25096717230?text=${encodeURIComponent(whatsappMessage)}`;
+                const whatsappLink = `https://wa.me/250796717230?text=${encodeURIComponent(whatsappMessage)}`;
                 
                 // Show success message
                 formMessage.textContent = translations[currentLang].formSuccess;

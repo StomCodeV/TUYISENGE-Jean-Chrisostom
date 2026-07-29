@@ -1,910 +1,2418 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLL83ZE977"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DLL83ZE977');
-  </script>
-  
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TUYISENGE Jean Chrisostom</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>TUYISENGE Jean Chrisostom · 3D Tree Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* ─── RESET & ROOT ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg-deep: #0a0e17;
+            --primary: #2d8a4e;
+            --primary-glow: rgba(45, 138, 78, 0.3);
+            --secondary: #3b9e6a;
+            --gold: #c9a84c;
+            --text-light: #f0f4fc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(10, 14, 23, 0.78);
+            --glass-border: rgba(45, 138, 78, 0.12);
+            --glass-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+            --transition: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.15;
+        }
+        ::selection {
+            background: var(--primary);
+            color: #000;
+        }
 
-  <!-- Favicon (optional) -->
-  <link rel="icon" href="favicon.ico">
+        /* ─── 3D CANVAS ─── */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: auto;
+            touch-action: none;
+        }
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        /* ─── SCROLL CONTAINER ─── */
+        #scroll-container {
+            position: relative;
+            z-index: 10;
+            pointer-events: none;
+        }
 
-  <!-- Google Fonts (fast loading) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        /* ─── HEADER ─── */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.6rem 0;
+            z-index: 999;
+            background: rgba(10, 14, 23, 0.5);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background var(--transition), border var(--transition);
+            pointer-events: auto;
+        }
+        header.scrolled {
+            background: rgba(10, 14, 23, 0.92);
+            border-bottom-color: rgba(45, 138, 78, 0.12);
+        }
+        .nav-container {
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 0 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .brand-img {
+            height: 34px;
+            width: auto;
+            border-radius: 8px;
+            transition: transform var(--transition);
+        }
+        .brand:hover .brand-img {
+            transform: rotate(4deg) scale(1.06);
+        }
+        .brand-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4caf7a, #2d8a4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.2px;
+        }
+        .brand-text span {
+            font-weight: 300;
+            -webkit-text-fill-color: var(--text-muted);
+        }
+        .nav-links {
+            display: flex;
+            gap: 0.2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.7rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            transition: all var(--transition);
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(45, 138, 78, 0.1);
+            border-color: rgba(45, 138, 78, 0.2);
+            color: #4caf7a;
+        }
+        .nav-links a.active {
+            background: linear-gradient(135deg, #2d8a4e, #4caf7a);
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+        .mobile-btn {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(45, 138, 78, 0.06);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            pointer-events: auto;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .mobile-btn:hover {
+            background: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        /* ─── MOBILE DRAWER ─── */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 280px;
+            height: 100%;
+            background: rgba(10, 14, 23, 0.97);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 1001;
+            transition: left var(--transition);
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            border-right: 1px solid rgba(45, 138, 78, 0.1);
+            pointer-events: auto;
+        }
+        .mobile-nav.active {
+            left: 0;
+        }
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .close-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        .mobile-nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            transition: all var(--transition);
+            border: 1px solid transparent;
+        }
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a.active {
+            background: rgba(45, 138, 78, 0.06);
+            border-color: rgba(45, 138, 78, 0.12);
+            color: #4caf7a;
+        }
+
+        /* ─── GLASS PANEL ─── */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            transition: border var(--transition), box-shadow var(--transition);
+        }
+        .glass:hover {
+            border-color: rgba(45, 138, 78, 0.18);
+        }
+
+        /* ─── SECTIONS ─── */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 5rem 0;
+            position: relative;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.2rem;
+            width: 100%;
+        }
+        .panel-card {
+            width: 66%;
+            padding: 2.2rem 2.4rem;
+            pointer-events: auto;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .panel-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .float-left {
+            margin-right: auto;
+        }
+        .float-right {
+            margin-left: auto;
+        }
+        .float-center {
+            margin: 0 auto;
+        }
+
+        /* ─── TYPOGRAPHY ─── */
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, #4caf7a, #2d8a4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-sub {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.4rem;
+            max-width: 500px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(45, 138, 78, 0.06);
+            border: 1px solid rgba(45, 138, 78, 0.2);
+            color: #4caf7a;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.65rem;
+            margin-bottom: 0.7rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .hero-title {
+            font-size: 3rem;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #fff 0%, #4caf7a 40%, #2d8a4e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
+        }
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 1.4rem;
+            line-height: 1.7;
+        }
+        .typing-wrap {
+            height: 34px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.7rem;
+        }
+        .typed-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4caf7a;
+            text-shadow: 0 0 24px rgba(76, 175, 122, 0.2);
+        }
+        .cursor-blink {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background: #4caf7a;
+            margin-left: 4px;
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            pointer-events: auto;
+            touch-action: manipulation;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        .btn:active {
+            transform: translateY(-1px) scale(0.97);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #2d8a4e, #4caf7a);
+            color: #000;
+            box-shadow: 0 8px 28px var(--primary-glow);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 12px 40px rgba(45, 138, 78, 0.4);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .btn-accent {
+            background: linear-gradient(135deg, #c9a84c, #b8941f);
+            color: #000;
+            box-shadow: 0 8px 28px rgba(201, 168, 76, 0.2);
+        }
+        .btn-accent:hover {
+            box-shadow: 0 12px 40px rgba(201, 168, 76, 0.35);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #f5b042, #d4922a);
+            color: #000;
+            box-shadow: 0 8px 28px rgba(245, 176, 66, 0.25);
+        }
+        .btn-gold:hover {
+            box-shadow: 0 12px 40px rgba(245, 176, 66, 0.4);
+        }
+        .btn-paypal {
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: #fff;
+            box-shadow: 0 8px 28px rgba(0, 112, 186, 0.25);
+            font-weight: 700;
+        }
+        .btn-paypal:hover {
+            box-shadow: 0 12px 40px rgba(0, 112, 186, 0.4);
+            color: #fff;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        /* ─── ABOUT ─── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        .profile-wrap {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            background: var(--bg-deep);
+        }
+        .profile-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform var(--transition);
+        }
+        .profile-wrap:hover img {
+            transform: scale(1.02);
+        }
+        .about-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(135deg, #fff, #4caf7a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .about-text p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.8;
+            margin-bottom: 0.6rem;
+        }
+        .about-text strong {
+            color: var(--text-light);
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+        .tag {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.015);
+            transition: all var(--transition);
+        }
+        .tag:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* ─── TIMELINE ─── */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #c9a84c, #4caf7a, #2d8a4e);
+        }
+        .t-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 1.6rem;
+        }
+        .t-item:last-child {
+            padding-bottom: 0;
+        }
+        .t-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0.2rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg-deep);
+            border: 3px solid #c9a84c;
+            box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08);
+        }
+        .t-item .t-year {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            color: #c9a84c;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.15rem;
+        }
+        .t-item h4 {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 0.15rem;
+        }
+        .t-item p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        /* ─── SKILLS ─── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .skill-box h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-light);
+        }
+        .skill-box h3 i {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(45, 138, 78, 0.06);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4caf7a;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+        .skill-tag {
+            padding: 0.2rem 0.75rem;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            transition: all var(--transition);
+            pointer-events: auto;
+            color: var(--text-muted);
+        }
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            background: rgba(45, 138, 78, 0.06);
+            border-color: #4caf7a;
+            color: #4caf7a;
+        }
+
+        /* ─── PROJECTS ─── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .project-card {
+            padding: 1.3rem 1.4rem;
+            border-radius: 16px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            pointer-events: auto;
+            transition: all var(--transition);
+        }
+        .project-card:hover {
+            border-color: rgba(45, 138, 78, 0.2);
+            box-shadow: 0 12px 36px rgba(45, 138, 78, 0.04);
+        }
+        .project-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(45, 138, 78, 0.06);
+            border: 1px solid rgba(45, 138, 78, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #4caf7a;
+            margin-bottom: 0.6rem;
+        }
+        .project-card h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 0.6rem;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-bottom: 0.7rem;
+        }
+        .project-tag {
+            padding: 0.1rem 0.5rem;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 50px;
+            font-size: 0.55rem;
+            color: var(--text-muted);
+        }
+        .card-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 0.4rem;
+            font-size: 0.7rem;
+        }
+
+        /* ─── CERTIFICATIONS ─── */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .cert-card {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 1.2rem 1.3rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            transition: all var(--transition);
+            pointer-events: auto;
+        }
+        .cert-card:hover {
+            border-color: rgba(45, 138, 78, 0.2);
+            transform: translateY(-4px);
+        }
+        .cert-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(45, 138, 78, 0.06);
+            border: 1px solid rgba(45, 138, 78, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            color: #4caf7a;
+        }
+        .cert-info h4 {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.05rem;
+        }
+        .cert-info p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .cert-info .cert-date {
+            font-size: 0.65rem;
+            color: #c9a84c;
+            margin-top: 0.15rem;
+            font-weight: 500;
+        }
+
+        /* ─── CONTACT ─── */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1.9fr;
+            gap: 1.8rem;
+        }
+        .contact-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 1rem;
+            border-radius: 12px;
+            pointer-events: auto;
+            transition: all var(--transition);
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--glass-border);
+        }
+        .contact-item:hover {
+            border-color: #4caf7a;
+        }
+        .contact-item .ci {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(45, 138, 78, 0.04);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4caf7a;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .contact-item h4 {
+            font-size: 0.7rem;
+            margin-bottom: 0.05rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .contact-item p {
+            color: var(--text-light);
+            font-size: 0.75rem;
+            word-break: break-all;
+        }
+        .form-box {
+            padding: 1.4rem 1.6rem;
+            pointer-events: auto;
+        }
+        .form-box h3 {
+            font-size: 1rem;
+            margin-bottom: 0.7rem;
+        }
+        .form-group {
+            margin-bottom: 0.6rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.1rem;
+            font-weight: 600;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 0.8rem;
+            background: rgba(10, 14, 23, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            transition: all var(--transition);
+            pointer-events: auto;
+            -webkit-appearance: none;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #4caf7a;
+            box-shadow: 0 0 0 3px rgba(45, 138, 78, 0.06);
+        }
+        textarea.form-control {
+            min-height: 70px;
+            resize: vertical;
+        }
+        .form-feedback {
+            margin-top: 0.6rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            display: none;
+        }
+
+        /* ─── PAYPAL SECTION ─── */
+        .paypal-section {
+            margin-top: 1.5rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        .paypal-section h4 {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .paypal-section h4 i {
+            color: #0070ba;
+        }
+        .paypal-section p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+        .paypal-button-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+        }
+        .paypal-btn-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.4rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: none;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+            pointer-events: auto;
+            touch-action: manipulation;
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(0, 112, 186, 0.2);
+        }
+        .paypal-btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 112, 186, 0.35);
+        }
+        .paypal-btn-custom:active {
+            transform: translateY(-1px) scale(0.97);
+        }
+        .paypal-btn-custom i {
+            font-size: 1.1rem;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: rgba(6, 9, 16, 0.9);
+            padding: 1.6rem 0;
+            border-top: 1px solid rgba(45, 138, 78, 0.04);
+            pointer-events: auto;
+        }
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .social-links {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+        .social-link:hover {
+            transform: translateY(-4px);
+            background: rgba(45, 138, 78, 0.06);
+            border-color: #4caf7a;
+            color: #4caf7a;
+        }
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            text-align: center;
+        }
+
+        /* ─── LANGUAGE SELECTOR ─── */
+        .lang-selector {
+            position: fixed;
+            bottom: 1.2rem;
+            right: 1.2rem;
+            z-index: 1000;
+            pointer-events: auto;
+        }
+        .lang-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.7rem;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: #4caf7a;
+            box-shadow: var(--glass-shadow);
+            transition: all var(--transition);
+            pointer-events: auto;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .lang-btn:hover {
+            transform: scale(1.06) rotate(3deg);
+            border-color: #4caf7a;
+            box-shadow: 0 0 28px var(--primary-glow);
+        }
+        .lang-dropdown {
+            position: absolute;
+            bottom: 48px;
+            right: 0;
+            padding: 0.3rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.2rem;
+            min-width: 95px;
+            border-radius: 12px;
+            pointer-events: auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+        }
+        .lang-dropdown.active {
+            display: flex;
+        }
+        .lang-opt {
+            padding: 0.3rem 0.65rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-light);
+            font-size: 0.65rem;
+            font-weight: 500;
+        }
+        .lang-opt:hover {
+            background: rgba(45, 138, 78, 0.06);
+            color: #4caf7a;
+        }
+        .lang-opt.active {
+            background: #2d8a4e;
+            color: #000;
+            font-weight: 700;
+        }
+
+        /* ─── LOADER ─── */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-deep);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.6s, visibility 0.6s;
+        }
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-spinner {
+            width: 44px;
+            height: 44px;
+            border: 3px solid rgba(45, 138, 78, 0.06);
+            border-top-color: #2d8a4e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 0.6rem;
+        }
+        .loader-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: #4caf7a;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media(max-width:1024px) {
+            .panel-card {
+                width: 78%;
+            }
+            .hero-title {
+                font-size: 2.6rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        @media(max-width:820px) {
+            .mobile-btn {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+            }
+            .panel-card {
+                width: 100%;
+                padding: 1.4rem 1.2rem;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .profile-wrap {
+                max-width: 180px;
+                margin: 0 auto;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-btns {
+                flex-direction: column;
+            }
+            .hero-btns .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            .paypal-button-wrap {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .paypal-btn-custom {
+                justify-content: center;
+            }
+            .panel-card {
+                border-radius: 16px;
+            }
+            .form-box {
+                padding: 1rem;
+            }
+            .contact-item {
+                padding: 0.6rem 0.8rem;
+            }
+        }
+        @media(max-width:480px) {
+            .panel-card {
+                padding: 1rem 0.8rem;
+                border-radius: 14px;
+            }
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            .brand-text {
+                font-size: 0.8rem;
+            }
+            .brand-img {
+                height: 28px;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .typing-wrap {
+                height: 26px;
+            }
+            .typed-text {
+                font-size: 0.95rem;
+            }
+            .hero-sub {
+                font-size: 0.85rem;
+            }
+            .hero-badge {
+                font-size: 0.55rem;
+                padding: 0.2rem 0.8rem;
+            }
+            .btn {
+                font-size: 0.7rem;
+                padding: 0.5rem 1.2rem;
+            }
+            .about-text h3 {
+                font-size: 1.1rem;
+            }
+            .about-text p {
+                font-size: 0.78rem;
+            }
+            .skill-box h3 {
+                font-size: 0.8rem;
+            }
+            .skill-tag {
+                font-size: 0.55rem;
+                padding: 0.15rem 0.6rem;
+            }
+            .project-card h3 {
+                font-size: 0.85rem;
+            }
+            .project-card p {
+                font-size: 0.7rem;
+            }
+            .project-card {
+                padding: 1rem;
+            }
+            .cert-card {
+                padding: 0.9rem 1rem;
+            }
+            .cert-info h4 {
+                font-size: 0.75rem;
+            }
+            .cert-info p {
+                font-size: 0.65rem;
+            }
+            .contact-item p {
+                font-size: 0.7rem;
+            }
+            .form-control {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.7rem;
+            }
+            .form-box h3 {
+                font-size: 0.9rem;
+            }
+            .paypal-btn-custom {
+                font-size: 0.7rem;
+                padding: 0.45rem 1rem;
+            }
+            .lang-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 0.6rem;
+            }
+            .lang-selector {
+                bottom: 0.8rem;
+                right: 0.8rem;
+            }
+            .social-link {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+            .copyright {
+                font-size: 0.55rem;
+            }
+            section {
+                padding: 4rem 0;
+            }
+            .container {
+                padding: 0 0.8rem;
+            }
+        }
+        @media(max-width:380px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+            .brand-text {
+                font-size: 0.7rem;
+            }
+            .brand-img {
+                height: 24px;
+            }
+            .panel-card {
+                padding: 0.8rem 0.6rem;
+            }
+            .section-title {
+                font-size: 1.1rem;
+            }
+            .typed-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ─── TOUCH FRIENDLY ─── */
+        .btn,
+        .paypal-btn-custom,
+        .lang-btn,
+        .mobile-btn,
+        .close-btn,
+        .social-link,
+        .nav-links a,
+        .mobile-nav-links a {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- Loading Screen -->
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <div class="loading-text">Loading...</div>
+
+    <!-- ─── LOADER ─── -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">🌳 Climbing the tree…</div>
     </div>
-    
-    <!-- Animated Background -->
-    <div id="particles-js"></div>
-    <div class="gradient-orb orb-1"></div>
-    <div class="gradient-orb orb-2"></div>
-    <div class="gradient-orb orb-3"></div>
-    
-    <!-- Language Selector - MOVED TO BOTTOM -->
-    <div class="language-selector">
-        <div class="language-btn glass" id="languageBtn">
-            EN
-        </div>
-        <div class="language-dropdown glass" id="languageDropdown">
-            <div class="language-option active" data-lang="en">
-                <i class="fas fa-globe-americas"></i> English
-            </div>
-            <div class="language-option" data-lang="rw">
-                <i class="fas fa-globe-africa"></i> Kinyarwanda
-            </div>
-            <div class="language-option" data-lang="fr">
-                <i class="fas fa-globe-europe"></i> Français
-            </div>
-        </div>
-    </div>
-    
-    <!-- Mobile Navigation Menu -->
-    <div class="mobile-nav" id="mobileNav">
-        <div class="mobile-nav-header">
-            <div class="logo-container">
-                <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="logo-image">
-                <div class="logo-text">CHRISOSTOM</div>
-            </div>
-            <button class="close-menu-btn" id="closeMenuBtn">
-                <i class="fas fa-times"></i>
+
+    <!-- ─── 3D CANVAS ─── -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- ─── HEADER ─── -->
+    <header id="mainHeader">
+        <div class="nav-container">
+            <a href="#home" class="brand">
+                <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="brand-img" loading="eager" />
+                <span class="brand-text">CHRISOSTOM<span>·dev</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#journey">Journey</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-btn" id="mobileBtn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
-        
+    </header>
+
+    <!-- ─── MOBILE NAV ─── -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="brand">
+                <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="brand-img" style="height:28px;" loading="eager" />
+                <span class="brand-text" style="font-size:0.8rem;">CHRISOSTOM</span>
+            </div>
+            <button class="close-btn" id="closeBtn"><i class="fas fa-times"></i></button>
+        </div>
         <div class="mobile-nav-links">
             <a href="#home" class="active">Home</a>
             <a href="#about">About</a>
+            <a href="#journey">Journey</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </div>
     </div>
-    
-    <!-- Header & Navigation - TRANSPARENT -->
-    <header id="mainHeader">
-        <div class="container nav-container">
-            <!-- Menu Button BEFORE Logo -->
-            <div class="nav-left">
-                <div class="mobile-menu-btn glass" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </div>
-                
-                <div class="logo-container">
-                    <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="logo-image">
-                    <a href="#home" class="logo-text">⚔️CHRISOSTOM⚔️</a>
-                </div>
-            </div>
-            
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container hero-content">
-            <center><span class="hero-badge" id="heroBadge">Web developer & Student-teacher</span></center>
-            <h1 class="hero-title" id="heroTitle">TUYISENGE Jean Chrisostom</h1>
-            <p class="hero-subtitle" id="heroSubtitle">Passionate Student Teacher & Web Developer creating innovative solutions for modern education and digital experiences.</p>
-            
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">
-                    <i class="fas fa-code"></i> <span id="btnProjects">View Projects</span>
-                </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <i class="fas fa-paper-plane"></i> <span id="btnContact">Contact Me</span>
-                </a>
-                <a href="https://wa.me/250796717230" target="_blank" class="btn btn-accent">
-                    <i class="fab fa-whatsapp"></i> <span id="btnWhatsapp">WhatsApp</span>
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title" id="aboutTitle">About Me</h2>
-            <p class="section-subtitle" id="aboutSubtitle">Dedicated student teacher and developer passionate about creating impactful educational tools and experiences.</p>
-            
-            <div class="about-content glass" style="padding: 3rem;">
-                <div class="profile-image">
-                    <img src="https://i.postimg.cc/rm0W2kJV/75632062c44a103be6e7dca1fa6ccfa8.jpg" alt="Jean Chrisostom">
-                </div>
-                <div class="about-text">
-                    <h3 id="aboutHeading">Student Teacher & Language Education Specialist</h3>
-                    <p id="aboutText1">I am a dedicated student teacher pursuing a Diploma in Language Education at TTC MUHANGA, with a passion for integrating technology into modern education. My journey combines pedagogical expertise with technical skills to create innovative learning solutions.</p>
-                    <p id="aboutText2">As a web developer, I focus on building tools that enhance educational experiences, like the Modern CV Builder project. I believe in the power of technology to transform how we teach and learn languages in the 21st century.</p>
-                    <p id="aboutText3">My approach combines disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I strive to create digital solutions that are both functional and beautiful, with user experience at the forefront.</p>
-                    
-                    <div class="mt-4">
-                        <a href="mailto:tuyisengejeanchrisostome@gmail.com" class="btn btn-primary">
-                            <i class="fas fa-envelope"></i> <span id="btnEmail">Email Me</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Skills Section -->
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title" id="skillsTitle">Skills & Expertise</h2>
-            <p class="section-subtitle" id="skillsSubtitle">A blend of pedagogical knowledge and technical proficiency for modern education.</p>
-            
-            <div class="skills-container">
-                <div class="skill-category glass">
-                    <h3><i class="fas fa-chalkboard-teacher"></i> <span id="skillTeaching">Teaching Skills</span></h3>
-                    <div class="skill-items">
-                        <span class="skill-item" id="skill1">Lesson Planning</span>
-                        <span class="skill-item" id="skill2">Student-Centered Methods</span>
-                        <span class="skill-item" id="skill3">Educational Technology</span>
-                        <span class="skill-item" id="skill4">Classroom Management</span>
-                        <span class="skill-item" id="skill5">Assessment Design</span>
-                        <span class="skill-item" id="skill6">Differentiated Instruction</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category glass">
-                    <h3><i class="fas fa-code"></i> <span id="skillTechnical">Technical Skills</span></h3>
-                    <div class="skill-items">
-                        <span class="skill-item" id="skill7">HTML/CSS/JavaScript</span>
-                        <span class="skill-item" id="skill8">Web Development</span>
-                        <span class="skill-item" id="skill9">Responsive Design</span>
-                        <span class="skill-item" id="skill10">Git & GitHub</span>
-                        <span class="skill-item" id="skill11">MS Office Suite</span>
-                        <span class="skill-item" id="skill12">Google Workspace</span>
-                        <span class="skill-item" id="skill13">UI/UX Principles</span>
-                        <span class="skill-item" id="skill14">API Integration</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category glass">
-                    <h3><i class="fas fa-language"></i> <span id="skillLanguages">Languages</span></h3>
-                    <div class="skill-items">
-                        <span class="skill-item" id="skill15">Kinyarwanda (Native)</span>
-                        <span class="skill-item" id="skill16">English (Fluent)</span>
-                        <span class="skill-item" id="skill17">French (Intermediate)</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category glass">
-                    <h3><i class="fas fa-users"></i> <span id="skillSoft">Soft Skills</span></h3>
-                    <div class="skill-items">
-                        <span class="skill-item" id="skill18">Communication</span>
-                        <span class="skill-item" id="skill19">Teamwork</span>
-                        <span class="skill-item" id="skill20">Problem Solving</span>
-                        <span class="skill-item" id="skill21">Time Management</span>
-                        <span class="skill-item" id="skill22">Creativity</span>
-                        <span class="skill-item" id="skill23">Adaptability</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Projects Section - Updated with ChrisostomAi project -->
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title" id="projectsTitle">My Projects</h2>
-            <p class="section-subtitle" id="projectsSubtitle">Innovative solutions blending education and technology.</p>
-            
-            <div class="projects-grid">
-                <div class="project-card glass">
-                    <div class="project-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3 id="project1Title">IMENA CV BUILDER</h3>
-                    <p id="project1Desc">A sophisticated web application for creating professional, modern resumes with real-time preview and multiple template options.</p>
-                    
-                    <div class="project-tags">
-                        <span class="project-tag">HTML/CSS</span>
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">Responsive Design</span>
-                        <span class="project-tag">UI/UX</span>
-                    </div>
-                    
-                    <a href="https://imena-cv-builder.netlify.app/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> <span id="btnLiveDemo">View</span>
-                    </a>
-                </div>
-                
-                <div class="project-card glass">
-                    <div class="project-icon">
-                        <i class="fas fa-school"></i>
-                    </div>
-                    <h3 id="project2Title">IMENA TRINITY COLLEGE</h3>
-                    <p id="project2Desc">A school project website for IMENA Trinity College showcasing educational programs, faculty, and student achievements.</p>
-                    
-                    <div class="project-tags">
-                        <span class="project-tag">School Project</span>
-                        <span class="project-tag">Education</span>
-                        <span class="project-tag">Web Development</span>
-                        <span class="project-tag">HTML/CSS</span>
-                    </div>
-                    
-                    <a href="https://stomcodev.github.io/IMENA-TRINITY-COLLEGE/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> <span id="btnLiveDemo2">View</span>
-                    </a>
-                </div>
-                
-                <!-- NEW: ChrisostomAi Project -->
-                <div class="project-card glass">
-                    <div class="project-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>ChrisostomAi</h3>
-                    <p>Another innovative project by Chrisostom – explore AI-powered learning tools and interactive web experiments.</p>
-                    
-                    <div class="project-tags">
-                        <span class="project-tag">AI</span>
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">Education</span>
-                    </div>
-                    
-                    <a href="https://stomcodev.github.io/ChrisostomAi/" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-external-link-alt"></i> <span>View Project</span>
-                    </a>
-                </div>
-                
-                <div class="project-card glass">
-                    <div class="project-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3 id="project3Title">Teacher Toolkit</h3>
-                    <p id="project3Desc">A collection of digital tools for educators including lesson planners, assessment creators, and classroom management utilities.</p>
-                    
-                    <div class="project-tags">
-                        <span class="project-tag">Education Tech</span>
-                        <span class="project-tag">Productivity</span>
-                        <span class="project-tag">Web App</span>
-                    </div>
-                    
-                    <a href="#" class="btn btn-secondary">
-                        <i class="fas fa-code"></i> <span id="btnViewCode">View Code</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title" id="contactTitle">Get In Touch</h2>
-            <p class="section-subtitle" id="contactSubtitle">Let's connect and discuss how we can work together to create impactful educational solutions.</p>
-            
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item glass">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 id="contactEmail">Email</h3>
-                            <p>tuyisengejeanchrisostome@gmail.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item glass">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 id="contactPhone">Phone / WhatsApp</h3>
-                            <p>+250796717230</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item glass">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 id="contactLocation">Location</h3>
-                            <p>Karumuna Village, Ntarama Sector, Bugesera District, Rwanda</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item glass">
-                        <div class="contact-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3 id="contactEducation">Education</h3>
-                            <p>TTC Muhanga - Diploma in Language Education (2025-2026)</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form glass">
-                    <h3 style="margin-bottom: 2rem;" id="formTitle">Send Me a Message</h3>
-                    <form id="messageForm">
-                        <div class="form-group">
-                            <label for="name" id="formName">Your Name</label>
-                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email" id="formEmail">Your Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject" id="formSubject">Subject</label>
-                            <input type="text" id="subject" class="form-control" placeholder="Enter subject" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message" id="formMessageLabel">Your Message</label>
-                            <textarea id="message" class="form-control" placeholder="Enter your message..." required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i> <span id="btnSendMessage">Send Message</span>
-                        </button>
-                        
-                        <div id="formMessage" style="margin-top: 1.5rem; display: none; padding: 1rem; border-radius: 10px;"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-content">
-            <div class="social-links">
-                <a href="https://www.instagram.com/blad.rw/" target="_blank" class="social-link">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.facebook.com/tuyisengejeanchrisostom" target="_blank" class="social-link">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://wa.me/250796717230" target="_blank" class="social-link">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="mailto:tuyisengejeanchrisostome@gmail.com" class="social-link">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-            
-            <p class="copyright" id="copyright">© 2026 TUYISENGE Jean Chrisostom. All rights reserved.</p>
-        </div>
-    </footer>
-    
-    <script>
-        // Translation Data
-        const translations = {
-            en: {
-                // Hero Section
-                heroBadge: "Developer & Educator",
-                heroTitle: "TUYISENGE Jean Chrisostom",
-                heroSubtitle: "Passionate Student Teacher & Web Developer creating innovative solutions for modern education and digital experiences.",
-                btnProjects: "View Projects",
-                btnContact: "Contact Me",
-                btnWhatsapp: "WhatsApp",
-                
-                // About Section
-                aboutTitle: "About Me",
-                aboutSubtitle: "Dedicated student teacher and developer passionate about creating impactful educational tools and experiences.",
-                aboutHeading: "Student Teacher & Language Education Specialist",
-                aboutText1: "I am a dedicated student teacher pursuing a Diploma in Language Education at TTC MUHANGA, with a passion for integrating technology into modern education. My journey combines pedagogical expertise with technical skills to create innovative learning solutions.",
-                aboutText2: "As a web developer, I focus on building tools that enhance educational experiences, like the Modern CV Builder project. I believe in the power of technology to transform how we teach and learn languages in the 21st century.",
-                aboutText3: "My approach combines disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I strive to create digital solutions that are both functional and beautiful, with user experience at the forefront.",
-                btnEmail: "Email Me",
-                
-                // Skills Section
-                skillsTitle: "Skills & Expertise",
-                skillsSubtitle: "A blend of pedagogical knowledge and technical proficiency for modern education.",
-                skillTeaching: "Teaching Skills",
-                skillTechnical: "Technical Skills",
-                skillLanguages: "Languages",
-                skillSoft: "Soft Skills",
-                
-                // Skills Items
-                skill1: "Lesson Planning", skill2: "Student-Centered Methods", skill3: "Educational Technology",
-                skill4: "Classroom Management", skill5: "Assessment Design", skill6: "Differentiated Instruction",
-                skill7: "HTML/CSS/JavaScript", skill8: "Web Development", skill9: "Responsive Design",
-                skill10: "Git & GitHub", skill11: "MS Office Suite", skill12: "Google Workspace",
-                skill13: "UI/UX Principles", skill14: "API Integration", skill15: "Kinyarwanda (Native)",
-                skill16: "English (Fluent)", skill17: "French (Intermediate)", skill18: "Communication",
-                skill19: "Teamwork", skill20: "Problem Solving", skill21: "Time Management",
-                skill22: "Creativity", skill23: "Adaptability",
-                
-                // Projects Section
-                projectsTitle: "My Projects",
-                projectsSubtitle: "Innovative solutions blending education and technology.",
-                project1Title: "IMENA CV BUILDER",
-                project1Desc: "A sophisticated web application for creating professional, modern resumes with real-time preview and multiple template options.",
-                project2Title: "IMENA TRINITY COLLEGE",
-                project2Desc: "A school project website for IMENA TRINITY COLLEGE showcasing educational programs, faculty, and student achievements.",
-                project3Title: "Teacher Toolkit",
-                project3Desc: "A collection of digital tools for educators including lesson planners, assessment creators, and classroom management utilities.",
-                btnLiveDemo: "view",
-                btnLiveDemo2: "View",
-                btnViewCode: "View Code",
-                
-                // Contact Section
-                contactTitle: "Get In Touch",
-                contactSubtitle: "Let's connect and discuss how we can work together to create impactful educational solutions.",
-                contactEmail: "Email",
-                contactPhone: "Phone / WhatsApp",
-                contactLocation: "Location",
-                contactEducation: "Education",
-                formTitle: "Send Me a Message",
-                formName: "Your Name",
-                formEmail: "Your Email",
-                formSubject: "Subject",
-                formMessageLabel: "Your Message",
-                btnSendMessage: "Send Message",
-                
-                // Footer
-                copyright: "© 2026 TUYISENGE Jean Chrisostom. All rights reserved.",
-                
-                // Form Messages
-                formSuccess: "Message prepared! You'll be redirected to send it via email or WhatsApp.",
-                formChoice: "How would you like to send your message?\n\nClick OK for Email or Cancel for WhatsApp."
-            },
-            
-            rw: {
-                // Hero Section
-                heroBadge: "Umuhanga muri ICT & Umwarimu",
-                heroTitle: "TUYISENGE Jean Chrisostom",
-                heroSubtitle: "Umwarimu ushishikajwe no gukora ibikoresho bya tekinoloji kugirango byongere ubwiza mu bigo by'amasomo n'ubushakashatsi bw'ikoranabuhanga.",
-                btnProjects: "Reba Ibikorwa",
-                btnContact: "Vugana Nanjye",
-                btnWhatsapp: "WhatsApp",
-                
-                // About Section
-                aboutTitle: "Ibyerekeye Njye",
-                aboutSubtitle: "Umwarimu w'inyigisho n'umuhanga mu ikoranabuhanga ushishikajwe no gukora ibikoresho by'uburezi biha agaciro.",
-                aboutHeading: "Umwarimu & Umuhanga mu Ikoranabuhanga",
-                aboutText1: "Ndi umwarimu ushishikajwe gushaka Diplome mu Burezi bwa Porogaramu mu TTC MUHANGA, nshishikarira kuvanga ikoranabuhanga mu burezi bw'iki gihe. Inzira yanjye ivanga ubumenyi bw'uburezi n'ubuhanga mu ikoranabuhanga kugirango nkore ibikoresho bishya byo kwiga.",
-                aboutText2: "Nk'umuhanga mu ikoranabuhanga, nshishikarira gukora ibikoresho bijyanye no kwiga, nka proje ya Modern CV Builder. Ndemera ingufu za tekinoloji zo guhindura uko twigisha kandi dukora porogaramu mu kinyejana cya 21.",
-                aboutText3: "Uburyo bwanjye buvanga umuco wo gukora neza, gukemura ibibazo mu buryo bwa kreative, no kwiyemeza gushaka ubumenyi buhoraho. Nshishikarira gukora ibikoresho bya digitale biba byiza kandi bikora neza, haba mu gukoresha.",
-                btnEmail: "Koherereza Email",
-                
-                // Skills Section
-                skillsTitle: "Ubumenyi & Ubuhanga",
-                skillsSubtitle: "Ubumenyi bw'uburezi hamwe n'ubuhanga mu ikoranabuhanga bukorerwa uburezi bw'iki gihe.",
-                skillTeaching: "Ubumenyi bwo Kwigisha",
-                skillTechnical: "Ubuhanga mu Ikoranabuhanga",
-                skillLanguages: "Indimi",
-                skillSoft: "Ubumenyi bw'umuco",
-                
-                // Skills Items
-                skill1: "Gutegura amasomo", skill2: "Uburyo bwa Kwiga", skill3: "Ikoranabuhanga mu Burezi",
-                skill4: "Gucunga ishuri", skill5: "Gutegura ibyemezo", skill6: "Kwigisha mu buryo butandukanye",
-                skill7: "HTML/CSS/JavaScript", skill8: "Gukora urubuga", skill9: "Gutegura urubuga",
-                skill10: "Git & GitHub", skill11: "Microsoft Office", skill12: "Google Workspace",
-                skill13: "Imiterere y'urubuga", skill14: "Kuvanga porogaramu", skill15: "Ikinyarwanda (Cy'umwimerere)",
-                skill16: "Icyongereza (Neza)", skill17: "Igifaransa (Hagati)", skill18: "Kuvugisha",
-                skill19: "Gukorera hamwe", skill20: "Gukemura ibibazo", skill21: "Gucunga igihe",
-                skill22: "Ubuhanga", skill23: "Kwirinda",
-                
-                // Projects Section
-                projectsTitle: "Ibikorwa Byanjye",
-                projectsSubtitle: "Ibikoresho bishya bivanga uburezi n'ikoranabuhanga.",
-                project1Title: "IMENA CV BUILDER",
-                project1Desc: "Porogaramu ya web y'icyorezo yo gukora CV nziza z'umwuga zireba ibintu byose mu gihe.",
-                project2Title: "IMENA TRINITY COLLEGE",
-                project2Desc: "Urupapuro rw'ishuri rwa IMENA TRINITY COLLEGE rwereka porogaramu z'uburezi, abarimu, n'ibyagezweho n'abanyeshuri.",
-                project3Title: "Ibikoresho by'Umwarimu",
-                project3Desc: "Ibikoresho bya digitale by'abarimu birimo gutegura amasomo, gukora ibyemezo, n'ibikoresho byo gukora ishuri.",
-                btnLiveDemo: "Reba Demo",
-                btnLiveDemo2: "Reba Demo",
-                btnViewCode: "Reba Kode",
-                
-                // Contact Section
-                contactTitle: "Twandikire",
-                contactSubtitle: "Twunganire tuganire uburyo dushobora gukorana mu gukora ibikoresho by'uburezi biha agaciro.",
-                contactEmail: "Email",
-                contactPhone: "Telefone / WhatsApp",
-                contactLocation: "Aho uri",
-                contactEducation: "Amashuri",
-                formTitle: "Koherereza Ubutumwa",
-                formName: "Izina Ryawe",
-                formEmail: "Email Yawe",
-                formSubject: "Intego",
-                formMessageLabel: "Ubutumwa Bwawe",
-                btnSendMessage: "Kohereza Ubutumwa",
-                
-                // Footer
-                copyright: "© 2026 TUYISENGE Jean Chrisostom. Amahoro yose aracyari.",
-                
-                // Form Messages
-                formSuccess: "Ubutumwa bwateguwe! Uzagirwa n'amahirwe yo kubwohereza biciye kuri email cyangwa WhatsApp.",
-                formChoice: "Ushaka kohereza ubutumwa bwawe gute?\n\nKanda OK kuri Email cyangwa Cancel kuri WhatsApp."
-            },
-            
-            fr: {
-                // Hero Section
-                heroBadge: "Développeur & Éducateur",
-                heroTitle: "TUYISENGE Jean Chrisostom",
-                heroSubtitle: "Étudiant enseignant passionné et développeur web créant des solutions innovantes pour l'éducation moderne et les expériences numériques.",
-                btnProjects: "Voir les Projets",
-                btnContact: "Me Contacter",
-                btnWhatsapp: "WhatsApp",
-                
-                // About Section
-                aboutTitle: "À Propos de Moi",
-                aboutSubtitle: "Étudiant enseignant et développeur passionné par la création d'outils éducatifs impactants et d'expériences significatives.",
-                aboutHeading: "Étudiant Enseignant & Spécialiste en Éducation Linguistique",
-                aboutText1: "Je suis un étudiant enseignant dédié poursuivant un Diplôme en Éducation Linguistique au TTC MUHANGA, avec une passion pour intégrer la technologie dans l'éducation moderne. Mon parcours combine l'expertise pédagogique avec les compétences techniques pour créer des solutions d'apprentissage innovantes.",
-                aboutText2: "En tant que développeur web, je me concentre sur la construction d'outils qui améliorent les expériences éducatives, comme le projet Modern CV Builder. Je crois au pouvoir de la technologie pour transformer la façon dont nous enseignons et apprenons les langues au 21ème siècle.",
-                aboutText3: "Mon approche combine une éthique de travail disciplinée, une résolution créative de problèmes et un engagement envers l'apprentissage tout au long de la vie. Je m'efforce de créer des solutions numériques à la fois fonctionnelles et esthétiques, avec l'expérience utilisateur au premier plan.",
-                btnEmail: "Envoyer un Email",
-                
-                // Skills Section
-                skillsTitle: "Compétences & Expertise",
-                skillsSubtitle: "Un mélange de connaissances pédagogiques et de compétences techniques pour l'éducation moderne.",
-                skillTeaching: "Compétences Pédagogiques",
-                skillTechnical: "Compétences Techniques",
-                skillLanguages: "Langues",
-                skillSoft: "Compétences Douces",
-                
-                // Skills Items
-                skill1: "Planification des Leçons", skill2: "Méthodes Centrées sur l'Étudiant", skill3: "Technologie Éducative",
-                skill4: "Gestion de Classe", skill5: "Conception d'Évaluations", skill6: "Enseignement Différencié",
-                skill7: "HTML/CSS/JavaScript", skill8: "Développement Web", skill9: "Design Responsive",
-                skill10: "Git & GitHub", skill11: "Suite Microsoft Office", skill12: "Google Workspace",
-                skill13: "Principes UI/UX", skill14: "Intégration d'API", skill15: "Kinyarwanda (Natif)",
-                skill16: "Anglais (Courant)", skill17: "Français (Intermédiaire)", skill18: "Communication",
-                skill19: "Travail d'Équipe", skill20: "Résolution de Problèmes", skill21: "Gestion du Temps",
-                skill22: "Créativité", skill23: "Adaptabilité",
-                
-                // Projects Section
-                projectsTitle: "Mes Projets",
-                projectsSubtitle: "Solutions innovantes mélangeant éducation et technologie.",
-                project1Title: "Modern CV Builder",
-                project1Desc: "Une application web sophistiquée pour créer des CV professionnels et modernes avec prévisualisation en temps réel et plusieurs options de modèles.",
-                project2Title: "IMENA Trinity College",
-                project2Desc: "Un site web de projet scolaire pour IMENA Trinity College présentant les programmes éducatifs, le corps professoral et les réalisations des étudiants.",
-                project3Title: "Boîte à Outils de l'Enseignant",
-                project3Desc: "Une collection d'outils numériques pour les éducateurs incluant des planificateurs de leçons, des créateurs d'évaluations et des utilitaires de gestion de classe.",
-                btnLiveDemo: "Démo en Direct",
-                btnLiveDemo2: "Démo en Direct",
-                btnViewCode: "Voir le Code",
-                
-                // Contact Section
-                contactTitle: "Me Contacter",
-                contactSubtitle: "Connectons-nous et discutons de la façon dont nous pouvons travailler ensemble pour créer des solutions éducatives impactantes.",
-                contactEmail: "Email",
-                contactPhone: "Téléphone / WhatsApp",
-                contactLocation: "Localisation",
-                contactEducation: "Éducation",
-                formTitle: "Envoyez-moi un Message",
-                formName: "Votre Nom",
-                formEmail: "Votre Email",
-                formSubject: "Sujet",
-                formMessageLabel: "Votre Message",
-                btnSendMessage: "Envoyer le Message",
-                
-                // Footer
-                copyright: "© 2026 TUYISENGE Jean Chrisostom. Tous droits réservés.",
-                
-                // Form Messages
-                formSuccess: "Message préparé ! Vous serez redirigé pour l'envoyer par email ou WhatsApp.",
-                formChoice: "Comment souhaitez-vous envoyer votre message ?\n\nCliquez sur OK pour Email ou Annuler pour WhatsApp."
-            }
-        };
 
-        // Initialize when DOM is loaded
+    <!-- ─── SCROLLABLE CONTENT ─── -->
+    <main id="scroll-container">
+
+        <!-- ─── HERO — CANOPY ─── -->
+        <section id="home">
+            <div class="container">
+                <div class="panel-card active float-left" style="opacity:1;transform:translateY(0);">
+                    <span class="hero-badge" id="heroBadge">Web Developer &amp; Student Teacher</span>
+                    <h1 class="hero-title" id="heroTitle">TUYISENGE Jean Chrisostom</h1>
+                    <div class="typing-wrap">
+                        <span class="typed-text" id="typingText"></span><span class="cursor-blink"></span>
+                    </div>
+                    <p class="hero-sub" id="heroSub">Passionate about bridging education &amp; technology — building tools that empower the next generation of African educators.</p>
+                    <div class="hero-btns">
+                        <a href="#about" class="btn btn-primary"><i class="fas fa-chevron-down"></i> <span id="btnStart">Start Climbing</span></a>
+                        <a href="#projects" class="btn btn-secondary"><i class="fas fa-code"></i> <span id="btnProjects">View Projects</span></a>
+                        <a href="https://wa.me/250796717230" target="_blank" class="btn btn-accent"><i class="fab fa-whatsapp"></i> <span id="btnWhatsApp">WhatsApp</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── ABOUT ─── -->
+        <section id="about">
+            <div class="container">
+                <div class="panel-card glass float-left">
+                    <h2 class="section-title" id="aboutTitle">About Me</h2>
+                    <p class="section-sub" id="aboutSub">Dedicated student teacher &amp; developer shaping the future of education in Rwanda.</p>
+                    <div class="about-grid">
+                        <div class="profile-wrap">
+                            <img src="https://i.postimg.cc/X7mnG85n/Cut-out-image.png" alt="Jean Chrisostom" loading="eager" />
+                        </div>
+                        <div class="about-text">
+                            <h3 id="aboutHead">Student Teacher &amp; EdTech Builder</h3>
+                            <p id="aboutText1">I'm a final-year student teacher in <strong>Language Education at TTC Muhanga</strong>, and a self-taught developer who believes every future teacher deserves digital skills — not fear of the unknown.</p>
+                            <p id="aboutText2">That belief became <strong>iMENA Hub</strong>, an EdTech initiative training 44+ student teachers across Rwanda. I build tools — from this 3D portfolio to the <strong>Certificate Verification System</strong> and <strong>Paperless</strong> assessment platform.</p>
+                            <p id="aboutText3">My approach: disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I create digital solutions that are functional, beautiful, and human-centered.</p>
+                            <div class="tag-row">
+                                <span class="tag">🇷🇼 Kinyarwanda · Native</span>
+                                <span class="tag">🇬🇧 English · Fluent</span>
+                                <span class="tag">🇫🇷 French · Intermediate</span>
+                            </div>
+                            <a href="mailto:tuyisengejeanchrisostome@gmail.com" class="btn btn-primary" style="margin-top:0.6rem;">
+                                <i class="fas fa-envelope"></i> <span id="btnEmail">Email Me</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── JOURNEY ─── -->
+        <section id="journey">
+            <div class="container">
+                <div class="panel-card glass float-right">
+                    <h2 class="section-title" id="journeyTitle">My Journey</h2>
+                    <p class="section-sub" id="journeySub">From classroom to ecosystem — every step closing the gap between education and technology.</p>
+                    <div class="timeline">
+                        <div class="t-item">
+                            <div class="t-year">TTC Muhanga · 2025–2026</div>
+                            <h4>Studying Language Education</h4>
+                            <p>Final year toward an A2 certificate, while teaching myself web development, AI tools, and educational technology on the side.</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-year">Founded · 2025</div>
+                            <h4>iMENA Hub &amp; iMENA Learn</h4>
+                            <p>Launched a 4-week digital skills program delivered live over WhatsApp — now training 44+ student teachers and youth across Rwanda in Google Workspace, AI tools, and digital pedagogy.</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-year">Launch · 2026</div>
+                            <h4>Certificate Verification System</h4>
+                            <p>Built a real-time credential verification system for iMENA Learn certificates — QR codes, instant validation, and a premium verification page.</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-year">Partnership · In Progress</div>
+                            <h4>iMENA Hub × ValuEd</h4>
+                            <p>Working with ValuEd to place trained iMENA Hub educators as ICT trainers in partner schools across Rwanda.</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-year">Building · 2026</div>
+                            <h4>Paperless &amp; AfriQuiz</h4>
+                            <p>Developing a digital assessment platform and African-centered quiz ecosystem to help schools move beyond paper-based testing.</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-year">Vision · Next</div>
+                            <h4>Every TTC in Rwanda — then Africa</h4>
+                            <p>The long-term goal: a full digital learning ecosystem under iMENA Hub, reaching teachers well beyond Rwanda's borders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── SKILLS ─── -->
+        <section id="skills">
+            <div class="container">
+                <div class="panel-card glass float-left">
+                    <h2 class="section-title" id="skillsTitle">Skills &amp; Expertise</h2>
+                    <p class="section-sub" id="skillsSub">A blend of pedagogical insight and technical craft for modern education.</p>
+                    <div class="skills-grid">
+                        <div class="skill-box">
+                            <h3><i class="fas fa-chalkboard-teacher"></i> <span id="skTeach">Teaching</span></h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag" id="sk1">Lesson Planning</span>
+                                <span class="skill-tag" id="sk2">Student-Centered</span>
+                                <span class="skill-tag" id="sk3">EdTech</span>
+                                <span class="skill-tag" id="sk4">Classroom Mgmt</span>
+                                <span class="skill-tag" id="sk5">Assessment Design</span>
+                                <span class="skill-tag" id="sk6">Differentiated Instruction</span>
+                            </div>
+                        </div>
+                        <div class="skill-box">
+                            <h3><i class="fas fa-code"></i> <span id="skTech">Technical</span></h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag" id="sk7">HTML/CSS/JS</span>
+                                <span class="skill-tag" id="sk8">Web Dev</span>
+                                <span class="skill-tag" id="sk9">Responsive Design</span>
+                                <span class="skill-tag" id="sk10">Git &amp; GitHub</span>
+                                <span class="skill-tag" id="sk11">MS Office Suite</span>
+                                <span class="skill-tag" id="sk12">Google Workspace</span>
+                                <span class="skill-tag" id="sk13">UI/UX Principles</span>
+                                <span class="skill-tag" id="sk14">API Integration</span>
+                            </div>
+                        </div>
+                        <div class="skill-box">
+                            <h3><i class="fas fa-language"></i> <span id="skLang">Languages</span></h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag" id="sk15">Kinyarwanda (Native)</span>
+                                <span class="skill-tag" id="sk16">English (Fluent)</span>
+                                <span class="skill-tag" id="sk17">French (Intermediate)</span>
+                            </div>
+                        </div>
+                        <div class="skill-box">
+                            <h3><i class="fas fa-users"></i> <span id="skSoft">Soft Skills</span></h3>
+                            <div class="skill-tags">
+                                <span class="skill-tag" id="sk18">Communication</span>
+                                <span class="skill-tag" id="sk19">Teamwork</span>
+                                <span class="skill-tag" id="sk20">Problem Solving</span>
+                                <span class="skill-tag" id="sk21">Time Management</span>
+                                <span class="skill-tag" id="sk22">Creativity</span>
+                                <span class="skill-tag" id="sk23">Adaptability</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── CERTIFICATIONS ─── -->
+        <section id="certifications">
+            <div class="container">
+                <div class="panel-card glass float-right">
+                    <h2 class="section-title" id="certTitle">Certifications</h2>
+                    <p class="section-sub" id="certSub">Credentials that back the craft.</p>
+                    <div class="cert-grid">
+                        <div class="cert-card">
+                            <div class="cert-icon">🏆</div>
+                            <div class="cert-info">
+                                <h4>21st Century Learning Design</h4>
+                                <p>Microsoft Educator Academy</p>
+                                <div class="cert-date">November 9, 2025</div>
+                            </div>
+                        </div>
+                        <div class="cert-card">
+                            <div class="cert-icon">🤖</div>
+                            <div class="cert-info">
+                                <h4>AI for Educators</h4>
+                                <p>Microsoft Educator Academy</p>
+                                <div class="cert-date">March 7, 2026</div>
+                            </div>
+                        </div>
+                        <div class="cert-card">
+                            <div class="cert-icon">🎓</div>
+                            <div class="cert-info">
+                                <h4>Microsoft Educator Academy Graduate</h4>
+                                <p>Digital Skills &amp; Cloud Tools</p>
+                                <div class="cert-date">March 7, 2026</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── PROJECTS ─── -->
+        <section id="projects">
+            <div class="container">
+                <div class="panel-card glass float-left">
+                    <h2 class="section-title" id="projectsTitle">My Projects</h2>
+                    <p class="section-sub" id="projectsSub">Real tools, in real use — not concepts on a slide.</p>
+                    <div class="projects-grid">
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-file-alt"></i></div>
+                            <h3 id="p1Title">iMENA CV BUILDER</h3>
+                            <p id="p1Desc">Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML/CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Responsive</span>
+                            </div>
+                            <a href="https://imena-cv-builder.netlify.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span id="p1Btn">View</span>
+                            </a>
+                        </div>
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-school"></i></div>
+                            <h3 id="p2Title">iMENA Trinity College</h3>
+                            <p id="p2Desc">A full school website showcasing programs, faculty, and student achievements for a partner institution.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">School Project</span>
+                                <span class="project-tag">Education</span>
+                                <span class="project-tag">Web Dev</span>
+                            </div>
+                            <a href="https://stomcodev.github.io/IMENA-TRINITY-COLLEGE/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span id="p2Btn">View</span>
+                            </a>
+                        </div>
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-robot"></i></div>
+                            <h3>ChrisostomAi</h3>
+                            <p>AI-powered learning tools and interactive web experiments — exploring the future of education technology.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">AI Tech</span>
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Education</span>
+                            </div>
+                            <a href="https://stomcodev.github.io/ChrisostomAi/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span>View</span>
+                            </a>
+                        </div>
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-tools"></i></div>
+                            <h3 id="p3Title">Teacher Toolkit</h3>
+                            <p id="p3Desc">A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">EdTech</span>
+                                <span class="project-tag">Productivity</span>
+                                <span class="project-tag">Web App</span>
+                            </div>
+                            <a href="#" class="btn btn-secondary card-btn">
+                                <i class="fas fa-code"></i> <span id="p3Btn">View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── CONTACT + PAYPAL ─── -->
+        <section id="contact">
+            <div class="container">
+                <div class="panel-card glass float-center" style="width:80%;">
+                    <h2 class="section-title" id="contactTitle">Get In Touch</h2>
+                    <p class="section-sub" id="contactSub">Let's connect and build something that matters for education in Africa.</p>
+                    <div class="contact-grid">
+                        <div class="contact-items">
+                            <div class="contact-item">
+                                <div class="ci"><i class="fas fa-envelope"></i></div>
+                                <div><h4 id="cEmail">Email</h4><p>tuyisengejeanchrisostome@gmail.com</p></div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="ci"><i class="fas fa-phone"></i></div>
+                                <div><h4 id="cPhone">Phone / WhatsApp</h4><p>+250 796 717 230</p></div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="ci"><i class="fas fa-map-marker-alt"></i></div>
+                                <div><h4 id="cLocation">Location</h4><p>Karumuna, Ntarama, Bugesera, Rwanda</p></div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="ci"><i class="fas fa-graduation-cap"></i></div>
+                                <div><h4 id="cEdu">Education</h4><p>TTC Muhanga — Language Education (2025–2026)</p></div>
+                            </div>
+                        </div>
+                        <div class="form-box glass">
+                            <h3 id="formTitle">Send a Message</h3>
+                            <form id="messageForm">
+                                <div class="form-group">
+                                    <label for="name" id="fName">Your Name</label>
+                                    <input type="text" id="name" class="form-control" placeholder="Enter your name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" id="fEmail">Your Email</label>
+                                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject" id="fSubject">Subject</label>
+                                    <input type="text" id="subject" class="form-control" placeholder="Enter subject" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="message" id="fMsg">Your Message</label>
+                                    <textarea id="message" class="form-control" placeholder="Write your message…" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+                                    <i class="fas fa-paper-plane"></i> <span id="fSend">Send Message</span>
+                                </button>
+                                <div id="formFeedback" class="form-feedback"></div>
+                            </form>
+
+                            <!-- ─── PAYPAL SECTION ─── -->
+                            <div class="paypal-section">
+                                <h4><i class="fab fa-paypal"></i> Support My Work</h4>
+                                <p>Help me build more educational tools for Rwandan teachers and students.</p>
+                                <div class="paypal-button-wrap">
+                                    <button id="paypalDonateBtn" class="paypal-btn-custom">
+                                        <i class="fab fa-paypal"></i> Donate with PayPal
+                                    </button>
+                                    <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID" target="_blank" class="btn btn-secondary" style="font-size:0.7rem;padding:0.5rem 1.2rem;">
+                                        <i class="fas fa-external-link-alt"></i> PayPal.me
+                                    </a>
+                                </div>
+                                <p style="font-size:0.6rem;color:var(--text-muted);margin-top:0.4rem;">
+                                    <i class="fas fa-lock"></i> Secure · All major cards accepted
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── FOOTER ─── -->
+        <footer>
+            <div class="container footer-inner">
+                <div class="social-links">
+                    <a href="https://www.instagram.com/blad.rw/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/tuyisengejeanchrisostom" target="_blank" class="social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="https://wa.me/250796717230" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:tuyisengejeanchrisostome@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/stomcodev" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+                <p class="copyright" id="copyright">© 2026 TUYISENGE Jean Chrisostom — Built with ❤️ in Rwanda.</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ─── LANGUAGE SELECTOR ─── -->
+    <div class="lang-selector">
+        <div class="lang-btn glass" id="langBtn">EN</div>
+        <div class="lang-dropdown glass" id="langDropdown">
+            <div class="lang-opt active" data-lang="en"><i class="fas fa-globe-americas"></i> English</div>
+            <div class="lang-opt" data-lang="rw"><i class="fas fa-globe-africa"></i> Kinyarwanda</div>
+            <div class="lang-opt" data-lang="fr"><i class="fas fa-globe-europe"></i> Français</div>
+        </div>
+    </div>
+
+    <!-- ─── THREE.JS ─── -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Hide loading screen
-            setTimeout(() => {
-                document.getElementById('loading').classList.add('hidden');
-            }, 1500);
-            
-            // Initialize current language
-            let currentLang = localStorage.getItem('language') || 'en';
-            
-            // Language selector functionality
-            const languageBtn = document.getElementById('languageBtn');
-            const languageDropdown = document.getElementById('languageDropdown');
-            const languageOptions = document.querySelectorAll('.language-option');
-            
-            // Set initial language
-            updateLanguage(currentLang);
-            
-            languageBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                languageDropdown.classList.toggle('active');
-            });
-            
-            languageOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    const lang = option.dataset.lang;
-                    updateLanguage(lang);
-                    
-                    // Update active state
-                    languageOptions.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-                    
-                    // Update button text
-                    languageBtn.textContent = lang.toUpperCase();
-                    
-                    // Close dropdown
-                    languageDropdown.classList.remove('active');
-                });
-            });
-            
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
-                    languageDropdown.classList.remove('active');
+
+            // ─── TYPING ───
+            const words = ["Web Developer", "Student Teacher", "EdTech Founder", "Language Educator"];
+            let wIdx = 0,
+                cIdx = 0,
+                del = false;
+            const el = document.getElementById('typingText');
+
+            function typeLoop() {
+                if (!el) return;
+                const cur = words[wIdx];
+                if (del) {
+                    el.textContent = cur.substring(0, cIdx - 1);
+                    cIdx--;
+                } else {
+                    el.textContent = cur.substring(0, cIdx + 1);
+                    cIdx++;
                 }
-            });
-            
-            // Mobile menu functionality
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileNav = document.getElementById('mobileNav');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileNav.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-            
-            closeMenuBtn.addEventListener('click', () => {
-                mobileNav.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-            
-            // Close mobile menu when clicking on a link
-            document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileNav.classList.remove('active');
-                    document.body.style.overflow = '';
+                let speed = del ? 30 : 70;
+                if (!del && cIdx === cur.length) { speed = 1800;
+                    del = true; } else if (del && cIdx === 0) { del = false;
+                    wIdx = (wIdx + 1) % words.length;
+                    speed = 500; }
+                setTimeout(typeLoop, speed);
+            }
+            setTimeout(typeLoop, 800);
+
+            // ─── TRANSLATIONS ───
+            const t = {
+                en: {
+                    heroBadge: "Web Developer & Student Teacher",
+                    heroTitle: "TUYISENGE Jean Chrisostom",
+                    heroSub: "Passionate about bridging education & technology — building tools that empower the next generation of African educators.",
+                    btnStart: "Start Climbing",
+                    btnProjects: "View Projects",
+                    btnWhatsApp: "WhatsApp",
+                    aboutTitle: "About Me",
+                    aboutSub: "Dedicated student teacher & developer shaping the future of education in Rwanda.",
+                    aboutHead: "Student Teacher & EdTech Builder",
+                    aboutText1: "I'm a final-year student teacher in Language Education at TTC Muhanga, and a self-taught developer who believes every future teacher deserves digital skills — not fear of the unknown.",
+                    aboutText2: "That belief became iMENA Hub, an EdTech initiative training 44+ student teachers across Rwanda. I build tools — from this 3D portfolio to the Certificate Verification System and Paperless assessment platform.",
+                    aboutText3: "My approach: disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I create digital solutions that are functional, beautiful, and human-centered.",
+                    btnEmail: "Email Me",
+                    journeyTitle: "My Journey",
+                    journeySub: "From classroom to ecosystem — every step closing the gap between education and technology.",
+                    skillsTitle: "Skills & Expertise",
+                    skillsSub: "A blend of pedagogical insight and technical craft for modern education.",
+                    skTeach: "Teaching",
+                    skTech: "Technical",
+                    skLang: "Languages",
+                    skSoft: "Soft Skills",
+                    sk1: "Lesson Planning",
+                    sk2: "Student-Centered",
+                    sk3: "EdTech",
+                    sk4: "Classroom Mgmt",
+                    sk5: "Assessment Design",
+                    sk6: "Differentiated Instruction",
+                    sk7: "HTML/CSS/JS",
+                    sk8: "Web Dev",
+                    sk9: "Responsive Design",
+                    sk10: "Git & GitHub",
+                    sk11: "MS Office Suite",
+                    sk12: "Google Workspace",
+                    sk13: "UI/UX Principles",
+                    sk14: "API Integration",
+                    sk15: "Kinyarwanda (Native)",
+                    sk16: "English (Fluent)",
+                    sk17: "French (Intermediate)",
+                    sk18: "Communication",
+                    sk19: "Teamwork",
+                    sk20: "Problem Solving",
+                    sk21: "Time Management",
+                    sk22: "Creativity",
+                    sk23: "Adaptability",
+                    certTitle: "Certifications",
+                    certSub: "Credentials that back the craft.",
+                    projectsTitle: "My Projects",
+                    projectsSub: "Real tools, in real use — not concepts on a slide.",
+                    p1Title: "iMENA CV BUILDER",
+                    p1Desc: "Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.",
+                    p1Btn: "View",
+                    p2Title: "iMENA Trinity College",
+                    p2Desc: "A full school website showcasing programs, faculty, and student achievements for a partner institution.",
+                    p2Btn: "View",
+                    p3Title: "Teacher Toolkit",
+                    p3Desc: "A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.",
+                    p3Btn: "View Code",
+                    contactTitle: "Get In Touch",
+                    contactSub: "Let's connect and build something that matters for education in Africa.",
+                    cEmail: "Email",
+                    cPhone: "Phone / WhatsApp",
+                    cLocation: "Location",
+                    cEdu: "Education",
+                    formTitle: "Send a Message",
+                    fName: "Your Name",
+                    fEmail: "Your Email",
+                    fSubject: "Subject",
+                    fMsg: "Your Message",
+                    fSend: "Send Message",
+                    copyright: "© 2026 TUYISENGE Jean Chrisostom — Built with ❤️ in Rwanda.",
+                    formSuccess: "Message prepared! Redirecting you…",
+                    formChoice: "How would you like to send?\n\nOK = Email, Cancel = WhatsApp.",
+                    paypalTitle: "Support My Work",
+                    paypalDesc: "Help me build more educational tools for Rwandan teachers and students.",
+                    paypalBtn: "Donate with PayPal"
+                },
+                rw: {
+                    heroBadge: "Umuhanga mu ICT & Umwarimu",
+                    heroTitle: "TUYISENGE Jean Chrisostom",
+                    heroSub: "Nshishikariye guhuza ikoranabuhanga n'uburezi — nkora ibikoresho bishyigikira abarezi bo mu Rwanda.",
+                    btnStart: "Tangira Kurira",
+                    btnProjects: "Reba Ibikorwa",
+                    btnWhatsApp: "WhatsApp",
+                    aboutTitle: "Ibyange",
+                    aboutSub: "Umwarimu w'inyigisho n'umuhanga mu ikoranabuhanga.",
+                    aboutHead: "Umwarimu & Umuhanga mu Ikoranabuhanga",
+                    aboutText1: "Ndi umwarimu w'inyigisho mu TTC Muhanga, nkora ibikoresho bya tekinoloji nk'umuhanga wigishije.",
+                    aboutText2: "Nashinze iMENA Hub, ishyiriraho ibikoresho by'uburezi, twatojye abarezi 44+ mu Rwanda.",
+                    aboutText3: "Uburyo bwanjye: gukora neza, gukemura ibibazo, no kwiga ubuzima bwose.",
+                    btnEmail: "Koherereza Email",
+                    journeyTitle: "Urugendo Rwanjye",
+                    journeySub: "Kuva mu ishuri kugera mu ikoranabuhanga — buri ntambwe igiye hagati y'uburezi n'ikoranabuhanga.",
+                    skillsTitle: "Ubumenyi & Ubuhanga",
+                    skillsSub: "Ubumenyi bw'uburezi n'ubuhanga mu ikoranabuhanga.",
+                    skTeach: "Uburezi",
+                    skTech: "Ikoranabuhanga",
+                    skLang: "Indimi",
+                    skSoft: "Ubumenyi bw'umuco",
+                    sk1: "Gutegura Amasomo",
+                    sk2: "Uburyo Bwa Kwiga",
+                    sk3: "Ikoranabuhanga",
+                    sk4: "Gucunga Ishuri",
+                    sk5: "Gutegura Ibyemezo",
+                    sk6: "Kwigisha mu buryo butandukanye",
+                    sk7: "HTML/CSS/JS",
+                    sk8: "Gukora Urubuga",
+                    sk9: "Responsive Design",
+                    sk10: "Git & GitHub",
+                    sk11: "Microsoft Office",
+                    sk12: "Google Workspace",
+                    sk13: "UI/UX Principles",
+                    sk14: "API Integration",
+                    sk15: "Ikinyarwanda (Cy'umwimerere)",
+                    sk16: "Icyongereza (Neza)",
+                    sk17: "Igifaransa (Hagati)",
+                    sk18: "Kuvugisha",
+                    sk19: "Gukorera Hamwe",
+                    sk20: "Gukemura Ibibazo",
+                    sk21: "Gucunga Igihe",
+                    sk22: "Ubuhanga",
+                    sk23: "Kwirinda",
+                    certTitle: "Ibyemezo",
+                    certSub: "Ibyemezo bigashyigikira ubuhanga.",
+                    projectsTitle: "Ibikorwa Byanjye",
+                    projectsSub: "Ibikoresho bikoreshwa mu buzima busanzwe.",
+                    p1Title: "iMENA CV BUILDER",
+                    p1Desc: "Porogaramu yo gukora CV nziza z'umwuga.",
+                    p1Btn: "Reba",
+                    p2Title: "iMENA Trinity College",
+                    p2Desc: "Urupapuro rw'ishuri rwereka porogaramu n'ibyo abanyeshuri bagezeho.",
+                    p2Btn: "Reba",
+                    p3Title: "Ibikoresho by'Umwarimu",
+                    p3Desc: "Ibikoresho bya digitale by'abarimu.",
+                    p3Btn: "Reba Kode",
+                    contactTitle: "Twandikire",
+                    contactSub: "Twunganire gukora ibikoresho by'uburezi.",
+                    cEmail: "Email",
+                    cPhone: "Telefone / WhatsApp",
+                    cLocation: "Aho Uri",
+                    cEdu: "Amashuri",
+                    formTitle: "Koherereza Ubutumwa",
+                    fName: "Izina Ryawe",
+                    fEmail: "Email Yawe",
+                    fSubject: "Intego",
+                    fMsg: "Ubutumwa Bwawe",
+                    fSend: "Kohereza",
+                    copyright: "© 2026 TUYISENGE Jean Chrisostom — Twubakanye mu Rwanda.",
+                    formSuccess: "Ubutumwa bwateguwe! Uracyoherezwa…",
+                    formChoice: "Ushaka kohereza gute?\n\nOK = Email, Cancel = WhatsApp.",
+                    paypalTitle: "Shyigikira Akazi Kanjye",
+                    paypalDesc: "Nfasha kubaka ibikoresho by'uburezi by'abarezi n'inyeshuri mu Rwanda.",
+                    paypalBtn: "Tanga nka PayPal"
+                },
+                fr: {
+                    heroBadge: "Développeur & Éducateur",
+                    heroTitle: "TUYISENGE Jean Chrisostom",
+                    heroSub: "Passionné par l'éducation et la technologie — je crée des outils pour la prochaine génération d'éducateurs africains.",
+                    btnStart: "Commencer à grimper",
+                    btnProjects: "Voir les Projets",
+                    btnWhatsApp: "WhatsApp",
+                    aboutTitle: "À Propos",
+                    aboutSub: "Étudiant enseignant & développeur EdTech.",
+                    aboutHead: "Étudiant Enseignant & Créateur EdTech",
+                    aboutText1: "Je suis étudiant enseignant à TTC Muhanga et développeur autodidacte.",
+                    aboutText2: "J'ai fondé iMENA Hub, une initiative EdTech qui a formé 44+ étudiants enseignants au Rwanda.",
+                    aboutText3: "Mon approche : éthique de travail, résolution créative et apprentissage continu.",
+                    btnEmail: "Envoyer un Email",
+                    journeyTitle: "Mon Parcours",
+                    journeySub: "De la salle de classe à l'écosystème — chaque étape rapproche l'éducation et la technologie.",
+                    skillsTitle: "Compétences & Expertise",
+                    skillsSub: "Un mélange de pédagogie et de technique.",
+                    skTeach: "Pédagogie",
+                    skTech: "Technique",
+                    skLang: "Langues",
+                    skSoft: "Soft Skills",
+                    sk1: "Planification",
+                    sk2: "Méthodes Centrées",
+                    sk3: "Technologie Éducative",
+                    sk4: "Gestion de Classe",
+                    sk5: "Conception d'Évaluations",
+                    sk6: "Enseignement Différencié",
+                    sk7: "HTML/CSS/JS",
+                    sk8: "Développement Web",
+                    sk9: "Responsive Design",
+                    sk10: "Git & GitHub",
+                    sk11: "MS Office Suite",
+                    sk12: "Google Workspace",
+                    sk13: "UI/UX Principles",
+                    sk14: "API Integration",
+                    sk15: "Kinyarwanda (Natif)",
+                    sk16: "Anglais (Courant)",
+                    sk17: "Français (Intermédiaire)",
+                    sk18: "Communication",
+                    sk19: "Travail d'Équipe",
+                    sk20: "Résolution",
+                    sk21: "Gestion du Temps",
+                    sk22: "Créativité",
+                    sk23: "Adaptabilité",
+                    certTitle: "Certifications",
+                    certSub: "Des titres qui soutiennent l'expertise.",
+                    projectsTitle: "Mes Projets",
+                    projectsSub: "Des outils réels, en utilisation réelle.",
+                    p1Title: "iMENA CV BUILDER",
+                    p1Desc: "Créateur de CV professionnels avec aperçu en temps réel.",
+                    p1Btn: "Voir",
+                    p2Title: "iMENA Trinity College",
+                    p2Desc: "Site web scolaire présentant les programmes et réalisations.",
+                    p2Btn: "Voir",
+                    p3Title: "Boîte à Outils Enseignant",
+                    p3Desc: "Outils numériques pour les éducateurs.",
+                    p3Btn: "Voir le Code",
+                    contactTitle: "Me Contacter",
+                    contactSub: "Connectons-nous pour créer des solutions éducatives.",
+                    cEmail: "Email",
+                    cPhone: "Téléphone / WhatsApp",
+                    cLocation: "Localisation",
+                    cEdu: "Éducation",
+                    formTitle: "Envoyer un Message",
+                    fName: "Votre Nom",
+                    fEmail: "Votre Email",
+                    fSubject: "Sujet",
+                    fMsg: "Votre Message",
+                    fSend: "Envoyer",
+                    copyright: "© 2026 TUYISENGE Jean Chrisostom — Construit avec ❤️ au Rwanda.",
+                    formSuccess: "Message préparé ! Redirection…",
+                    formChoice: "Comment envoyer ?\n\nOK = Email, Cancel = WhatsApp.",
+                    paypalTitle: "Soutenir Mon Travail",
+                    paypalDesc: "Aidez-moi à construire plus d'outils éducatifs pour les enseignants et étudiants rwandais.",
+                    paypalBtn: "Faire un don PayPal"
+                }
+            };
+
+            let currentLang = localStorage.getItem('lang') || 'en';
+            const langBtn = document.getElementById('langBtn');
+            const langDropdown = document.getElementById('langDropdown');
+            const langOpts = document.querySelectorAll('.lang-opt');
+
+            function applyLang(lang) {
+                currentLang = lang;
+                localStorage.setItem('lang', lang);
+                const data = t[lang];
+                Object.keys(data).forEach(key => {
+                    const el = document.getElementById(key);
+                    if (el) {
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                            el.placeholder = data[key];
+                        } else {
+                            el.textContent = data[key];
+                        }
+                    }
+                });
+                // PayPal translations
+                const paypalTitle = document.querySelector('.paypal-section h4');
+                const paypalDesc = document.querySelector('.paypal-section p');
+                const paypalBtn = document.getElementById('paypalDonateBtn');
+                if (paypalTitle) paypalTitle.innerHTML = `<i class="fab fa-paypal"></i> ${data.paypalTitle || 'Support My Work'}`;
+                if (paypalDesc) paypalDesc.textContent = data.paypalDesc || 'Help me build more educational tools.';
+                if (paypalBtn) paypalBtn.innerHTML = `<i class="fab fa-paypal"></i> ${data.paypalBtn || 'Donate with PayPal'}`;
+
+                const navKeys = ['Home', 'About', 'Journey', 'Skills', 'Projects', 'Contact'];
+                document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach((a, i) => {
+                    if (navKeys[i]) a.textContent = navKeys[i];
+                });
+                if (langBtn) langBtn.textContent = lang.toUpperCase();
+                langOpts.forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+            }
+
+            langBtn.addEventListener('click', e => { e.stopPropagation();
+                langDropdown.classList.toggle('active'); });
+            langOpts.forEach(o => {
+                o.addEventListener('click', () => {
+                    applyLang(o.dataset.lang);
+                    langDropdown.classList.remove('active');
                 });
             });
-            
-            // Header scroll effect - makes header more visible when scrolling
+            document.addEventListener('click', () => langDropdown.classList.remove('active'));
+            applyLang(currentLang);
+
+            // ─── MOBILE NAV ───
+            const mobileBtn = document.getElementById('mobileBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const closeBtn = document.getElementById('closeBtn');
+            mobileBtn.addEventListener('click', () => { mobileNav.classList.add('active');
+                document.body.style.overflow = 'hidden'; });
+            closeBtn.addEventListener('click', () => { mobileNav.classList.remove('active');
+                document.body.style.overflow = ''; });
+            document.querySelectorAll('.mobile-nav-links a').forEach(a => {
+                a.addEventListener('click', () => { mobileNav.classList.remove('active');
+                    document.body.style.overflow = ''; });
+            });
+
+            // ─── HEADER SCROLL ───
             const header = document.getElementById('mainHeader');
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+                header.classList.toggle('scrolled', window.scrollY > 40);
             });
-            
-            // Auto-email functionality when user finishes adding email
-            const emailInput = document.getElementById('email');
-            emailInput.addEventListener('blur', function() {
-                const email = this.value.trim();
-                
-                // Validate email format
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (email && emailRegex.test(email)) {
-                    // Email is valid - automatically send email
-                    this.style.borderColor = '#34d399';
-                    this.style.boxShadow = '0 0 10px rgba(52, 211, 153, 0.3)';
-                    
-                    console.log('Valid email entered: ' + email);
-                    
-                    // Automatically open email client with pre-filled subject and body
-                    const name = document.getElementById('name').value || 'User';
-                    const subject = document.getElementById('subject').value || 'Message from Portfolio';
-                    const message = document.getElementById('message').value || '';
-                    
-                    const mailtoLink = `mailto:tuyisengejeanchrisostome@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-                    
-                    // Auto-send after a short delay for better UX
-                    setTimeout(() => {
-                        window.open(mailtoLink, '_blank');
-                    }, 500);
-                }
-            });
-            
-            // Clear the border styling when user focuses back on email field
-            emailInput.addEventListener('focus', function() {
-                this.style.borderColor = '';
-                this.style.boxShadow = '';
-            });
-            
-            // Form submission
-            const messageForm = document.getElementById('messageForm');
-            const formMessage = document.getElementById('formMessage');
-            
-            messageForm.addEventListener('submit', function(e) {
+
+            // ─── CONTACT FORM ───
+            const form = document.getElementById('messageForm');
+            const fb = document.getElementById('formFeedback');
+
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
-                // Get form values
                 const name = document.getElementById('name').value;
                 const email = document.getElementById('email').value;
                 const subject = document.getElementById('subject').value;
-                const messageText = document.getElementById('message').value;
-                
-                // Create mailto link with WhatsApp fallback
-                const mailtoLink = `mailto:tuyisengejeanchrisostome@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${messageText}`)}`;
-                
-                // Create WhatsApp message
-                const whatsappMessage = `*New Message from Portfolio Website*\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n\n*Message:*\n${messageText}`;
-                const whatsappLink = `https://wa.me/250796717230?text=${encodeURIComponent(whatsappMessage)}`;
-                
-                // Show success message
-                formMessage.textContent = translations[currentLang].formSuccess;
-                formMessage.style.color = "#34d399";
-                formMessage.style.backgroundColor = "rgba(52, 211, 153, 0.1)";
-                formMessage.style.border = "1px solid rgba(52, 211, 153, 0.3)";
-                formMessage.style.display = "block";
-                
-                // Ask user how they want to send the message
+                const msg = document.getElementById('message').value;
+
+                const mailto =
+                    `mailto:tuyisengejeanchrisostome@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
+                const waMsg =
+                    `*New Message from 3D Portfolio*\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n\n*Message:*\n${msg}`;
+                const waLink = `https://wa.me/250796717230?text=${encodeURIComponent(waMsg)}`;
+
+                fb.style.display = 'block';
+                fb.textContent = t[currentLang].formSuccess;
+                fb.style.color = '#4caf7a';
+                fb.style.background = 'rgba(45,138,78,0.04)';
+                fb.style.border = '1px solid rgba(45,138,78,0.1)';
+
                 setTimeout(() => {
-                    const sendMethod = confirm(translations[currentLang].formChoice);
-                    
-                    if (sendMethod) {
-                        // Open email client
-                        window.open(mailtoLink, '_blank');
-                    } else {
-                        // Open WhatsApp
-                        window.open(whatsappLink, '_blank');
-                    }
-                    
-                    // Reset form after a delay
+                    const choice = confirm(t[currentLang].formChoice);
+                    if (choice) window.open(mailto, '_blank');
+                    else window.open(waLink, '_blank');
                     setTimeout(() => {
-                        messageForm.reset();
-                        formMessage.style.display = "none";
-                    }, 2000);
-                }, 500);
+                        form.reset();
+                        fb.style.display = 'none';
+                    }, 1500);
+                }, 600);
             });
-            
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#') return;
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        e.preventDefault();
-                        
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Update active nav link
-                        document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    }
-                });
-            });
-            
-            // Update active nav link on scroll
-            window.addEventListener('scroll', () => {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
-                
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (scrollY >= sectionTop - 150) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-            
-            // Initialize particles background
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: { value: 100, density: { enable: true, value_area: 1000 } },
-                        color: { value: "#818cf8" },
-                        shape: { type: "circle" },
-                        opacity: { value: 0.3, random: true },
-                        size: { value: 3, random: true },
-                        line_linked: {
-                            enable: true,
-                            distance: 200,
-                            color: "#818cf8",
-                            opacity: 0.2,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 3,
-                            direction: "none",
-                            random: true,
-                            straight: false,
-                            out_mode: "out",
-                            bounce: false
-                        }
-                    },
-                    interactivity: {
-                        detect_on: "canvas",
-                        events: {
-                            onhover: { enable: true, mode: "repulse" },
-                            onclick: { enable: true, mode: "push" }
-                        }
-                    },
-                    retina_detect: true
+
+            // ─── PAYPAL DONATE BUTTON ───
+            const paypalBtn = document.getElementById('paypalDonateBtn');
+            if (paypalBtn) {
+                paypalBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Open PayPal donation in a new tab
+                    // Replace with your actual PayPal donation link
+                    const paypalUrl = 'https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID';
+                    window.open(paypalUrl, '_blank');
                 });
             }
-            
-            // Function to update language
-            function updateLanguage(lang) {
-                currentLang = lang;
-                localStorage.setItem('language', lang);
-                
-                // Update all elements with translation
-                Object.keys(translations[lang]).forEach(key => {
-                    const element = document.getElementById(key);
-                    if (element) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            element.placeholder = translations[lang][key];
-                        } else {
-                            element.textContent = translations[lang][key];
-                        }
+
+            // ─── SCROLL PANELS ───
+            const cards = document.querySelectorAll('.panel-card');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+
+            function updatePanels() {
+                const scroll = window.scrollY;
+                let activeId = '';
+                sections.forEach(sec => {
+                    const top = sec.offsetTop;
+                    if (scroll >= top - 200) activeId = sec.getAttribute('id');
+                });
+                cards.forEach(c => c.classList.remove('active'));
+                sections.forEach(sec => {
+                    const card = sec.querySelector('.panel-card');
+                    if (card && sec.getAttribute('id') === activeId) {
+                        card.classList.add('active');
                     }
                 });
-                
-                // Update navigation links
-                const navLinks = document.querySelectorAll('.nav-links a');
-                const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
-                const navKeys = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
-                
-                navLinks.forEach((link, index) => {
-                    if (navKeys[index]) {
-                        link.textContent = navKeys[index];
-                    }
+                navLinks.forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + activeId);
                 });
-                
-                mobileNavLinks.forEach((link, index) => {
-                    if (navKeys[index]) {
-                        link.textContent = navKeys[index];
-                    }
-                });
-                
-                // Update language button
-                languageBtn.textContent = lang.toUpperCase();
             }
+            window.addEventListener('scroll', updatePanels);
+            updatePanels();
+
+            // ─── LOADER ───
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 900);
+
+            // ─── THREE.JS — REAL TREE CLIMBING ───
+            const canvas = document.getElementById('webgl-canvas');
+            if (!canvas) return;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x0a0e17, 0.0045);
+
+            const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 120);
+            camera.position.set(0, 2, 12);
+
+            // ── Lights ──
+            const ambient = new THREE.AmbientLight(0x1a2a1a, 1.2);
+            scene.add(ambient);
+
+            const sun = new THREE.DirectionalLight(0x8a7a4a, 0.8);
+            sun.position.set(15, 30, 10);
+            scene.add(sun);
+
+            const fill = new THREE.DirectionalLight(0x4a7a5a, 0.4);
+            fill.position.set(-10, 10, -10);
+            scene.add(fill);
+
+            // ── Tree Group ──
+            const tree = new THREE.Group();
+            scene.add(tree);
+
+            // ── Trunk ──
+            const trunkMat = new THREE.MeshStandardMaterial({
+                color: 0x3d2b1f,
+                roughness: 0.8,
+                metalness: 0.05,
+                emissive: 0x1a0f0a,
+                emissiveIntensity: 0.1
+            });
+
+            const TRUNK_H = 42;
+            const SEGS = 18;
+            const segH = TRUNK_H / SEGS;
+
+            for (let i = 0; i < SEGS; i++) {
+                const t = i / SEGS;
+                const rBot = 0.9 - t * 0.75;
+                const rTop = 0.9 - (i + 1) / SEGS * 0.75;
+                const g = new THREE.CylinderGeometry(Math.max(rTop, 0.05), Math.max(rBot, 0.05), segH * (0.9 + Math.random() *
+                    0.2), 7 + Math.floor(Math.random() * 4));
+                const m = new THREE.Mesh(g, trunkMat);
+                m.position.y = i * segH + segH / 2 + (Math.random() - 0.5) * 0.2;
+                m.rotation.z = (Math.random() - 0.5) * 0.04;
+                m.rotation.x = (Math.random() - 0.5) * 0.04;
+                tree.add(m);
+            }
+
+            // ── Bark rings ──
+            const ringMat2 = new THREE.MeshStandardMaterial({
+                color: 0x4a3a2a,
+                roughness: 0.9,
+                metalness: 0.0,
+                transparent: true,
+                opacity: 0.3
+            });
+            for (let y = 1.5; y < TRUNK_H; y += 2.2 + Math.random() * 1.2) {
+                const scale = 0.9 - (y / TRUNK_H) * 0.75;
+                const rg = new THREE.TorusGeometry(Math.max(scale, 0.08), 0.03 + Math.random() * 0.02, 6, 20);
+                const ring = new THREE.Mesh(rg, ringMat2);
+                ring.rotation.x = Math.PI / 2 + (Math.random() - 0.5) * 0.1;
+                ring.position.y = y + (Math.random() - 0.5) * 0.3;
+                tree.add(ring);
+            }
+
+            // ── Branches ──
+            const branchMat2 = new THREE.MeshStandardMaterial({
+                color: 0x4a3520,
+                roughness: 0.8,
+                metalness: 0.05
+            });
+
+            const branchConfigs = [];
+            const branchCount = 32;
+            for (let i = 0; i < branchCount; i++) {
+                const y = 2 + Math.random() * (TRUNK_H - 4);
+                const angle = Math.random() * Math.PI * 2;
+                const len = 0.8 + Math.random() * 3.2;
+                const upward = 0.3 + Math.random() * 0.5;
+                const thickness = 0.04 + Math.random() * 0.12;
+                branchConfigs.push({ y, angle, len, upward, thickness });
+            }
+            branchConfigs.sort((a, b) => a.y - b.y);
+
+            branchConfigs.forEach((b) => {
+                const len = b.len * (1 + (1 - b.y / TRUNK_H) * 0.5);
+                const bg = new THREE.CylinderGeometry(b.thickness * 0.4, b.thickness, len, 5);
+                const br = new THREE.Mesh(bg, branchMat2);
+                br.rotation.z = Math.PI / 2 - b.upward * 0.5;
+                br.rotation.y = b.angle;
+                const xOff = Math.sin(b.angle) * (len / 2);
+                const zOff = Math.cos(b.angle) * (len / 2);
+                br.position.set(xOff, b.y, zOff);
+                tree.add(br);
+
+                // Sub-branches
+                if (len > 1.2 && Math.random() > 0.4) {
+                    const subCount = 1 + Math.floor(Math.random() * 2);
+                    for (let s = 0; s < subCount; s++) {
+                        const subAngle = b.angle + (Math.random() - 0.5) * 1.2;
+                        const subLen = len * (0.4 + Math.random() * 0.4);
+                        const subBg = new THREE.CylinderGeometry(b.thickness * 0.25, b.thickness * 0.5, subLen, 4);
+                        const subBr = new THREE.Mesh(subBg, branchMat2);
+                        subBr.rotation.z = Math.PI / 2 - (0.2 + Math.random() * 0.4);
+                        subBr.rotation.y = subAngle;
+                        const sx = Math.sin(b.angle) * len * 0.7 + Math.sin(subAngle) * (subLen / 2);
+                        const sz = Math.cos(b.angle) * len * 0.7 + Math.cos(subAngle) * (subLen / 2);
+                        subBr.position.set(sx, b.y + 0.2 + Math.random() * 0.3, sz);
+                        tree.add(subBr);
+                    }
+                }
+            });
+
+            // ── Leaves ──
+            const leafColors = [0x2d7a3a, 0x3a8a4a, 0x4a9a5a, 0x5aaa6a, 0x6aba7a];
+            const leafCount = 1800;
+            const leafGeo = new THREE.BufferGeometry();
+            const leafPos = new Float32Array(leafCount * 3);
+            const leafCol = new Float32Array(leafCount * 3);
+            const leafSizes = new Float32Array(leafCount);
+
+            for (let i = 0; i < leafCount; i++) {
+                const y = 1 + Math.random() * (TRUNK_H - 1);
+                const radius = 0.8 + Math.random() * 4.5;
+                const angle = Math.random() * Math.PI * 2;
+                const spread = 0.3 + Math.random() * 0.7;
+                leafPos[i * 3] = Math.sin(angle) * radius * spread + (Math.random() - 0.5) * 0.8;
+                leafPos[i * 3 + 1] = y + (Math.random() - 0.5) * 1.2;
+                leafPos[i * 3 + 2] = Math.cos(angle) * radius * spread + (Math.random() - 0.5) * 0.8;
+
+                const c = new THREE.Color(leafColors[Math.floor(Math.random() * leafColors.length)]);
+                leafCol[i * 3] = c.r + (Math.random() - 0.5) * 0.1;
+                leafCol[i * 3 + 1] = c.g + (Math.random() - 0.5) * 0.1;
+                leafCol[i * 3 + 2] = c.b + (Math.random() - 0.5) * 0.1;
+                leafSizes[i] = 0.08 + Math.random() * 0.18;
+            }
+            leafGeo.setAttribute('position', new THREE.BufferAttribute(leafPos, 3));
+            leafGeo.setAttribute('color', new THREE.BufferAttribute(leafCol, 3));
+            leafGeo.setAttribute('size', new THREE.BufferAttribute(leafSizes, 1));
+
+            const lc = document.createElement('canvas');
+            lc.width = 16;
+            lc.height = 16;
+            const lctx = lc.getContext('2d');
+            const lgrad = lctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+            lgrad.addColorStop(0, 'rgba(255,255,255,1)');
+            lgrad.addColorStop(0.6, 'rgba(200,230,180,0.8)');
+            lgrad.addColorStop(1, 'rgba(100,150,80,0)');
+            lctx.fillStyle = lgrad;
+            lctx.fillRect(0, 0, 16, 16);
+            const leafTexture = new THREE.CanvasTexture(lc);
+
+            const leafMat = new THREE.PointsMaterial({
+                size: 0.25,
+                map: leafTexture,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.NormalBlending,
+                depthWrite: true,
+                opacity: 0.85,
+                sizeAttenuation: true
+            });
+            const leaves = new THREE.Points(leafGeo, leafMat);
+            tree.add(leaves);
+
+            // ── Fireflies ──
+            const glowCount = 120;
+            const glowGeo = new THREE.BufferGeometry();
+            const glowPos = new Float32Array(glowCount * 3);
+            const glowCol = new Float32Array(glowCount * 3);
+            const glowData = [];
+            for (let i = 0; i < glowCount; i++) {
+                const y = 2 + Math.random() * (TRUNK_H - 3);
+                const radius = 0.5 + Math.random() * 4;
+                const angle = Math.random() * Math.PI * 2;
+                glowPos[i * 3] = Math.sin(angle) * radius;
+                glowPos[i * 3 + 1] = y;
+                glowPos[i * 3 + 2] = Math.cos(angle) * radius;
+                const c = new THREE.Color().setHSL(0.25 + Math.random() * 0.15, 0.8, 0.5 + Math.random() * 0.3);
+                glowCol[i * 3] = c.r;
+                glowCol[i * 3 + 1] = c.g;
+                glowCol[i * 3 + 2] = c.b;
+                glowData.push({ angle, radius, y, speed: 0.5 + Math.random() * 1.0, phase: Math.random() * Math.PI * 2 });
+            }
+            glowGeo.setAttribute('position', new THREE.BufferAttribute(glowPos, 3));
+            glowGeo.setAttribute('color', new THREE.BufferAttribute(glowCol, 3));
+
+            const gc = document.createElement('canvas');
+            gc.width = 16;
+            gc.height = 16;
+            const gctx = gc.getContext('2d');
+            const ggrad = gctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+            ggrad.addColorStop(0, 'rgba(255,255,200,1)');
+            ggrad.addColorStop(0.5, 'rgba(200,255,180,0.6)');
+            ggrad.addColorStop(1, 'rgba(100,200,80,0)');
+            gctx.fillStyle = ggrad;
+            gctx.fillRect(0, 0, 16, 16);
+            const glowTexture = new THREE.CanvasTexture(gc);
+
+            const glowMat = new THREE.PointsMaterial({
+                size: 0.35,
+                map: glowTexture,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                opacity: 0.7,
+                sizeAttenuation: true
+            });
+            const glows = new THREE.Points(glowGeo, glowMat);
+            tree.add(glows);
+
+            // ── Stars ──
+            const STAR_COUNT = 300;
+            const starGeo2 = new THREE.BufferGeometry();
+            const starPos2 = new Float32Array(STAR_COUNT * 3);
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const r = 10 + Math.random() * 30;
+                const a = Math.random() * Math.PI * 2;
+                const y = Math.random() * TRUNK_H;
+                starPos2[i * 3] = Math.sin(a) * r;
+                starPos2[i * 3 + 1] = y;
+                starPos2[i * 3 + 2] = Math.cos(a) * r;
+            }
+            starGeo2.setAttribute('position', new THREE.BufferAttribute(starPos2, 3));
+
+            const sc2 = document.createElement('canvas');
+            sc2.width = 16;
+            sc2.height = 16;
+            const sctx2 = sc2.getContext('2d');
+            const sgrad2 = sctx2.createRadialGradient(8, 8, 0, 8, 8, 8);
+            sgrad2.addColorStop(0, 'rgba(255,255,200,0.8)');
+            sgrad2.addColorStop(1, 'rgba(255,255,200,0)');
+            sctx2.fillStyle = sgrad2;
+            sctx2.fillRect(0, 0, 16, 16);
+            const starTex2 = new THREE.CanvasTexture(sc2);
+            const starMat2 = new THREE.PointsMaterial({
+                size: 0.12,
+                map: starTex2,
+                color: 0x8aaa8a,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                opacity: 0.4,
+                sizeAttenuation: true
+            });
+            const stars2 = new THREE.Points(starGeo2, starMat2);
+            scene.add(stars2);
+
+            // ── Scroll tracking ──
+            let scrollPct = 0;
+            let targetY = 2;
+            let targetAngle = 0;
+            let currentY = 2;
+            let currentAngle = 0;
+            let mouseX = 0,
+                mouseY = 0;
+
+            // Touch support for mobile
+            document.addEventListener('mousemove', e => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+            });
+            document.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                if (touch) {
+                    mouseX = (touch.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = (touch.clientY / window.innerHeight) * 2 - 1;
+                }
+            }, { passive: true });
+
+            function onScroll() {
+                const s = window.scrollY;
+                const total = document.documentElement.scrollHeight - window.innerHeight;
+                scrollPct = total > 0 ? s / total : 0;
+                targetY = 2 + scrollPct * 40;
+                targetAngle = scrollPct * Math.PI * 1.4;
+            }
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+
+            // ── Animation ──
+            const clock = new THREE.Clock();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+
+                tree.rotation.y = Math.sin(t * 0.04) * 0.01;
+                tree.rotation.x = Math.sin(t * 0.03 + 0.5) * 0.005;
+
+                // Leaves drift
+                const lpos = leafGeo.attributes.position.array;
+                for (let i = 0; i < leafCount; i++) {
+                    const idx = i * 3;
+                    lpos[idx] += Math.sin(t * 0.3 + i * 0.01) * 0.0002;
+                    lpos[idx + 2] += Math.cos(t * 0.25 + i * 0.015) * 0.0002;
+                }
+                leafGeo.attributes.position.needsUpdate = true;
+
+                // Fireflies
+                const gpos = glowGeo.attributes.position.array;
+                for (let i = 0; i < glowCount; i++) {
+                    const d = glowData[i];
+                    const rad = d.radius + Math.sin(t * d.speed + d.phase) * 0.3;
+                    const ang = d.angle + t * 0.1 * d.speed * 0.3;
+                    gpos[i * 3] = Math.sin(ang) * rad;
+                    gpos[i * 3 + 1] = d.y + Math.sin(t * d.speed * 0.5 + d.phase) * 0.3;
+                    gpos[i * 3 + 2] = Math.cos(ang) * rad;
+                }
+                glowGeo.attributes.position.needsUpdate = true;
+
+                // Stars
+                const sp = starGeo2.attributes.position.array;
+                for (let i = 0; i < STAR_COUNT; i++) {
+                    sp[i * 3 + 1] += 0.005;
+                    if (sp[i * 3 + 1] > TRUNK_H) sp[i * 3 + 1] = 0;
+                }
+                starGeo2.attributes.position.needsUpdate = true;
+
+                // Camera
+                currentY += (targetY - currentY) * 0.055;
+                currentAngle += (targetAngle - currentAngle) * 0.055;
+
+                const radius = 12.5 - scrollPct * 1.8;
+                const px = mouseX * 2.0;
+                const py = -mouseY * 2.0;
+                const cx = Math.sin(currentAngle) * radius + px;
+                const cz = Math.cos(currentAngle) * radius + py;
+                camera.position.set(cx, currentY, cz);
+                camera.lookAt(0, currentY + 0.5, 0);
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // ── Resize ──
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            });
+
         });
     </script>
-    
-    <!-- Particles.js Library -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-</body>
 
+</body>
 </html>

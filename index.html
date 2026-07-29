@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>TUYISENGE Jean Chrisostom · 3D Tree Portfolio</title>
+    <title>TUYISENGE Jean Chrisostom</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -63,7 +63,8 @@
             height: 100vh;
             z-index: 1;
             pointer-events: auto;
-            touch-action: none;
+            touch-action: pan-y;
+            /* allow vertical scroll while capturing touch for parallax */
         }
 
         /* ─── SCROLL CONTAINER ─── */
@@ -79,7 +80,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 0.6rem 0;
+            padding: 0.5rem 0;
             z-index: 999;
             background: rgba(10, 14, 23, 0.5);
             backdrop-filter: blur(14px);
@@ -95,7 +96,7 @@
         .nav-container {
             max-width: 1260px;
             margin: 0 auto;
-            padding: 0 1.2rem;
+            padding: 0 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -108,7 +109,7 @@
             flex-shrink: 0;
         }
         .brand-img {
-            height: 34px;
+            height: 32px;
             width: auto;
             border-radius: 8px;
             transition: transform var(--transition);
@@ -118,7 +119,7 @@
         }
         .brand-text {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 800;
             background: linear-gradient(135deg, #4caf7a, #2d8a4e);
             -webkit-background-clip: text;
@@ -133,6 +134,7 @@
             display: flex;
             gap: 0.2rem;
             list-style: none;
+            align-items: center;
             flex-wrap: wrap;
         }
         .nav-links a {
@@ -159,15 +161,44 @@
             border-color: transparent;
             box-shadow: 0 4px 20px var(--primary-glow);
         }
+        .nav-support-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+            touch-action: manipulation;
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(0, 112, 186, 0.2);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .nav-support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 112, 186, 0.35);
+        }
+        .nav-support-btn:active {
+            transform: translateY(0px) scale(0.97);
+        }
+        .nav-support-btn i {
+            font-size: 0.75rem;
+        }
         .mobile-btn {
             display: none;
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 10px;
             background: rgba(45, 138, 78, 0.06);
             border: 1px solid var(--glass-border);
             color: var(--text-light);
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all var(--transition);
             pointer-events: auto;
@@ -195,7 +226,7 @@
             padding: 1.8rem 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
             border-right: 1px solid rgba(45, 138, 78, 0.1);
             pointer-events: auto;
         }
@@ -237,6 +268,76 @@
             background: rgba(45, 138, 78, 0.06);
             border-color: rgba(45, 138, 78, 0.12);
             color: #4caf7a;
+        }
+        .mobile-support-btn {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+            touch-action: manipulation;
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(0, 112, 186, 0.2);
+            text-decoration: none;
+            width: 100%;
+        }
+        .mobile-support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 112, 186, 0.35);
+        }
+        .mobile-support-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ─── SCROLL PROGRESS INDICATOR ─── */
+        .scroll-progress {
+            position: fixed;
+            bottom: 1.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 998;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            pointer-events: none;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .scroll-progress:hover {
+            opacity: 1;
+        }
+        .scroll-progress .bar-track {
+            width: 120px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .scroll-progress .bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #2d8a4e, #4caf7a);
+            border-radius: 4px;
+            transition: width 0.1s ease;
+        }
+        .scroll-progress .label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        .scroll-progress .label i {
+            margin-right: 4px;
         }
 
         /* ─── GLASS PANEL ─── */
@@ -813,16 +914,16 @@
             display: none;
         }
 
-        /* ─── PAYPAL SECTION ─── */
+        /* ─── PAYPAL SECTION (CONTEXTUAL) ─── */
         .paypal-section {
-            margin-top: 1.5rem;
-            padding-top: 1.2rem;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
             border-top: 1px solid var(--glass-border);
         }
         .paypal-section h4 {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-light);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -831,24 +932,24 @@
             color: #0070ba;
         }
         .paypal-section p {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
         .paypal-button-wrap {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            gap: 0.5rem;
             align-items: center;
         }
         .paypal-btn-custom {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.55rem 1.4rem;
+            gap: 0.4rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 10px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             border: none;
             transition: all var(--transition);
@@ -867,7 +968,7 @@
             transform: translateY(-1px) scale(0.97);
         }
         .paypal-btn-custom i {
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         /* ─── FOOTER ─── */
@@ -1101,6 +1202,20 @@
             .contact-item {
                 padding: 0.6rem 0.8rem;
             }
+            .nav-support-btn {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.7rem;
+            }
+            .nav-support-btn span {
+                display: none;
+            }
+            .scroll-progress {
+                bottom: 3.5rem;
+                /* move up to avoid conflict with language selector */
+            }
+            .scroll-progress .bar-track {
+                width: 80px;
+            }
         }
         @media(max-width:480px) {
             .panel-card {
@@ -1204,6 +1319,12 @@
             .container {
                 padding: 0 0.8rem;
             }
+            .scroll-progress {
+                bottom: 3rem;
+            }
+            .scroll-progress .bar-track {
+                width: 60px;
+            }
         }
         @media(max-width:380px) {
             .hero-title {
@@ -1229,6 +1350,8 @@
         /* ─── TOUCH FRIENDLY ─── */
         .btn,
         .paypal-btn-custom,
+        .nav-support-btn,
+        .mobile-support-btn,
         .lang-btn,
         .mobile-btn,
         .close-btn,
@@ -1263,6 +1386,14 @@
     <!-- ─── 3D CANVAS ─── -->
     <canvas id="webgl-canvas"></canvas>
 
+    <!-- ─── SCROLL PROGRESS INDICATOR ─── -->
+    <div class="scroll-progress" id="scrollProgress">
+        <div class="bar-track">
+            <div class="bar-fill" id="scrollFill"></div>
+        </div>
+        <div class="label"><i class="fas fa-arrow-down"></i> <span id="scrollLabel">Scroll to climb</span></div>
+    </div>
+
     <!-- ─── HEADER ─── -->
     <header id="mainHeader">
         <div class="nav-container">
@@ -1277,6 +1408,11 @@
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button class="nav-support-btn" id="navSupportBtn">
+                        <i class="fab fa-paypal"></i> <span>Support</span>
+                    </button>
+                </li>
             </ul>
             <button class="mobile-btn" id="mobileBtn" aria-label="Menu">
                 <i class="fas fa-bars"></i>
@@ -1301,6 +1437,9 @@
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </div>
+        <button class="mobile-support-btn" id="mobileSupportBtn">
+            <i class="fab fa-paypal"></i> Support My Work
+        </button>
     </div>
 
     <!-- ─── SCROLLABLE CONTENT ─── -->
@@ -1601,19 +1740,19 @@
                                 <div id="formFeedback" class="form-feedback"></div>
                             </form>
 
-                            <!-- ─── PAYPAL SECTION ─── -->
+                            <!-- ─── PAYPAL SECTION (CONTEXTUAL) ─── -->
                             <div class="paypal-section">
-                                <h4><i class="fab fa-paypal"></i> Support My Work</h4>
-                                <p>Help me build more educational tools for Rwandan teachers and students.</p>
+                                <h4><i class="fab fa-paypal"></i> <span id="paypalTitle">Support My Work</span></h4>
+                                <p id="paypalDesc">Help me build more educational tools for Rwandan teachers and students.</p>
                                 <div class="paypal-button-wrap">
                                     <button id="paypalDonateBtn" class="paypal-btn-custom">
-                                        <i class="fab fa-paypal"></i> Donate with PayPal
+                                        <i class="fab fa-paypal"></i> <span id="paypalBtnText">Donate with PayPal</span>
                                     </button>
-                                    <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID" target="_blank" class="btn btn-secondary" style="font-size:0.7rem;padding:0.5rem 1.2rem;">
+                                    <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID" target="_blank" class="btn btn-secondary" style="font-size:0.65rem;padding:0.45rem 1rem;">
                                         <i class="fas fa-external-link-alt"></i> PayPal.me
                                     </a>
                                 </div>
-                                <p style="font-size:0.6rem;color:var(--text-muted);margin-top:0.4rem;">
+                                <p style="font-size:0.6rem;color:var(--text-muted);margin-top:0.3rem;">
                                     <i class="fas fa-lock"></i> Secure · All major cards accepted
                                 </p>
                             </div>
@@ -1759,7 +1898,9 @@
                     formChoice: "How would you like to send?\n\nOK = Email, Cancel = WhatsApp.",
                     paypalTitle: "Support My Work",
                     paypalDesc: "Help me build more educational tools for Rwandan teachers and students.",
-                    paypalBtn: "Donate with PayPal"
+                    paypalBtn: "Donate with PayPal",
+                    navSupport: "Support",
+                    scrollLabel: "Scroll to climb"
                 },
                 rw: {
                     heroBadge: "Umuhanga mu ICT & Umwarimu",
@@ -1836,7 +1977,9 @@
                     formChoice: "Ushaka kohereza gute?\n\nOK = Email, Cancel = WhatsApp.",
                     paypalTitle: "Shyigikira Akazi Kanjye",
                     paypalDesc: "Nfasha kubaka ibikoresho by'uburezi by'abarezi n'inyeshuri mu Rwanda.",
-                    paypalBtn: "Tanga nka PayPal"
+                    paypalBtn: "Tanga nka PayPal",
+                    navSupport: "Shyigikira",
+                    scrollLabel: "Kurira uhindagurika"
                 },
                 fr: {
                     heroBadge: "Développeur & Éducateur",
@@ -1913,7 +2056,9 @@
                     formChoice: "Comment envoyer ?\n\nOK = Email, Cancel = WhatsApp.",
                     paypalTitle: "Soutenir Mon Travail",
                     paypalDesc: "Aidez-moi à construire plus d'outils éducatifs pour les enseignants et étudiants rwandais.",
-                    paypalBtn: "Faire un don PayPal"
+                    paypalBtn: "Faire un don PayPal",
+                    navSupport: "Soutenir",
+                    scrollLabel: "Défiler pour grimper"
                 }
             };
 
@@ -1937,15 +2082,22 @@
                     }
                 });
                 // PayPal translations
-                const paypalTitle = document.querySelector('.paypal-section h4');
+                const paypalTitle = document.querySelector('.paypal-section h4 span');
                 const paypalDesc = document.querySelector('.paypal-section p');
-                const paypalBtn = document.getElementById('paypalDonateBtn');
-                if (paypalTitle) paypalTitle.innerHTML = `<i class="fab fa-paypal"></i> ${data.paypalTitle || 'Support My Work'}`;
+                const paypalBtn = document.getElementById('paypalBtnText');
+                const navSupportBtn = document.querySelector('.nav-support-btn span');
+                const mobileSupportBtn = document.getElementById('mobileSupportBtn');
+                const scrollLabel = document.getElementById('scrollLabel');
+                if (paypalTitle) paypalTitle.textContent = data.paypalTitle || 'Support My Work';
                 if (paypalDesc) paypalDesc.textContent = data.paypalDesc || 'Help me build more educational tools.';
-                if (paypalBtn) paypalBtn.innerHTML = `<i class="fab fa-paypal"></i> ${data.paypalBtn || 'Donate with PayPal'}`;
+                if (paypalBtn) paypalBtn.textContent = data.paypalBtn || 'Donate with PayPal';
+                if (navSupportBtn) navSupportBtn.textContent = data.navSupport || 'Support';
+                if (mobileSupportBtn) mobileSupportBtn.innerHTML =
+                    `<i class="fab fa-paypal"></i> ${data.navSupport || 'Support'} My Work`;
+                if (scrollLabel) scrollLabel.textContent = data.scrollLabel || 'Scroll to climb';
 
                 const navKeys = ['Home', 'About', 'Journey', 'Skills', 'Projects', 'Contact'];
-                document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach((a, i) => {
+                document.querySelectorAll('.nav-links a:not(.nav-support-btn), .mobile-nav-links a').forEach((a, i) => {
                     if (navKeys[i]) a.textContent = navKeys[i];
                 });
                 if (langBtn) langBtn.textContent = lang.toUpperCase();
@@ -2016,22 +2168,33 @@
                 }, 600);
             });
 
-            // ─── PAYPAL DONATE BUTTON ───
-            const paypalBtn = document.getElementById('paypalDonateBtn');
-            if (paypalBtn) {
-                paypalBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Open PayPal donation in a new tab
-                    // Replace with your actual PayPal donation link
-                    const paypalUrl = 'https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID';
-                    window.open(paypalUrl, '_blank');
-                });
+            // ─── PAYPAL DONATE BUTTONS ───
+            function openPayPal() {
+                const paypalUrl = 'https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID';
+                window.open(paypalUrl, '_blank');
             }
+
+            const navSupportBtn = document.getElementById('navSupportBtn');
+            const mobileSupportBtn2 = document.getElementById('mobileSupportBtn');
+            const paypalDonateBtn = document.getElementById('paypalDonateBtn');
+
+            if (navSupportBtn) navSupportBtn.addEventListener('click', openPayPal);
+            if (mobileSupportBtn2) mobileSupportBtn2.addEventListener('click', openPayPal);
+            if (paypalDonateBtn) paypalDonateBtn.addEventListener('click', openPayPal);
+
+            // ─── SCROLL PROGRESS ───
+            const scrollFill = document.getElementById('scrollFill');
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                if (scrollFill) scrollFill.style.width = progress + '%';
+            });
 
             // ─── SCROLL PANELS ───
             const cards = document.querySelectorAll('.panel-card');
             const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+            const navLinks = document.querySelectorAll('.nav-links a:not(.nav-support-btn), .mobile-nav-links a');
 
             function updatePanels() {
                 const scroll = window.scrollY;
@@ -2325,7 +2488,6 @@
             let mouseX = 0,
                 mouseY = 0;
 
-            // Touch support for mobile
             document.addEventListener('mousemove', e => {
                 mouseX = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseY = (e.clientY / window.innerHeight) * 2 - 1;
@@ -2358,7 +2520,6 @@
                 tree.rotation.y = Math.sin(t * 0.04) * 0.01;
                 tree.rotation.x = Math.sin(t * 0.03 + 0.5) * 0.005;
 
-                // Leaves drift
                 const lpos = leafGeo.attributes.position.array;
                 for (let i = 0; i < leafCount; i++) {
                     const idx = i * 3;
@@ -2367,7 +2528,6 @@
                 }
                 leafGeo.attributes.position.needsUpdate = true;
 
-                // Fireflies
                 const gpos = glowGeo.attributes.position.array;
                 for (let i = 0; i < glowCount; i++) {
                     const d = glowData[i];
@@ -2379,7 +2539,6 @@
                 }
                 glowGeo.attributes.position.needsUpdate = true;
 
-                // Stars
                 const sp = starGeo2.attributes.position.array;
                 for (let i = 0; i < STAR_COUNT; i++) {
                     sp[i * 3 + 1] += 0.005;
@@ -2387,7 +2546,6 @@
                 }
                 starGeo2.attributes.position.needsUpdate = true;
 
-                // Camera
                 currentY += (targetY - currentY) * 0.055;
                 currentAngle += (targetAngle - currentAngle) * 0.055;
 
@@ -2403,7 +2561,6 @@
             }
             animate();
 
-            // ── Resize ──
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();

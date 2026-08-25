@@ -9,16 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script>
-  window.va = window.va || function () {
-    (window.vaq = window.vaq || []).push(arguments);
-  };
-</script>
-<script
-  defer
-  src="https://va.vercel-scripts.com/v1/script.js"
-  data-sdkn="@vercel/analytics"
-  data-sdkv="1.x"
-></script>
+        window.va = window.va || function() { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="https://va.vercel-scripts.com/v1/script.js" data-sdkn="@vercel/analytics" data-sdkv="1.x"></script>
     <style>
         /* ─── RESET & ROOT ─── */
         * {
@@ -789,16 +782,18 @@
             border-radius: 14px;
             padding: 1.2rem 1.3rem;
             display: flex;
-            align-items: flex-start;
-            gap: 0.7rem;
+            flex-direction: column;
+            gap: 0.3rem;
             transition: all var(--transition);
             pointer-events: auto;
+            text-decoration: none;
+            color: inherit;
         }
         .cert-card:hover {
             border-color: rgba(45, 138, 78, 0.2);
             transform: translateY(-4px);
         }
-        .cert-icon {
+        .cert-card .cert-icon {
             width: 34px;
             height: 34px;
             border-radius: 8px;
@@ -811,20 +806,29 @@
             flex-shrink: 0;
             color: #4caf7a;
         }
-        .cert-info h4 {
+        .cert-card h4 {
             font-size: 0.85rem;
             color: var(--text-light);
             margin-bottom: 0.05rem;
         }
-        .cert-info p {
+        .cert-card p {
             font-size: 0.7rem;
             color: var(--text-muted);
         }
-        .cert-info .cert-date {
+        .cert-card .cert-date {
             font-size: 0.65rem;
             color: #c9a84c;
             margin-top: 0.15rem;
             font-weight: 500;
+        }
+        .cert-card .cert-verify {
+            margin-top: 0.5rem;
+            font-size: 0.65rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: 600;
         }
 
         /* ─── CONTACT ─── */
@@ -1289,10 +1293,10 @@
             .cert-card {
                 padding: 0.9rem 1rem;
             }
-            .cert-info h4 {
+            .cert-card h4 {
                 font-size: 0.75rem;
             }
-            .cert-info p {
+            .cert-card p {
                 font-size: 0.65rem;
             }
             .contact-item p {
@@ -1396,7 +1400,7 @@
     <!-- ─── LOADER ─── -->
     <div class="loader" id="loader">
         <div class="loader-spinner"></div>
-        <div class="loader-text">🌳 Climbing the tree…</div>
+        <div class="loader-text">Opening portfolio...</div>
     </div>
 
     <!-- ─── 3D CANVAS ─── -->
@@ -1415,7 +1419,7 @@
         <div class="nav-container">
             <a href="#home" class="brand">
                 <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="brand-img" loading="eager" />
-                <span class="brand-text">CHRISOSTOM<span>·dev</span></span>
+                <span class="brand-text">TUYISENGE <span>Jean Chrisostom</span></span>
             </a>
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
@@ -1507,7 +1511,7 @@
                         <div class="about-text">
                             <h3 id="aboutHead">Student Teacher &amp; EdTech Builder</h3>
                             <p id="aboutText1">I'm a final-year student teacher in <strong>Language Education at TTC Muhanga</strong>, and a self-taught developer who believes every future teacher deserves digital skills — not fear of the unknown.</p>
-                            <p id="aboutText2">That belief became <strong>iMENA Hub</strong>, an EdTech initiative training 44+ student teachers across Rwanda. I build tools — from this 3D portfolio to the <strong>Certificate Verification System</strong> and <strong>Paperless</strong> assessment platform.</p>
+                            <p id="aboutText2">That belief became <strong>iMENA Hub</strong>, an EdTech initiative that has now trained <strong>54+ student teachers and youth</strong> across Rwanda. I build tools — from this 3D portfolio to the <strong>Certificate Verification System</strong> and <strong>Paperless</strong> assessment platform.</p>
                             <p id="aboutText3">My approach: disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I create digital solutions that are functional, beautiful, and human-centered.</p>
                             <div class="tag-row">
                                 <span class="tag">🇷🇼 Kinyarwanda · Native</span>
@@ -1538,7 +1542,7 @@
                         <div class="t-item">
                             <div class="t-year">Founded · 2025</div>
                             <h4>iMENA Hub &amp; iMENA Learn</h4>
-                            <p>Launched a 4-week digital skills program delivered live over WhatsApp — now training 44+ student teachers and youth across Rwanda in Google Workspace, AI tools, and digital pedagogy.</p>
+                            <p>Launched a 4‑week digital skills program delivered live over WhatsApp — now training <strong>54+ student teachers and youth</strong> across Rwanda in Google Workspace, AI tools, and digital pedagogy.</p>
                         </div>
                         <div class="t-item">
                             <div class="t-year">Launch · 2026</div>
@@ -1625,32 +1629,40 @@
             <div class="container">
                 <div class="panel-card glass float-right">
                     <h2 class="section-title" id="certTitle">Certifications</h2>
-                    <p class="section-sub" id="certSub">Credentials that back the craft.</p>
+                    <p class="section-sub" id="certSub">Verified credentials from industry leaders — click to verify.</p>
                     <div class="cert-grid">
-                        <div class="cert-card">
-                            <div class="cert-icon">🏆</div>
-                            <div class="cert-info">
-                                <h4>21st Century Learning Design</h4>
-                                <p>Microsoft Educator Academy</p>
-                                <div class="cert-date">November 9, 2025</div>
-                            </div>
-                        </div>
-                        <div class="cert-card">
-                            <div class="cert-icon">🤖</div>
-                            <div class="cert-info">
-                                <h4>AI for Educators</h4>
-                                <p>Microsoft Educator Academy</p>
-                                <div class="cert-date">March 7, 2026</div>
-                            </div>
-                        </div>
-                        <div class="cert-card">
-                            <div class="cert-icon">🎓</div>
-                            <div class="cert-info">
-                                <h4>Microsoft Educator Academy Graduate</h4>
-                                <p>Digital Skills &amp; Cloud Tools</p>
-                                <div class="cert-date">March 7, 2026</div>
-                            </div>
-                        </div>
+                        <!-- Microsoft Certified Educator -->
+                        <a href="https://drive.google.com/file/d/1K5KYcLWRiS1n8IWfAaLK6UgbqKHl5wWg/view?usp=sharing" target="_blank" class="cert-card">
+                            <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                            <h4>Microsoft Certified Educator</h4>
+                            <p>Microsoft Educator Academy</p>
+                            <span class="cert-date">March 7, 2026</span>
+                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
+                        </a>
+                        <!-- 21st Century Learning Design -->
+                        <a href="https://drive.google.com/file/d/1f_JltGA9MAI_J9hVRYKSAi3qQsyDvYMF/view?usp=sharing" target="_blank" class="cert-card">
+                            <div class="cert-icon"><i class="fas fa-chart-line"></i></div>
+                            <h4>21st Century Learning Design</h4>
+                            <p>Microsoft Educator Academy</p>
+                            <span class="cert-date">November 9, 2025</span>
+                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
+                        </a>
+                        <!-- AI for Educators -->
+                        <a href="https://drive.google.com/file/d/1oV4ezw7MVGgPy3J7aptOXkDwDujCAjaF/view?usp=sharing" target="_blank" class="cert-card">
+                            <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                            <h4>AI for Educators</h4>
+                            <p>Microsoft Educator Academy</p>
+                            <span class="cert-date">March 7, 2026</span>
+                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
+                        </a>
+                        <!-- EF SET English C2 -->
+                        <a href="https://drive.google.com/file/d/1DU7SG-tkL9nml3wOI5WniKprkt087SxQ/view?usp=sharing" target="_blank" class="cert-card">
+                            <div class="cert-icon"><i class="fas fa-language"></i></div>
+                            <h4>EF SET English C2</h4>
+                            <p>EF Standard English Test</p>
+                            <span class="cert-date">Verified Proficient</span>
+                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1663,36 +1675,39 @@
                     <h2 class="section-title" id="projectsTitle">My Projects</h2>
                     <p class="section-sub" id="projectsSub">Real tools, in real use — not concepts on a slide.</p>
                     <div class="projects-grid">
+                        <!-- iMENA CV BUILDER -->
                         <div class="project-card glass">
                             <div class="project-icon"><i class="fas fa-file-alt"></i></div>
-                            <h3 id="p1Title">iMENA CV BUILDER</h3>
-                            <p id="p1Desc">Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.</p>
+                            <h3>iMENA CV BUILDER</h3>
+                            <p>Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.</p>
                             <div class="project-tags">
                                 <span class="project-tag">HTML/CSS</span>
                                 <span class="project-tag">JavaScript</span>
                                 <span class="project-tag">Responsive</span>
                             </div>
-                            <a href="https://imena-cv-builder.netlify.app/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span id="p1Btn">View</span>
+                            <a href="https://imena-cv-builder.vercel.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span>View</span>
                             </a>
                         </div>
+                        <!-- iMENA Trinity College -->
                         <div class="project-card glass">
                             <div class="project-icon"><i class="fas fa-school"></i></div>
-                            <h3 id="p2Title">iMENA Trinity College</h3>
-                            <p id="p2Desc">A full school website showcasing programs, faculty, and student achievements for a partner institution.</p>
+                            <h3>iMENA Trinity College</h3>
+                            <p>A full school website showcasing programs, faculty, and student achievements for a partner institution.</p>
                             <div class="project-tags">
                                 <span class="project-tag">School Project</span>
                                 <span class="project-tag">Education</span>
                                 <span class="project-tag">Web Dev</span>
                             </div>
                             <a href="https://stomcodev.github.io/IMENA-TRINITY-COLLEGE/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span id="p2Btn">View</span>
+                                <i class="fas fa-external-link-alt"></i> <span>View</span>
                             </a>
                         </div>
+                        <!-- ChrisostomAi -->
                         <div class="project-card glass">
                             <div class="project-icon"><i class="fas fa-robot"></i></div>
                             <h3>ChrisostomAi</h3>
-                            <p>AI-powered learning tools and interactive web experiments — exploring the future of education technology.</p>
+                            <p>AI‑powered learning tools and interactive web experiments — exploring the future of education technology.</p>
                             <div class="project-tags">
                                 <span class="project-tag">AI Tech</span>
                                 <span class="project-tag">JavaScript</span>
@@ -1702,17 +1717,74 @@
                                 <i class="fas fa-external-link-alt"></i> <span>View</span>
                             </a>
                         </div>
+                        <!-- iMENA Hub -->
                         <div class="project-card glass">
-                            <div class="project-icon"><i class="fas fa-tools"></i></div>
-                            <h3 id="p3Title">Teacher Toolkit</h3>
-                            <p id="p3Desc">A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.</p>
+                            <div class="project-icon"><i class="fas fa-globe-africa"></i></div>
+                            <h3>iMENA Hub</h3>
+                            <p>The central platform for iMENA's EdTech initiatives — connecting educators, resources, and training programs.</p>
                             <div class="project-tags">
                                 <span class="project-tag">EdTech</span>
-                                <span class="project-tag">Productivity</span>
-                                <span class="project-tag">Web App</span>
+                                <span class="project-tag">Platform</span>
+                                <span class="project-tag">Community</span>
                             </div>
-                            <a href="#" class="btn btn-secondary card-btn">
-                                <i class="fas fa-code"></i> <span id="p3Btn">View Code</span>
+                            <a href="https://imena-hub.vercel.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span>Visit</span>
+                            </a>
+                        </div>
+                        <!-- iMENA Lab -->
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-flask"></i></div>
+                            <h3>iMENA Lab</h3>
+                            <p>Experimental sandbox for new EdTech prototypes — where we test and refine tools before wider release.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Prototype</span>
+                                <span class="project-tag">Innovation</span>
+                                <span class="project-tag">Testing</span>
+                            </div>
+                            <a href="https://imena-lab.vercel.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span>Explore</span>
+                            </a>
+                        </div>
+                        <!-- iMENA Learn -->
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <h3>iMENA Learn</h3>
+                            <p>The learning management system powering iMENA's digital skills training — live cohorts, quizzes, and progress tracking.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">LMS</span>
+                                <span class="project-tag">Training</span>
+                                <span class="project-tag">Live</span>
+                            </div>
+                            <a href="https://imenalearn.vercel.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span>Start Learning</span>
+                            </a>
+                        </div>
+                        <!-- GS Nyirarukobwa -->
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-church"></i></div>
+                            <h3>GS Nyirarukobwa</h3>
+                            <p>Official website for GS Nyirarukobwa — showcasing the school's vision, academics, and community engagement.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">School</span>
+                                <span class="project-tag">Website</span>
+                                <span class="project-tag">Client</span>
+                            </div>
+                            <a href="https://gs-nyirarukobwa.vercel.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span>Visit</span>
+                            </a>
+                        </div>
+                        <!-- Muhirwa Jacques -->
+                        <div class="project-card glass">
+                            <div class="project-icon"><i class="fas fa-user-tie"></i></div>
+                            <h3>Muhirwa Jacques</h3>
+                            <p>Professional portfolio for Muhirwa Jacques — a clean, modern personal brand site.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Portfolio</span>
+                                <span class="project-tag">Personal Brand</span>
+                                <span class="project-tag">Client</span>
+                            </div>
+                            <a href="https://muhirwa-jacques.vercel.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span>View</span>
                             </a>
                         </div>
                     </div>
@@ -1742,7 +1814,7 @@
                             </div>
                             <div class="contact-item">
                                 <div class="ci"><i class="fas fa-graduation-cap"></i></div>
-                                <div><h4 id="cEdu">Education</h4><p>TTC Muhanga — Language Education (2025–2026)</p></div>
+                                <div><h4 id="cEdu">Education</h4><p>TTC Muhanga — Language Education (2025–2027)</p></div>
                             </div>
                         </div>
                         <div class="form-box glass">
@@ -1819,8 +1891,7 @@
     </div>
 
     <!-- ─── THREE.JS ─── -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1864,7 +1935,7 @@
                     aboutSub: "Dedicated student teacher & developer shaping the future of education in Rwanda.",
                     aboutHead: "Student Teacher & EdTech Builder",
                     aboutText1: "I'm a final-year student teacher in Language Education at TTC Muhanga, and a self-taught developer who believes every future teacher deserves digital skills — not fear of the unknown.",
-                    aboutText2: "That belief became iMENA Hub, an EdTech initiative training 44+ student teachers across Rwanda. I build tools — from this 3D portfolio to the Certificate Verification System and Paperless assessment platform.",
+                    aboutText2: "That belief became iMENA Hub, an EdTech initiative that has now trained 54+ student teachers and youth across Rwanda. I build tools — from this 3D portfolio to the Certificate Verification System and Paperless assessment platform.",
                     aboutText3: "My approach: disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I create digital solutions that are functional, beautiful, and human-centered.",
                     btnEmail: "Email Me",
                     journeyTitle: "My Journey",
@@ -1899,18 +1970,9 @@
                     sk22: "Creativity",
                     sk23: "Adaptability",
                     certTitle: "Certifications",
-                    certSub: "Credentials that back the craft.",
+                    certSub: "Verified credentials from industry leaders — click to verify.",
                     projectsTitle: "My Projects",
                     projectsSub: "Real tools, in real use — not concepts on a slide.",
-                    p1Title: "iMENA CV BUILDER",
-                    p1Desc: "Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.",
-                    p1Btn: "View",
-                    p2Title: "iMENA Trinity College",
-                    p2Desc: "A full school website showcasing programs, faculty, and student achievements for a partner institution.",
-                    p2Btn: "View",
-                    p3Title: "Teacher Toolkit",
-                    p3Desc: "A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.",
-                    p3Btn: "View Code",
                     contactTitle: "Get In Touch",
                     contactSub: "Let's connect and build something that matters for education in Africa.",
                     cEmail: "Email",
@@ -1943,7 +2005,7 @@
                     aboutSub: "Umwarimu w'inyigisho n'umuhanga mu ikoranabuhanga.",
                     aboutHead: "Umwarimu & Umuhanga mu Ikoranabuhanga",
                     aboutText1: "Ndi umwarimu w'inyigisho mu TTC Muhanga, nkora ibikoresho bya tekinoloji nk'umuhanga wigishije.",
-                    aboutText2: "Nashinze iMENA Hub, ishyiriraho ibikoresho by'uburezi, twatojye abarezi 44+ mu Rwanda.",
+                    aboutText2: "Nashinze iMENA Hub, ishyiriraho ibikoresho by'uburezi, twatojye abarezi 54+ mu Rwanda.",
                     aboutText3: "Uburyo bwanjye: gukora neza, gukemura ibibazo, no kwiga ubuzima bwose.",
                     btnEmail: "Koherereza Email",
                     journeyTitle: "Urugendo Rwanjye",
@@ -1981,15 +2043,6 @@
                     certSub: "Ibyemezo bigashyigikira ubuhanga.",
                     projectsTitle: "Ibikorwa Byanjye",
                     projectsSub: "Ibikoresho bikoreshwa mu buzima busanzwe.",
-                    p1Title: "iMENA CV BUILDER",
-                    p1Desc: "Porogaramu yo gukora CV nziza z'umwuga.",
-                    p1Btn: "Reba",
-                    p2Title: "iMENA Trinity College",
-                    p2Desc: "Urupapuro rw'ishuri rwereka porogaramu n'ibyo abanyeshuri bagezeho.",
-                    p2Btn: "Reba",
-                    p3Title: "Ibikoresho by'Umwarimu",
-                    p3Desc: "Ibikoresho bya digitale by'abarimu.",
-                    p3Btn: "Reba Kode",
                     contactTitle: "Twandikire",
                     contactSub: "Twunganire gukora ibikoresho by'uburezi.",
                     cEmail: "Email",
@@ -2022,7 +2075,7 @@
                     aboutSub: "Étudiant enseignant & développeur EdTech.",
                     aboutHead: "Étudiant Enseignant & Créateur EdTech",
                     aboutText1: "Je suis étudiant enseignant à TTC Muhanga et développeur autodidacte.",
-                    aboutText2: "J'ai fondé iMENA Hub, une initiative EdTech qui a formé 44+ étudiants enseignants au Rwanda.",
+                    aboutText2: "J'ai fondé iMENA Hub, une initiative EdTech qui a formé 54+ étudiants enseignants et jeunes au Rwanda.",
                     aboutText3: "Mon approche : éthique de travail, résolution créative et apprentissage continu.",
                     btnEmail: "Envoyer un Email",
                     journeyTitle: "Mon Parcours",
@@ -2060,15 +2113,6 @@
                     certSub: "Des titres qui soutiennent l'expertise.",
                     projectsTitle: "Mes Projets",
                     projectsSub: "Des outils réels, en utilisation réelle.",
-                    p1Title: "iMENA CV BUILDER",
-                    p1Desc: "Créateur de CV professionnels avec aperçu en temps réel.",
-                    p1Btn: "Voir",
-                    p2Title: "iMENA Trinity College",
-                    p2Desc: "Site web scolaire présentant les programmes et réalisations.",
-                    p2Btn: "Voir",
-                    p3Title: "Boîte à Outils Enseignant",
-                    p3Desc: "Outils numériques pour les éducateurs.",
-                    p3Btn: "Voir le Code",
                     contactTitle: "Me Contacter",
                     contactSub: "Connectons-nous pour créer des solutions éducatives.",
                     cEmail: "Email",

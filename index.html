@@ -8,15 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-        <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    
-    <script>
-        window.va = window.va || function() { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="https://va.vercel-scripts.com/v1/script.js" data-sdkn="@vercel/analytics" data-sdkv="1.x"></script>
     <style>
         /* ─── RESET & ROOT ─── */
         * {
@@ -72,7 +63,7 @@
             height: 100vh;
             z-index: 1;
             pointer-events: auto;
-            touch-action: pan-y;
+            touch-action: none;
         }
 
         /* ─── SCROLL CONTAINER ─── */
@@ -169,6 +160,7 @@
             border-color: transparent;
             box-shadow: 0 4px 20px var(--primary-glow);
         }
+        /* ─── NAV SUPPORT BUTTON ─── */
         .nav-support-btn {
             display: inline-flex;
             align-items: center;
@@ -306,48 +298,6 @@
             transform: scale(0.97);
         }
 
-        /* ─── SCROLL PROGRESS INDICATOR ─── */
-        .scroll-progress {
-            position: fixed;
-            bottom: 1.2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 998;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-            pointer-events: none;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }
-        .scroll-progress:hover {
-            opacity: 1;
-        }
-        .scroll-progress .bar-track {
-            width: 120px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .scroll-progress .bar-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #2d8a4e, #4caf7a);
-            border-radius: 4px;
-            transition: width 0.1s ease;
-        }
-        .scroll-progress .label {
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-            font-weight: 500;
-        }
-        .scroll-progress .label i {
-            margin-right: 4px;
-        }
-
         /* ─── GLASS PANEL ─── */
         .glass {
             background: var(--glass-bg);
@@ -396,25 +346,6 @@
         }
         .float-center {
             margin: 0 auto;
-        }
-
-        /* ─── MAP CONTAINER ─── */
-        .map-container {
-            margin-top: 1.5rem;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: var(--bg-deep);
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
         }
 
         /* ─── TYPOGRAPHY ─── */
@@ -538,6 +469,24 @@
         }
         .btn-accent:hover {
             box-shadow: 0 12px 40px rgba(201, 168, 76, 0.35);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #f5b042, #d4922a);
+            color: #000;
+            box-shadow: 0 8px 28px rgba(245, 176, 66, 0.25);
+        }
+        .btn-gold:hover {
+            box-shadow: 0 12px 40px rgba(245, 176, 66, 0.4);
+        }
+        .btn-paypal {
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: #fff;
+            box-shadow: 0 8px 28px rgba(0, 112, 186, 0.25);
+            font-weight: 700;
+        }
+        .btn-paypal:hover {
+            box-shadow: 0 12px 40px rgba(0, 112, 186, 0.4);
+            color: #fff;
         }
         .hero-btns {
             display: flex;
@@ -787,18 +736,16 @@
             border-radius: 14px;
             padding: 1.2rem 1.3rem;
             display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
+            align-items: flex-start;
+            gap: 0.7rem;
             transition: all var(--transition);
             pointer-events: auto;
-            text-decoration: none;
-            color: inherit;
         }
         .cert-card:hover {
             border-color: rgba(45, 138, 78, 0.2);
             transform: translateY(-4px);
         }
-        .cert-card .cert-icon {
+        .cert-icon {
             width: 34px;
             height: 34px;
             border-radius: 8px;
@@ -811,29 +758,20 @@
             flex-shrink: 0;
             color: #4caf7a;
         }
-        .cert-card h4 {
+        .cert-info h4 {
             font-size: 0.85rem;
             color: var(--text-light);
             margin-bottom: 0.05rem;
         }
-        .cert-card p {
+        .cert-info p {
             font-size: 0.7rem;
             color: var(--text-muted);
         }
-        .cert-card .cert-date {
+        .cert-info .cert-date {
             font-size: 0.65rem;
             color: #c9a84c;
             margin-top: 0.15rem;
             font-weight: 500;
-        }
-        .cert-card .cert-verify {
-            margin-top: 0.5rem;
-            font-size: 0.65rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-weight: 600;
         }
 
         /* ─── CONTACT ─── */
@@ -934,7 +872,7 @@
             display: none;
         }
 
-        /* ─── PAYPAL SECTION ─── */
+        /* ─── PAYPAL SECTION (CONTEXTUAL) ─── */
         .paypal-section {
             margin-top: 1.2rem;
             padding-top: 1rem;
@@ -1229,15 +1167,6 @@
             .nav-support-btn span {
                 display: none;
             }
-            .scroll-progress {
-                bottom: 3.5rem;
-            }
-            .scroll-progress .bar-track {
-                width: 80px;
-            }
-            .map-container {
-                aspect-ratio: 4/3;
-            }
         }
         @media(max-width:480px) {
             .panel-card {
@@ -1298,10 +1227,10 @@
             .cert-card {
                 padding: 0.9rem 1rem;
             }
-            .cert-card h4 {
+            .cert-info h4 {
                 font-size: 0.75rem;
             }
-            .cert-card p {
+            .cert-info p {
                 font-size: 0.65rem;
             }
             .contact-item p {
@@ -1340,15 +1269,6 @@
             }
             .container {
                 padding: 0 0.8rem;
-            }
-            .scroll-progress {
-                bottom: 3rem;
-            }
-            .scroll-progress .bar-track {
-                width: 60px;
-            }
-            .map-container {
-                aspect-ratio: 4/3;
             }
         }
         @media(max-width:380px) {
@@ -1405,26 +1325,18 @@
     <!-- ─── LOADER ─── -->
     <div class="loader" id="loader">
         <div class="loader-spinner"></div>
-        <div class="loader-text">Opening portfolio...</div>
+        <div class="loader-text">🌳 Climbing the tree…</div>
     </div>
 
     <!-- ─── 3D CANVAS ─── -->
     <canvas id="webgl-canvas"></canvas>
-
-    <!-- ─── SCROLL PROGRESS ─── -->
-    <div class="scroll-progress" id="scrollProgress">
-        <div class="bar-track">
-            <div class="bar-fill" id="scrollFill"></div>
-        </div>
-        <div class="label"><i class="fas fa-arrow-down"></i> <span id="scrollLabel">Scroll to climb</span></div>
-    </div>
 
     <!-- ─── HEADER ─── -->
     <header id="mainHeader">
         <div class="nav-container">
             <a href="#home" class="brand">
                 <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="brand-img" loading="eager" />
-                <span class="brand-text">TUYISENGE <span>Jean Chrisostom</span></span>
+                <span class="brand-text">CHRISOSTOM<span>·dev</span></span>
             </a>
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
@@ -1485,20 +1397,6 @@
                         <a href="#projects" class="btn btn-secondary"><i class="fas fa-code"></i> <span id="btnProjects">View Projects</span></a>
                         <a href="https://wa.me/250796717230" target="_blank" class="btn btn-accent"><i class="fab fa-whatsapp"></i> <span id="btnWhatsApp">WhatsApp</span></a>
                     </div>
-
-                    <!-- ─── GOOGLE MAPS EMBED ─── -->
-                    <div class="map-container glass">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.205963457526!2d30.084297374726265!3d-2.0734855979079074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dcab005bc384fd%3A0xe460f1d53ebb4fab!2sTUYISENGE%20Jean%20Chrisostom!5e0!3m2!1sen!2srw!4v1785338436964!5m2!1sen!2srw"
-                            width="600"
-                            height="450"
-                            style="border:0;"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            title="TUYISENGE Jean Chrisostom Location"
-                        ></iframe>
-                    </div>
                 </div>
             </div>
         </section>
@@ -1516,7 +1414,7 @@
                         <div class="about-text">
                             <h3 id="aboutHead">Student Teacher &amp; EdTech Builder</h3>
                             <p id="aboutText1">I'm a final-year student teacher in <strong>Language Education at TTC Muhanga</strong>, and a self-taught developer who believes every future teacher deserves digital skills — not fear of the unknown.</p>
-                            <p id="aboutText2">That belief became <strong>iMENA Hub</strong>, an EdTech initiative that has now trained <strong>54+ student teachers and youth</strong> across Rwanda. I build tools — from this 3D portfolio to the <strong>Certificate Verification System</strong> and <strong>Paperless</strong> assessment platform.</p>
+                            <p id="aboutText2">That belief became <strong>iMENA Hub</strong>, an EdTech initiative training 44+ student teachers across Rwanda. I build tools — from this 3D portfolio to the <strong>Certificate Verification System</strong> and <strong>Paperless</strong> assessment platform.</p>
                             <p id="aboutText3">My approach: disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I create digital solutions that are functional, beautiful, and human-centered.</p>
                             <div class="tag-row">
                                 <span class="tag">🇷🇼 Kinyarwanda · Native</span>
@@ -1547,7 +1445,7 @@
                         <div class="t-item">
                             <div class="t-year">Founded · 2025</div>
                             <h4>iMENA Hub &amp; iMENA Learn</h4>
-                            <p>Launched a 4‑week digital skills program delivered live over WhatsApp — now training <strong>54+ student teachers and youth</strong> across Rwanda in Google Workspace, AI tools, and digital pedagogy.</p>
+                            <p>Launched a 4-week digital skills program delivered live over WhatsApp — now training 44+ student teachers and youth across Rwanda in Google Workspace, AI tools, and digital pedagogy.</p>
                         </div>
                         <div class="t-item">
                             <div class="t-year">Launch · 2026</div>
@@ -1634,40 +1532,32 @@
             <div class="container">
                 <div class="panel-card glass float-right">
                     <h2 class="section-title" id="certTitle">Certifications</h2>
-                    <p class="section-sub" id="certSub">Verified credentials from industry leaders — click to verify.</p>
+                    <p class="section-sub" id="certSub">Credentials that back the craft.</p>
                     <div class="cert-grid">
-                        <!-- Microsoft Certified Educator -->
-                        <a href="https://drive.google.com/file/d/1K5KYcLWRiS1n8IWfAaLK6UgbqKHl5wWg/view?usp=sharing" target="_blank" class="cert-card">
-                            <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
-                            <h4>Microsoft Certified Educator</h4>
-                            <p>Microsoft Educator Academy</p>
-                            <span class="cert-date">March 7, 2026</span>
-                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
-                        </a>
-                        <!-- 21st Century Learning Design -->
-                        <a href="https://drive.google.com/file/d/1f_JltGA9MAI_J9hVRYKSAi3qQsyDvYMF/view?usp=sharing" target="_blank" class="cert-card">
-                            <div class="cert-icon"><i class="fas fa-chart-line"></i></div>
-                            <h4>21st Century Learning Design</h4>
-                            <p>Microsoft Educator Academy</p>
-                            <span class="cert-date">November 9, 2025</span>
-                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
-                        </a>
-                        <!-- AI for Educators -->
-                        <a href="https://drive.google.com/file/d/1oV4ezw7MVGgPy3J7aptOXkDwDujCAjaF/view?usp=sharing" target="_blank" class="cert-card">
-                            <div class="cert-icon"><i class="fas fa-robot"></i></div>
-                            <h4>AI for Educators</h4>
-                            <p>Microsoft Educator Academy</p>
-                            <span class="cert-date">March 7, 2026</span>
-                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
-                        </a>
-                        <!-- EF SET English C2 -->
-                        <a href="https://drive.google.com/file/d/1DU7SG-tkL9nml3wOI5WniKprkt087SxQ/view?usp=sharing" target="_blank" class="cert-card">
-                            <div class="cert-icon"><i class="fas fa-language"></i></div>
-                            <h4>EF SET English C2</h4>
-                            <p>EF Standard English Test</p>
-                            <span class="cert-date">Verified Proficient</span>
-                            <span class="cert-verify"><i class="fas fa-external-link-alt"></i> View Certificate</span>
-                        </a>
+                        <div class="cert-card">
+                            <div class="cert-icon">🏆</div>
+                            <div class="cert-info">
+                                <h4>21st Century Learning Design</h4>
+                                <p>Microsoft Educator Academy</p>
+                                <div class="cert-date">November 9, 2025</div>
+                            </div>
+                        </div>
+                        <div class="cert-card">
+                            <div class="cert-icon">🤖</div>
+                            <div class="cert-info">
+                                <h4>AI for Educators</h4>
+                                <p>Microsoft Educator Academy</p>
+                                <div class="cert-date">March 7, 2026</div>
+                            </div>
+                        </div>
+                        <div class="cert-card">
+                            <div class="cert-icon">🎓</div>
+                            <div class="cert-info">
+                                <h4>Microsoft Educator Academy Graduate</h4>
+                                <p>Digital Skills &amp; Cloud Tools</p>
+                                <div class="cert-date">March 7, 2026</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1680,39 +1570,36 @@
                     <h2 class="section-title" id="projectsTitle">My Projects</h2>
                     <p class="section-sub" id="projectsSub">Real tools, in real use — not concepts on a slide.</p>
                     <div class="projects-grid">
-                        <!-- iMENA CV BUILDER -->
                         <div class="project-card glass">
                             <div class="project-icon"><i class="fas fa-file-alt"></i></div>
-                            <h3>iMENA CV BUILDER</h3>
-                            <p>Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.</p>
+                            <h3 id="p1Title">iMENA CV BUILDER</h3>
+                            <p id="p1Desc">Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.</p>
                             <div class="project-tags">
                                 <span class="project-tag">HTML/CSS</span>
                                 <span class="project-tag">JavaScript</span>
                                 <span class="project-tag">Responsive</span>
                             </div>
-                            <a href="https://imena-cv-builder.vercel.app/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span>View</span>
+                            <a href="https://imena-cv-builder.netlify.app/" target="_blank" class="btn btn-primary card-btn">
+                                <i class="fas fa-external-link-alt"></i> <span id="p1Btn">View</span>
                             </a>
                         </div>
-                        <!-- iMENA Trinity College -->
                         <div class="project-card glass">
                             <div class="project-icon"><i class="fas fa-school"></i></div>
-                            <h3>iMENA Trinity College</h3>
-                            <p>A full school website showcasing programs, faculty, and student achievements for a partner institution.</p>
+                            <h3 id="p2Title">iMENA Trinity College</h3>
+                            <p id="p2Desc">A full school website showcasing programs, faculty, and student achievements for a partner institution.</p>
                             <div class="project-tags">
                                 <span class="project-tag">School Project</span>
                                 <span class="project-tag">Education</span>
                                 <span class="project-tag">Web Dev</span>
                             </div>
                             <a href="https://stomcodev.github.io/IMENA-TRINITY-COLLEGE/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span>View</span>
+                                <i class="fas fa-external-link-alt"></i> <span id="p2Btn">View</span>
                             </a>
                         </div>
-                        <!-- ChrisostomAi -->
                         <div class="project-card glass">
                             <div class="project-icon"><i class="fas fa-robot"></i></div>
                             <h3>ChrisostomAi</h3>
-                            <p>AI‑powered learning tools and interactive web experiments — exploring the future of education technology.</p>
+                            <p>AI-powered learning tools and interactive web experiments — exploring the future of education technology.</p>
                             <div class="project-tags">
                                 <span class="project-tag">AI Tech</span>
                                 <span class="project-tag">JavaScript</span>
@@ -1722,74 +1609,17 @@
                                 <i class="fas fa-external-link-alt"></i> <span>View</span>
                             </a>
                         </div>
-                        <!-- iMENA Hub -->
                         <div class="project-card glass">
-                            <div class="project-icon"><i class="fas fa-globe-africa"></i></div>
-                            <h3>iMENA Hub</h3>
-                            <p>The central platform for iMENA's EdTech initiatives — connecting educators, resources, and training programs.</p>
+                            <div class="project-icon"><i class="fas fa-tools"></i></div>
+                            <h3 id="p3Title">Teacher Toolkit</h3>
+                            <p id="p3Desc">A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.</p>
                             <div class="project-tags">
                                 <span class="project-tag">EdTech</span>
-                                <span class="project-tag">Platform</span>
-                                <span class="project-tag">Community</span>
+                                <span class="project-tag">Productivity</span>
+                                <span class="project-tag">Web App</span>
                             </div>
-                            <a href="https://imena-hub.vercel.app/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span>Visit</span>
-                            </a>
-                        </div>
-                        <!-- iMENA Lab -->
-                        <div class="project-card glass">
-                            <div class="project-icon"><i class="fas fa-flask"></i></div>
-                            <h3>iMENA Lab</h3>
-                            <p>Experimental sandbox for new EdTech prototypes — where we test and refine tools before wider release.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Prototype</span>
-                                <span class="project-tag">Innovation</span>
-                                <span class="project-tag">Testing</span>
-                            </div>
-                            <a href="https://imena-lab.vercel.app/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span>Explore</span>
-                            </a>
-                        </div>
-                        <!-- iMENA Learn -->
-                        <div class="project-card glass">
-                            <div class="project-icon"><i class="fas fa-graduation-cap"></i></div>
-                            <h3>iMENA Learn</h3>
-                            <p>The learning management system powering iMENA's digital skills training — live cohorts, quizzes, and progress tracking.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">LMS</span>
-                                <span class="project-tag">Training</span>
-                                <span class="project-tag">Live</span>
-                            </div>
-                            <a href="https://imenalearn.vercel.app/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span>Start Learning</span>
-                            </a>
-                        </div>
-                        <!-- GS Nyirarukobwa -->
-                        <div class="project-card glass">
-                            <div class="project-icon"><i class="fas fa-church"></i></div>
-                            <h3>GS Nyirarukobwa</h3>
-                            <p>Official website for GS Nyirarukobwa — showcasing the school's vision, academics, and community engagement.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">School</span>
-                                <span class="project-tag">Website</span>
-                                <span class="project-tag">Client</span>
-                            </div>
-                            <a href="https://gs-nyirarukobwa.vercel.app/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span>Visit</span>
-                            </a>
-                        </div>
-                        <!-- Muhirwa Jacques -->
-                        <div class="project-card glass">
-                            <div class="project-icon"><i class="fas fa-user-tie"></i></div>
-                            <h3>Muhirwa Jacques</h3>
-                            <p>Professional portfolio for Muhirwa Jacques — a clean, modern personal brand site.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Portfolio</span>
-                                <span class="project-tag">Personal Brand</span>
-                                <span class="project-tag">Client</span>
-                            </div>
-                            <a href="https://muhirwa-jacques.vercel.app/" target="_blank" class="btn btn-primary card-btn">
-                                <i class="fas fa-external-link-alt"></i> <span>View</span>
+                            <a href="#" class="btn btn-secondary card-btn">
+                                <i class="fas fa-code"></i> <span id="p3Btn">View Code</span>
                             </a>
                         </div>
                     </div>
@@ -1819,7 +1649,7 @@
                             </div>
                             <div class="contact-item">
                                 <div class="ci"><i class="fas fa-graduation-cap"></i></div>
-                                <div><h4 id="cEdu">Education</h4><p>TTC Muhanga — Language Education (2025–2027)</p></div>
+                                <div><h4 id="cEdu">Education</h4><p>TTC Muhanga — Language Education (2025–2026)</p></div>
                             </div>
                         </div>
                         <div class="form-box glass">
@@ -1847,7 +1677,7 @@
                                 <div id="formFeedback" class="form-feedback"></div>
                             </form>
 
-                            <!-- ─── PAYPAL SECTION ─── -->
+                            <!-- ─── PAYPAL SECTION (CONTEXTUAL) ─── -->
                             <div class="paypal-section">
                                 <h4><i class="fab fa-paypal"></i> <span id="paypalTitle">Support My Work</span></h4>
                                 <p id="paypalDesc">Help me build more educational tools for Rwandan teachers and students.</p>
@@ -1896,7 +1726,8 @@
     </div>
 
     <!-- ─── THREE.JS ─── -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1940,7 +1771,7 @@
                     aboutSub: "Dedicated student teacher & developer shaping the future of education in Rwanda.",
                     aboutHead: "Student Teacher & EdTech Builder",
                     aboutText1: "I'm a final-year student teacher in Language Education at TTC Muhanga, and a self-taught developer who believes every future teacher deserves digital skills — not fear of the unknown.",
-                    aboutText2: "That belief became iMENA Hub, an EdTech initiative that has now trained 54+ student teachers and youth across Rwanda. I build tools — from this 3D portfolio to the Certificate Verification System and Paperless assessment platform.",
+                    aboutText2: "That belief became iMENA Hub, an EdTech initiative training 44+ student teachers across Rwanda. I build tools — from this 3D portfolio to the Certificate Verification System and Paperless assessment platform.",
                     aboutText3: "My approach: disciplined work ethic, creative problem-solving, and a commitment to lifelong learning. I create digital solutions that are functional, beautiful, and human-centered.",
                     btnEmail: "Email Me",
                     journeyTitle: "My Journey",
@@ -1975,9 +1806,18 @@
                     sk22: "Creativity",
                     sk23: "Adaptability",
                     certTitle: "Certifications",
-                    certSub: "Verified credentials from industry leaders — click to verify.",
+                    certSub: "Credentials that back the craft.",
                     projectsTitle: "My Projects",
                     projectsSub: "Real tools, in real use — not concepts on a slide.",
+                    p1Title: "iMENA CV BUILDER",
+                    p1Desc: "Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.",
+                    p1Btn: "View",
+                    p2Title: "iMENA Trinity College",
+                    p2Desc: "A full school website showcasing programs, faculty, and student achievements for a partner institution.",
+                    p2Btn: "View",
+                    p3Title: "Teacher Toolkit",
+                    p3Desc: "A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.",
+                    p3Btn: "View Code",
                     contactTitle: "Get In Touch",
                     contactSub: "Let's connect and build something that matters for education in Africa.",
                     cEmail: "Email",
@@ -1996,8 +1836,7 @@
                     paypalTitle: "Support My Work",
                     paypalDesc: "Help me build more educational tools for Rwandan teachers and students.",
                     paypalBtn: "Donate with PayPal",
-                    navSupport: "Support",
-                    scrollLabel: "Scroll to climb"
+                    navSupport: "Support"
                 },
                 rw: {
                     heroBadge: "Umuhanga mu ICT & Umwarimu",
@@ -2010,7 +1849,7 @@
                     aboutSub: "Umwarimu w'inyigisho n'umuhanga mu ikoranabuhanga.",
                     aboutHead: "Umwarimu & Umuhanga mu Ikoranabuhanga",
                     aboutText1: "Ndi umwarimu w'inyigisho mu TTC Muhanga, nkora ibikoresho bya tekinoloji nk'umuhanga wigishije.",
-                    aboutText2: "Nashinze iMENA Hub, ishyiriraho ibikoresho by'uburezi, twatojye abarezi 54+ mu Rwanda.",
+                    aboutText2: "Nashinze iMENA Hub, ishyiriraho ibikoresho by'uburezi, twatojye abarezi 44+ mu Rwanda.",
                     aboutText3: "Uburyo bwanjye: gukora neza, gukemura ibibazo, no kwiga ubuzima bwose.",
                     btnEmail: "Koherereza Email",
                     journeyTitle: "Urugendo Rwanjye",
@@ -2048,6 +1887,15 @@
                     certSub: "Ibyemezo bigashyigikira ubuhanga.",
                     projectsTitle: "Ibikorwa Byanjye",
                     projectsSub: "Ibikoresho bikoreshwa mu buzima busanzwe.",
+                    p1Title: "iMENA CV BUILDER",
+                    p1Desc: "Porogaramu yo gukora CV nziza z'umwuga.",
+                    p1Btn: "Reba",
+                    p2Title: "iMENA Trinity College",
+                    p2Desc: "Urupapuro rw'ishuri rwereka porogaramu n'ibyo abanyeshuri bagezeho.",
+                    p2Btn: "Reba",
+                    p3Title: "Ibikoresho by'Umwarimu",
+                    p3Desc: "Ibikoresho bya digitale by'abarimu.",
+                    p3Btn: "Reba Kode",
                     contactTitle: "Twandikire",
                     contactSub: "Twunganire gukora ibikoresho by'uburezi.",
                     cEmail: "Email",
@@ -2066,8 +1914,7 @@
                     paypalTitle: "Shyigikira Akazi Kanjye",
                     paypalDesc: "Nfasha kubaka ibikoresho by'uburezi by'abarezi n'inyeshuri mu Rwanda.",
                     paypalBtn: "Tanga nka PayPal",
-                    navSupport: "Shyigikira",
-                    scrollLabel: "Kurira uhindagurika"
+                    navSupport: "Shyigikira"
                 },
                 fr: {
                     heroBadge: "Développeur & Éducateur",
@@ -2080,7 +1927,7 @@
                     aboutSub: "Étudiant enseignant & développeur EdTech.",
                     aboutHead: "Étudiant Enseignant & Créateur EdTech",
                     aboutText1: "Je suis étudiant enseignant à TTC Muhanga et développeur autodidacte.",
-                    aboutText2: "J'ai fondé iMENA Hub, une initiative EdTech qui a formé 54+ étudiants enseignants et jeunes au Rwanda.",
+                    aboutText2: "J'ai fondé iMENA Hub, une initiative EdTech qui a formé 44+ étudiants enseignants au Rwanda.",
                     aboutText3: "Mon approche : éthique de travail, résolution créative et apprentissage continu.",
                     btnEmail: "Envoyer un Email",
                     journeyTitle: "Mon Parcours",
@@ -2118,6 +1965,15 @@
                     certSub: "Des titres qui soutiennent l'expertise.",
                     projectsTitle: "Mes Projets",
                     projectsSub: "Des outils réels, en utilisation réelle.",
+                    p1Title: "iMENA CV BUILDER",
+                    p1Desc: "Créateur de CV professionnels avec aperçu en temps réel.",
+                    p1Btn: "Voir",
+                    p2Title: "iMENA Trinity College",
+                    p2Desc: "Site web scolaire présentant les programmes et réalisations.",
+                    p2Btn: "Voir",
+                    p3Title: "Boîte à Outils Enseignant",
+                    p3Desc: "Outils numériques pour les éducateurs.",
+                    p3Btn: "Voir le Code",
                     contactTitle: "Me Contacter",
                     contactSub: "Connectons-nous pour créer des solutions éducatives.",
                     cEmail: "Email",
@@ -2136,8 +1992,7 @@
                     paypalTitle: "Soutenir Mon Travail",
                     paypalDesc: "Aidez-moi à construire plus d'outils éducatifs pour les enseignants et étudiants rwandais.",
                     paypalBtn: "Faire un don PayPal",
-                    navSupport: "Soutenir",
-                    scrollLabel: "Défiler pour grimper"
+                    navSupport: "Soutenir"
                 }
             };
 
@@ -2166,14 +2021,12 @@
                 const paypalBtn = document.getElementById('paypalBtnText');
                 const navSupportBtn = document.querySelector('.nav-support-btn span');
                 const mobileSupportBtn = document.getElementById('mobileSupportBtn');
-                const scrollLabel = document.getElementById('scrollLabel');
                 if (paypalTitle) paypalTitle.textContent = data.paypalTitle || 'Support My Work';
                 if (paypalDesc) paypalDesc.textContent = data.paypalDesc || 'Help me build more educational tools.';
                 if (paypalBtn) paypalBtn.textContent = data.paypalBtn || 'Donate with PayPal';
                 if (navSupportBtn) navSupportBtn.textContent = data.navSupport || 'Support';
                 if (mobileSupportBtn) mobileSupportBtn.innerHTML =
                     `<i class="fab fa-paypal"></i> ${data.navSupport || 'Support'} My Work`;
-                if (scrollLabel) scrollLabel.textContent = data.scrollLabel || 'Scroll to climb';
 
                 const navKeys = ['Home', 'About', 'Journey', 'Skills', 'Projects', 'Contact'];
                 document.querySelectorAll('.nav-links a:not(.nav-support-btn), .mobile-nav-links a').forEach((a, i) => {
@@ -2247,8 +2100,9 @@
                 }, 600);
             });
 
-            // ─── PAYPAL DONATE BUTTONS ───
+            // ─── PAYPAL DONATE BUTTONS (NAV + CONTEXT + MOBILE) ───
             function openPayPal() {
+                // Replace with your actual PayPal donation link
                 const paypalUrl = 'https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID';
                 window.open(paypalUrl, '_blank');
             }
@@ -2260,15 +2114,6 @@
             if (navSupportBtn) navSupportBtn.addEventListener('click', openPayPal);
             if (mobileSupportBtn2) mobileSupportBtn2.addEventListener('click', openPayPal);
             if (paypalDonateBtn) paypalDonateBtn.addEventListener('click', openPayPal);
-
-            // ─── SCROLL PROGRESS ───
-            const scrollFill = document.getElementById('scrollFill');
-            window.addEventListener('scroll', function() {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                if (scrollFill) scrollFill.style.width = progress + '%';
-            });
 
             // ─── SCROLL PANELS ───
             const cards = document.querySelectorAll('.panel-card');

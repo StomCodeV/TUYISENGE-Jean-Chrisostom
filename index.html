@@ -41,8 +41,8 @@
     <meta name="twitter:image:alt" content="TUYISENGE Jean Chrisostom - Web Developer & Student Teacher" />
 
     <!-- ─── FAVICON ─── -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/X7mnG85n/Cut-out-image.png">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/X7mnG85n/Cut-out-image.png">
 
     <!-- ─── PRELOADS FOR PERFORMANCE ─── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -101,7 +101,7 @@
             "@type": "Organization",
             "name": "iMENA Hub",
             "url": "https://chrisostom.vercel.app/",
-            "logo": "https://i.postimg.cc/6pztt4bx/chrisostom.png",
+            "logo": "https://i.postimg.cc/50jJ2fD6/BLAD.webp",
             "description": "EdTech initiative training student teachers and youth across Rwanda in digital skills and educational technology.",
             "founder": {
                 "@type": "Person",
@@ -154,10 +154,7 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-        h1,
-        h2,
-        h3,
-        h4 {
+        h1, h2, h3, h4 {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
             line-height: 1.15;
@@ -221,9 +218,11 @@
             flex-shrink: 0;
         }
         .brand-img {
-            height: 32px;
-            width: auto;
-            border-radius: 8px;
+            height: 36px;
+            width: 36px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
             transition: transform var(--transition);
         }
         .brand:hover .brand-img {
@@ -273,6 +272,7 @@
             border-color: transparent;
             box-shadow: 0 4px 20px var(--primary-glow);
         }
+        
         /* ─── NAV SUPPORT BUTTON ─── */
         .nav-support-btn {
             display: inline-flex;
@@ -287,15 +287,15 @@
             transition: all var(--transition);
             font-family: 'Inter', sans-serif;
             touch-action: manipulation;
-            background: linear-gradient(135deg, #0070ba, #003087);
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(0, 112, 186, 0.2);
+            background: linear-gradient(135deg, #f5b042, #d4922a);
+            color: #000;
+            box-shadow: 0 4px 16px rgba(245, 176, 66, 0.2);
             text-decoration: none;
             white-space: nowrap;
         }
         .nav-support-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 112, 186, 0.35);
+            box-shadow: 0 8px 24px rgba(245, 176, 66, 0.4);
         }
         .nav-support-btn:active {
             transform: translateY(0px) scale(0.97);
@@ -397,15 +397,15 @@
             transition: all var(--transition);
             font-family: 'Inter', sans-serif;
             touch-action: manipulation;
-            background: linear-gradient(135deg, #0070ba, #003087);
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(0, 112, 186, 0.2);
+            background: linear-gradient(135deg, #f5b042, #d4922a);
+            color: #000;
+            box-shadow: 0 4px 16px rgba(245, 176, 66, 0.2);
             text-decoration: none;
             width: 100%;
         }
         .mobile-support-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 112, 186, 0.35);
+            box-shadow: 0 8px 24px rgba(245, 176, 66, 0.4);
         }
         .mobile-support-btn:active {
             transform: scale(0.97);
@@ -526,13 +526,8 @@
             animation: blink 0.8s infinite;
         }
         @keyframes blink {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* ─── BUTTONS ─── */
@@ -590,16 +585,6 @@
         }
         .btn-gold:hover {
             box-shadow: 0 12px 40px rgba(245, 176, 66, 0.4);
-        }
-        .btn-paypal {
-            background: linear-gradient(135deg, #0070ba, #003087);
-            color: #fff;
-            box-shadow: 0 8px 28px rgba(0, 112, 186, 0.25);
-            font-weight: 700;
-        }
-        .btn-paypal:hover {
-            box-shadow: 0 12px 40px rgba(0, 112, 186, 0.4);
-            color: #fff;
         }
         .hero-btns {
             display: flex;
@@ -985,7 +970,7 @@
             display: none;
         }
 
-        /* ─── PAYPAL SECTION (CONTEXTUAL) ─── */
+        /* ─── BUY ME A COFFEE SECTION (CONTEXTUAL) ─── */
         .paypal-section {
             margin-top: 1.2rem;
             padding-top: 1rem;
@@ -1000,7 +985,7 @@
             gap: 0.5rem;
         }
         .paypal-section h4 i {
-            color: #0070ba;
+            color: #f5b042;
         }
         .paypal-section p {
             font-size: 0.7rem;
@@ -1027,13 +1012,13 @@
             font-family: 'Inter', sans-serif;
             pointer-events: auto;
             touch-action: manipulation;
-            background: linear-gradient(135deg, #0070ba, #003087);
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(0, 112, 186, 0.2);
+            background: linear-gradient(135deg, #f5b042, #d4922a);
+            color: #000;
+            box-shadow: 0 6px 20px rgba(245, 176, 66, 0.2);
         }
         .paypal-btn-custom:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 112, 186, 0.35);
+            box-shadow: 0 10px 30px rgba(245, 176, 66, 0.35);
         }
         .paypal-btn-custom:active {
             transform: translateY(-1px) scale(0.97);
@@ -1193,244 +1178,89 @@
             letter-spacing: 2px;
         }
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to { transform: rotate(360deg); }
         }
 
         /* ─── RESPONSIVE ─── */
         @media(max-width:1024px) {
-            .panel-card {
-                width: 78%;
-            }
-            .hero-title {
-                font-size: 2.6rem;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
+            .panel-card { width: 78%; }
+            .hero-title { font-size: 2.6rem; }
+            .section-title { font-size: 2rem; }
         }
         @media(max-width:820px) {
-            .mobile-btn {
-                display: flex;
-            }
-            .nav-links {
-                display: none;
-            }
-            .panel-card {
-                width: 100%;
-                padding: 1.4rem 1.2rem;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-            .profile-wrap {
-                max-width: 180px;
-                margin: 0 auto;
-            }
-            .skills-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-            .hero-title {
-                font-size: 2rem;
-            }
-            .hero-btns {
-                flex-direction: column;
-            }
-            .hero-btns .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            .section-title {
-                font-size: 1.6rem;
-            }
-            .cert-grid {
-                grid-template-columns: 1fr;
-            }
-            .paypal-button-wrap {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .paypal-btn-custom {
-                justify-content: center;
-            }
-            .panel-card {
-                border-radius: 16px;
-            }
-            .form-box {
-                padding: 1rem;
-            }
-            .contact-item {
-                padding: 0.6rem 0.8rem;
-            }
-            .nav-support-btn {
-                font-size: 0.65rem;
-                padding: 0.25rem 0.7rem;
-            }
-            .nav-support-btn span {
-                display: none;
-            }
+            .mobile-btn { display: flex; }
+            .nav-links { display: none; }
+            .panel-card { width: 100%; padding: 1.4rem 1.2rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .profile-wrap { max-width: 180px; margin: 0 auto; }
+            .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .contact-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .hero-title { font-size: 2rem; }
+            .hero-btns { flex-direction: column; }
+            .hero-btns .btn { width: 100%; justify-content: center; }
+            .section-title { font-size: 1.6rem; }
+            .cert-grid { grid-template-columns: 1fr; }
+            .paypal-button-wrap { flex-direction: column; align-items: stretch; }
+            .paypal-btn-custom { justify-content: center; }
+            .panel-card { border-radius: 16px; }
+            .form-box { padding: 1rem; }
+            .contact-item { padding: 0.6rem 0.8rem; }
+            .nav-support-btn { font-size: 0.65rem; padding: 0.25rem 0.7rem; }
+            .nav-support-btn span { display: none; }
+            .brand-img { width: 32px; height: 32px; }
         }
         @media(max-width:480px) {
-            .panel-card {
-                padding: 1rem 0.8rem;
-                border-radius: 14px;
-            }
-            .hero-title {
-                font-size: 1.6rem;
-            }
-            .brand-text {
-                font-size: 0.8rem;
-            }
-            .brand-img {
-                height: 28px;
-            }
-            .section-title {
-                font-size: 1.3rem;
-            }
-            .typing-wrap {
-                height: 26px;
-            }
-            .typed-text {
-                font-size: 0.95rem;
-            }
-            .hero-sub {
-                font-size: 0.85rem;
-            }
-            .hero-badge {
-                font-size: 0.55rem;
-                padding: 0.2rem 0.8rem;
-            }
-            .btn {
-                font-size: 0.7rem;
-                padding: 0.5rem 1.2rem;
-            }
-            .about-text h3 {
-                font-size: 1.1rem;
-            }
-            .about-text p {
-                font-size: 0.78rem;
-            }
-            .skill-box h3 {
-                font-size: 0.8rem;
-            }
-            .skill-tag {
-                font-size: 0.55rem;
-                padding: 0.15rem 0.6rem;
-            }
-            .project-card h3 {
-                font-size: 0.85rem;
-            }
-            .project-card p {
-                font-size: 0.7rem;
-            }
-            .project-card {
-                padding: 1rem;
-            }
-            .cert-card {
-                padding: 0.9rem 1rem;
-            }
-            .cert-info h4 {
-                font-size: 0.75rem;
-            }
-            .cert-info p {
-                font-size: 0.65rem;
-            }
-            .contact-item p {
-                font-size: 0.7rem;
-            }
-            .form-control {
-                font-size: 0.75rem;
-                padding: 0.4rem 0.7rem;
-            }
-            .form-box h3 {
-                font-size: 0.9rem;
-            }
-            .paypal-btn-custom {
-                font-size: 0.7rem;
-                padding: 0.45rem 1rem;
-            }
-            .lang-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 0.6rem;
-            }
-            .lang-selector {
-                bottom: 0.8rem;
-                right: 0.8rem;
-            }
-            .social-link {
-                width: 32px;
-                height: 32px;
-                font-size: 0.7rem;
-            }
-            .copyright {
-                font-size: 0.55rem;
-            }
-            section {
-                padding: 4rem 0;
-            }
-            .container {
-                padding: 0 0.8rem;
-            }
+            .panel-card { padding: 1rem 0.8rem; border-radius: 14px; }
+            .hero-title { font-size: 1.6rem; }
+            .brand-text { font-size: 0.8rem; }
+            .brand-img { width: 28px; height: 28px; }
+            .section-title { font-size: 1.3rem; }
+            .typing-wrap { height: 26px; }
+            .typed-text { font-size: 0.95rem; }
+            .hero-sub { font-size: 0.85rem; }
+            .hero-badge { font-size: 0.55rem; padding: 0.2rem 0.8rem; }
+            .btn { font-size: 0.7rem; padding: 0.5rem 1.2rem; }
+            .about-text h3 { font-size: 1.1rem; }
+            .about-text p { font-size: 0.78rem; }
+            .skill-box h3 { font-size: 0.8rem; }
+            .skill-tag { font-size: 0.55rem; padding: 0.15rem 0.6rem; }
+            .project-card h3 { font-size: 0.85rem; }
+            .project-card p { font-size: 0.7rem; }
+            .project-card { padding: 1rem; }
+            .cert-card { padding: 0.9rem 1rem; }
+            .cert-info h4 { font-size: 0.75rem; }
+            .cert-info p { font-size: 0.65rem; }
+            .contact-item p { font-size: 0.7rem; }
+            .form-control { font-size: 0.75rem; padding: 0.4rem 0.7rem; }
+            .form-box h3 { font-size: 0.9rem; }
+            .paypal-btn-custom { font-size: 0.7rem; padding: 0.45rem 1rem; }
+            .lang-btn { width: 36px; height: 36px; font-size: 0.6rem; }
+            .lang-selector { bottom: 0.8rem; right: 0.8rem; }
+            .social-link { width: 32px; height: 32px; font-size: 0.7rem; }
+            .copyright { font-size: 0.55rem; }
+            section { padding: 4rem 0; }
+            .container { padding: 0 0.8rem; }
         }
         @media(max-width:380px) {
-            .hero-title {
-                font-size: 1.3rem;
-            }
-            .brand-text {
-                font-size: 0.7rem;
-            }
-            .brand-img {
-                height: 24px;
-            }
-            .panel-card {
-                padding: 0.8rem 0.6rem;
-            }
-            .section-title {
-                font-size: 1.1rem;
-            }
-            .typed-text {
-                font-size: 0.8rem;
-            }
+            .hero-title { font-size: 1.3rem; }
+            .brand-text { font-size: 0.7rem; }
+            .brand-img { width: 24px; height: 24px; }
+            .panel-card { padding: 0.8rem 0.6rem; }
+            .section-title { font-size: 1.1rem; }
+            .typed-text { font-size: 0.8rem; }
         }
 
         /* ─── TOUCH FRIENDLY ─── */
-        .btn,
-        .paypal-btn-custom,
-        .nav-support-btn,
-        .mobile-support-btn,
-        .lang-btn,
-        .mobile-btn,
-        .close-btn,
-        .social-link,
-        .nav-links a,
-        .mobile-nav-links a {
+        .btn, .paypal-btn-custom, .nav-support-btn, .mobile-support-btn, .lang-btn, .mobile-btn, .close-btn, .social-link, .nav-links a, .mobile-nav-links a {
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
 
         /* ─── SCROLLBAR ─── */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-deep);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -1448,7 +1278,7 @@
     <header id="mainHeader">
         <div class="nav-container">
             <a href="#home" class="brand">
-                <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="brand-img" loading="eager" />
+                <img src="https://i.postimg.cc/50jJ2fD6/BLAD.webp" alt="Logo" class="brand-img" loading="eager" />
                 <span class="brand-text">CHRISOSTOM<span>·dev</span></span>
             </a>
             <ul class="nav-links">
@@ -1460,7 +1290,7 @@
                 <li><a href="#contact">Contact</a></li>
                 <li>
                     <button class="nav-support-btn" id="navSupportBtn">
-                        <i class="fab fa-paypal"></i> <span>Support</span>
+                        <i class="fas fa-coffee"></i> <span>Support</span>
                     </button>
                 </li>
             </ul>
@@ -1474,7 +1304,7 @@
     <div class="mobile-nav" id="mobileNav">
         <div class="mobile-nav-header">
             <div class="brand">
-                <img src="https://i.postimg.cc/6pztt4bx/chrisostom.png" alt="Logo" class="brand-img" style="height:28px;" loading="eager" />
+                <img src="https://i.postimg.cc/50jJ2fD6/BLAD.webp" alt="Logo" class="brand-img" style="width:28px; height:28px;" loading="eager" />
                 <span class="brand-text" style="font-size:0.8rem;">CHRISOSTOM</span>
             </div>
             <button class="close-btn" id="closeBtn"><i class="fas fa-times"></i></button>
@@ -1488,7 +1318,7 @@
             <a href="#contact">Contact</a>
         </div>
         <button class="mobile-support-btn" id="mobileSupportBtn">
-            <i class="fab fa-paypal"></i> Support My Work
+            <i class="fas fa-coffee"></i> Support My Work
         </button>
     </div>
 
@@ -1740,7 +1570,7 @@
             </div>
         </section>
 
-        <!-- ─── CONTACT + PAYPAL ─── -->
+        <!-- ─── CONTACT + BUY ME A COFFEE ─── -->
         <section id="contact">
             <div class="container">
                 <div class="panel-card glass float-center" style="width:80%;">
@@ -1790,20 +1620,20 @@
                                 <div id="formFeedback" class="form-feedback"></div>
                             </form>
 
-                            <!-- ─── PAYPAL SECTION (CONTEXTUAL) ─── -->
+                            <!-- ─── BUY ME A COFFEE SECTION (CONTEXTUAL) ─── -->
                             <div class="paypal-section">
-                                <h4><i class="fab fa-paypal"></i> <span id="paypalTitle">Support My Work</span></h4>
-                                <p id="paypalDesc">Help me build more educational tools for Rwandan teachers and students.</p>
+                                <h4><i class="fas fa-coffee"></i> <span id="bmcTitle">Support My Work</span></h4>
+                                <p id="bmcDesc">Help me build more educational tools for Rwandan teachers and students.</p>
                                 <div class="paypal-button-wrap">
-                                    <button id="paypalDonateBtn" class="paypal-btn-custom">
-                                        <i class="fab fa-paypal"></i> <span id="paypalBtnText">Donate with PayPal</span>
-                                    </button>
-                                    <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID" target="_blank" class="btn btn-secondary" style="font-size:0.65rem;padding:0.45rem 1rem;">
-                                        <i class="fas fa-external-link-alt"></i> PayPal.me
+                                    <a href="https://buymeacoffee.com/chrisostom" target="_blank" class="paypal-btn-custom">
+                                        <i class="fas fa-coffee"></i> <span id="bmcBtnText">Buy Me a Coffee</span>
+                                    </a>
+                                    <a href="https://buymeacoffee.com/chrisostom" target="_blank" class="btn btn-secondary" style="font-size:0.65rem;padding:0.45rem 1rem;">
+                                        <i class="fas fa-external-link-alt"></i> Support Page
                                     </a>
                                 </div>
                                 <p style="font-size:0.6rem;color:var(--text-muted);margin-top:0.3rem;">
-                                    <i class="fas fa-lock"></i> Secure · All major cards accepted
+                                    <i class="fas fa-lock"></i> Secure · Powered by Buy Me a Coffee
                                 </p>
                             </div>
                         </div>
@@ -1839,17 +1669,14 @@
     </div>
 
     <!-- ─── THREE.JS ─── -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
             // ─── TYPING ───
             const words = ["Web Developer", "Student Teacher", "EdTech Founder", "Language Educator"];
-            let wIdx = 0,
-                cIdx = 0,
-                del = false;
+            let wIdx = 0, cIdx = 0, del = false;
             const el = document.getElementById('typingText');
 
             function typeLoop() {
@@ -1863,10 +1690,8 @@
                     cIdx++;
                 }
                 let speed = del ? 30 : 70;
-                if (!del && cIdx === cur.length) { speed = 1800;
-                    del = true; } else if (del && cIdx === 0) { del = false;
-                    wIdx = (wIdx + 1) % words.length;
-                    speed = 500; }
+                if (!del && cIdx === cur.length) { speed = 1800; del = true; } 
+                else if (del && cIdx === 0) { del = false; wIdx = (wIdx + 1) % words.length; speed = 500; }
                 setTimeout(typeLoop, speed);
             }
             setTimeout(typeLoop, 800);
@@ -1895,216 +1720,86 @@
                     skTech: "Technical",
                     skLang: "Languages",
                     skSoft: "Soft Skills",
-                    sk1: "Lesson Planning",
-                    sk2: "Student-Centered",
-                    sk3: "EdTech",
-                    sk4: "Classroom Mgmt",
-                    sk5: "Assessment Design",
-                    sk6: "Differentiated Instruction",
-                    sk7: "HTML/CSS/JS",
-                    sk8: "Web Dev",
-                    sk9: "Responsive Design",
-                    sk10: "Git & GitHub",
-                    sk11: "MS Office Suite",
-                    sk12: "Google Workspace",
-                    sk13: "UI/UX Principles",
-                    sk14: "API Integration",
-                    sk15: "Kinyarwanda (Native)",
-                    sk16: "English (Fluent)",
-                    sk17: "French (Intermediate)",
-                    sk18: "Communication",
-                    sk19: "Teamwork",
-                    sk20: "Problem Solving",
-                    sk21: "Time Management",
-                    sk22: "Creativity",
-                    sk23: "Adaptability",
-                    certTitle: "Certifications",
-                    certSub: "Credentials that back the craft.",
-                    projectsTitle: "My Projects",
-                    projectsSub: "Real tools, in real use — not concepts on a slide.",
-                    p1Title: "iMENA CV BUILDER",
-                    p1Desc: "Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.",
-                    p1Btn: "View",
-                    p2Title: "iMENA Trinity College",
-                    p2Desc: "A full school website showcasing programs, faculty, and student achievements for a partner institution.",
-                    p2Btn: "View",
-                    p3Title: "Teacher Toolkit",
-                    p3Desc: "A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.",
-                    p3Btn: "View Code",
-                    contactTitle: "Get In Touch",
-                    contactSub: "Let's connect and build something that matters for education in Africa.",
-                    cEmail: "Email",
-                    cPhone: "Phone / WhatsApp",
-                    cLocation: "Location",
-                    cEdu: "Education",
-                    formTitle: "Send a Message",
-                    fName: "Your Name",
-                    fEmail: "Your Email",
-                    fSubject: "Subject",
-                    fMsg: "Your Message",
-                    fSend: "Send Message",
+                    sk1: "Lesson Planning", sk2: "Student-Centered", sk3: "EdTech", sk4: "Classroom Mgmt", sk5: "Assessment Design", sk6: "Differentiated Instruction",
+                    sk7: "HTML/CSS/JS", sk8: "Web Dev", sk9: "Responsive Design", sk10: "Git & GitHub", sk11: "MS Office Suite", sk12: "Google Workspace", sk13: "UI/UX Principles", sk14: "API Integration",
+                    sk15: "Kinyarwanda (Native)", sk16: "English (Fluent)", sk17: "French (Intermediate)",
+                    sk18: "Communication", sk19: "Teamwork", sk20: "Problem Solving", sk21: "Time Management", sk22: "Creativity", sk23: "Adaptability",
+                    certTitle: "Certifications", certSub: "Credentials that back the craft.",
+                    projectsTitle: "My Projects", projectsSub: "Real tools, in real use — not concepts on a slide.",
+                    p1Title: "iMENA CV BUILDER", p1Desc: "Professional resume builder with real-time preview and multiple templates — built for job seekers in Rwanda and beyond.", p1Btn: "View",
+                    p2Title: "iMENA Trinity College", p2Desc: "A full school website showcasing programs, faculty, and student achievements for a partner institution.", p2Btn: "View",
+                    p3Title: "Teacher Toolkit", p3Desc: "A collection of digital tools for educators — lesson planners, assessment creators, and classroom management utilities.", p3Btn: "View Code",
+                    contactTitle: "Get In Touch", contactSub: "Let's connect and build something that matters for education in Africa.",
+                    cEmail: "Email", cPhone: "Phone / WhatsApp", cLocation: "Location", cEdu: "Education",
+                    formTitle: "Send a Message", fName: "Your Name", fEmail: "Your Email", fSubject: "Subject", fMsg: "Your Message", fSend: "Send Message",
                     copyright: "© 2026 TUYISENGE Jean Chrisostom — Built with ❤️ in Rwanda.",
                     formSuccess: "Message prepared! Redirecting you…",
                     formChoice: "How would you like to send?\n\nOK = Email, Cancel = WhatsApp.",
-                    paypalTitle: "Support My Work",
-                    paypalDesc: "Help me build more educational tools for Rwandan teachers and students.",
-                    paypalBtn: "Donate with PayPal",
+                    bmcTitle: "Support My Work", bmcDesc: "Help me build more educational tools for Rwandan teachers and students.", bmcBtnText: "Buy Me a Coffee",
                     navSupport: "Support"
                 },
                 rw: {
                     heroBadge: "Umuhanga mu ICT & Umwarimu",
                     heroTitle: "TUYISENGE Jean Chrisostom",
                     heroSub: "Nshishikariye guhuza ikoranabuhanga n'uburezi — nkora ibikoresho bishyigikira abarezi bo mu Rwanda.",
-                    btnStart: "Tangira Kurira",
-                    btnProjects: "Reba Ibikorwa",
-                    btnWhatsApp: "WhatsApp",
-                    aboutTitle: "Ibyange",
-                    aboutSub: "Umwarimu w'inyigisho n'umuhanga mu ikoranabuhanga.",
+                    btnStart: "Tangira Kurira", btnProjects: "Reba Ibikorwa", btnWhatsApp: "WhatsApp",
+                    aboutTitle: "Ibyange", aboutSub: "Umwarimu w'inyigisho n'umuhanga mu ikoranabuhanga.",
                     aboutHead: "Umwarimu & Umuhanga mu Ikoranabuhanga",
                     aboutText1: "Ndi umwarimu w'inyigisho mu TTC Muhanga, nkora ibikoresho bya tekinoloji nk'umuhanga wigishije.",
                     aboutText2: "Nashinze iMENA Hub, ishyiriraho ibikoresho by'uburezi, twatojye abarezi 44+ mu Rwanda.",
                     aboutText3: "Uburyo bwanjye: gukora neza, gukemura ibibazo, no kwiga ubuzima bwose.",
                     btnEmail: "Koherereza Email",
-                    journeyTitle: "Urugendo Rwanjye",
-                    journeySub: "Kuva mu ishuri kugera mu ikoranabuhanga — buri ntambwe igiye hagati y'uburezi n'ikoranabuhanga.",
-                    skillsTitle: "Ubumenyi & Ubuhanga",
-                    skillsSub: "Ubumenyi bw'uburezi n'ubuhanga mu ikoranabuhanga.",
-                    skTeach: "Uburezi",
-                    skTech: "Ikoranabuhanga",
-                    skLang: "Indimi",
-                    skSoft: "Ubumenyi bw'umuco",
-                    sk1: "Gutegura Amasomo",
-                    sk2: "Uburyo Bwa Kwiga",
-                    sk3: "Ikoranabuhanga",
-                    sk4: "Gucunga Ishuri",
-                    sk5: "Gutegura Ibyemezo",
-                    sk6: "Kwigisha mu buryo butandukanye",
-                    sk7: "HTML/CSS/JS",
-                    sk8: "Gukora Urubuga",
-                    sk9: "Responsive Design",
-                    sk10: "Git & GitHub",
-                    sk11: "Microsoft Office",
-                    sk12: "Google Workspace",
-                    sk13: "UI/UX Principles",
-                    sk14: "API Integration",
-                    sk15: "Ikinyarwanda (Cy'umwimerere)",
-                    sk16: "Icyongereza (Neza)",
-                    sk17: "Igifaransa (Hagati)",
-                    sk18: "Kuvugisha",
-                    sk19: "Gukorera Hamwe",
-                    sk20: "Gukemura Ibibazo",
-                    sk21: "Gucunga Igihe",
-                    sk22: "Ubuhanga",
-                    sk23: "Kwirinda",
-                    certTitle: "Ibyemezo",
-                    certSub: "Ibyemezo bigashyigikira ubuhanga.",
-                    projectsTitle: "Ibikorwa Byanjye",
-                    projectsSub: "Ibikoresho bikoreshwa mu buzima busanzwe.",
-                    p1Title: "iMENA CV BUILDER",
-                    p1Desc: "Porogaramu yo gukora CV nziza z'umwuga.",
-                    p1Btn: "Reba",
-                    p2Title: "iMENA Trinity College",
-                    p2Desc: "Urupapuro rw'ishuri rwereka porogaramu n'ibyo abanyeshuri bagezeho.",
-                    p2Btn: "Reba",
-                    p3Title: "Ibikoresho by'Umwarimu",
-                    p3Desc: "Ibikoresho bya digitale by'abarimu.",
-                    p3Btn: "Reba Kode",
-                    contactTitle: "Twandikire",
-                    contactSub: "Twunganire gukora ibikoresho by'uburezi.",
-                    cEmail: "Email",
-                    cPhone: "Telefone / WhatsApp",
-                    cLocation: "Aho Uri",
-                    cEdu: "Amashuri",
-                    formTitle: "Koherereza Ubutumwa",
-                    fName: "Izina Ryawe",
-                    fEmail: "Email Yawe",
-                    fSubject: "Intego",
-                    fMsg: "Ubutumwa Bwawe",
-                    fSend: "Kohereza",
+                    journeyTitle: "Urugendo Rwanjye", journeySub: "Kuva mu ishuri kugera mu ikoranabuhanga — buri ntambwe igiye hagati y'uburezi n'ikoranabuhanga.",
+                    skillsTitle: "Ubumenyi & Ubuhanga", skillsSub: "Ubumenyi bw'uburezi n'ubuhanga mu ikoranabuhanga.",
+                    skTeach: "Uburezi", skTech: "Ikoranabuhanga", skLang: "Indimi", skSoft: "Ubumenyi bw'umuco",
+                    sk1: "Gutegura Amasomo", sk2: "Uburyo Bwa Kwiga", sk3: "Ikoranabuhanga", sk4: "Gucunga Ishuri", sk5: "Gutegura Ibyemezo", sk6: "Kwigisha mu buryo butandukanye",
+                    sk7: "HTML/CSS/JS", sk8: "Gukora Urubuga", sk9: "Responsive Design", sk10: "Git & GitHub", sk11: "Microsoft Office", sk12: "Google Workspace", sk13: "UI/UX Principles", sk14: "API Integration",
+                    sk15: "Ikinyarwanda (Cy'umwimerere)", sk16: "Icyongereza (Neza)", sk17: "Igifaransa (Hagati)",
+                    sk18: "Kuvugisha", sk19: "Gukorera Hamwe", sk20: "Gukemura Ibibazo", sk21: "Gucunga Igihe", sk22: "Ubuhanga", sk23: "Kwirinda",
+                    certTitle: "Ibyemezo", certSub: "Ibyemezo bigashyigikira ubuhanga.",
+                    projectsTitle: "Ibikorwa Byanjye", projectsSub: "Ibikoresho bikoreshwa mu buzima busanzwe.",
+                    p1Title: "iMENA CV BUILDER", p1Desc: "Porogaramu yo gukora CV nziza z'umwuga.", p1Btn: "Reba",
+                    p2Title: "iMENA Trinity College", p2Desc: "Urupapuro rw'ishuri rwereka porogaramu n'ibyo abanyeshuri bagezeho.", p2Btn: "Reba",
+                    p3Title: "Ibikoresho by'Umwarimu", p3Desc: "Ibikoresho bya digitale by'abarimu.", p3Btn: "Reba Kode",
+                    contactTitle: "Twandikire", contactSub: "Twunganire gukora ibikoresho by'uburezi.",
+                    cEmail: "Email", cPhone: "Telefone / WhatsApp", cLocation: "Aho Uri", cEdu: "Amashuri",
+                    formTitle: "Koherereza Ubutumwa", fName: "Izina Ryawe", fEmail: "Email Yawe", fSubject: "Intego", fMsg: "Ubutumwa Bwawe", fSend: "Kohereza",
                     copyright: "© 2026 TUYISENGE Jean Chrisostom — Twubakanye mu Rwanda.",
                     formSuccess: "Ubutumwa bwateguwe! Uracyoherezwa…",
                     formChoice: "Ushaka kohereza gute?\n\nOK = Email, Cancel = WhatsApp.",
-                    paypalTitle: "Shyigikira Akazi Kanjye",
-                    paypalDesc: "Nfasha kubaka ibikoresho by'uburezi by'abarezi n'inyeshuri mu Rwanda.",
-                    paypalBtn: "Tanga nka PayPal",
+                    bmcTitle: "Shyigikira Akazi Kanjye", bmcDesc: "Nfasha kubaka ibikoresho by'uburezi by'abarezi n'inyeshuri mu Rwanda.", bmcBtnText: "Mpa Ikawa",
                     navSupport: "Shyigikira"
                 },
                 fr: {
                     heroBadge: "Développeur & Éducateur",
                     heroTitle: "TUYISENGE Jean Chrisostom",
                     heroSub: "Passionné par l'éducation et la technologie — je crée des outils pour la prochaine génération d'éducateurs africains.",
-                    btnStart: "Commencer à grimper",
-                    btnProjects: "Voir les Projets",
-                    btnWhatsApp: "WhatsApp",
-                    aboutTitle: "À Propos",
-                    aboutSub: "Étudiant enseignant & développeur EdTech.",
+                    btnStart: "Commencer à grimper", btnProjects: "Voir les Projets", btnWhatsApp: "WhatsApp",
+                    aboutTitle: "À Propos", aboutSub: "Étudiant enseignant & développeur EdTech.",
                     aboutHead: "Étudiant Enseignant & Créateur EdTech",
                     aboutText1: "Je suis étudiant enseignant à TTC Muhanga et développeur autodidacte.",
                     aboutText2: "J'ai fondé iMENA Hub, une initiative EdTech qui a formé 44+ étudiants enseignants au Rwanda.",
                     aboutText3: "Mon approche : éthique de travail, résolution créative et apprentissage continu.",
                     btnEmail: "Envoyer un Email",
-                    journeyTitle: "Mon Parcours",
-                    journeySub: "De la salle de classe à l'écosystème — chaque étape rapproche l'éducation et la technologie.",
-                    skillsTitle: "Compétences & Expertise",
-                    skillsSub: "Un mélange de pédagogie et de technique.",
-                    skTeach: "Pédagogie",
-                    skTech: "Technique",
-                    skLang: "Langues",
-                    skSoft: "Soft Skills",
-                    sk1: "Planification",
-                    sk2: "Méthodes Centrées",
-                    sk3: "Technologie Éducative",
-                    sk4: "Gestion de Classe",
-                    sk5: "Conception d'Évaluations",
-                    sk6: "Enseignement Différencié",
-                    sk7: "HTML/CSS/JS",
-                    sk8: "Développement Web",
-                    sk9: "Responsive Design",
-                    sk10: "Git & GitHub",
-                    sk11: "MS Office Suite",
-                    sk12: "Google Workspace",
-                    sk13: "UI/UX Principles",
-                    sk14: "API Integration",
-                    sk15: "Kinyarwanda (Natif)",
-                    sk16: "Anglais (Courant)",
-                    sk17: "Français (Intermédiaire)",
-                    sk18: "Communication",
-                    sk19: "Travail d'Équipe",
-                    sk20: "Résolution",
-                    sk21: "Gestion du Temps",
-                    sk22: "Créativité",
-                    sk23: "Adaptabilité",
-                    certTitle: "Certifications",
-                    certSub: "Des titres qui soutiennent l'expertise.",
-                    projectsTitle: "Mes Projets",
-                    projectsSub: "Des outils réels, en utilisation réelle.",
-                    p1Title: "iMENA CV BUILDER",
-                    p1Desc: "Créateur de CV professionnels avec aperçu en temps réel.",
-                    p1Btn: "Voir",
-                    p2Title: "iMENA Trinity College",
-                    p2Desc: "Site web scolaire présentant les programmes et réalisations.",
-                    p2Btn: "Voir",
-                    p3Title: "Boîte à Outils Enseignant",
-                    p3Desc: "Outils numériques pour les éducateurs.",
-                    p3Btn: "Voir le Code",
-                    contactTitle: "Me Contacter",
-                    contactSub: "Connectons-nous pour créer des solutions éducatives.",
-                    cEmail: "Email",
-                    cPhone: "Téléphone / WhatsApp",
-                    cLocation: "Localisation",
-                    cEdu: "Éducation",
-                    formTitle: "Envoyer un Message",
-                    fName: "Votre Nom",
-                    fEmail: "Votre Email",
-                    fSubject: "Sujet",
-                    fMsg: "Votre Message",
-                    fSend: "Envoyer",
+                    journeyTitle: "Mon Parcours", journeySub: "De la salle de classe à l'écosystème — chaque étape rapproche l'éducation et la technologie.",
+                    skillsTitle: "Compétences & Expertise", skillsSub: "Un mélange de pédagogie et de technique.",
+                    skTeach: "Pédagogie", skTech: "Technique", skLang: "Langues", skSoft: "Soft Skills",
+                    sk1: "Planification", sk2: "Méthodes Centrées", sk3: "Technologie Éducative", sk4: "Gestion de Classe", sk5: "Conception d'Évaluations", sk6: "Enseignement Différencié",
+                    sk7: "HTML/CSS/JS", sk8: "Développement Web", sk9: "Responsive Design", sk10: "Git & GitHub", sk11: "MS Office Suite", sk12: "Google Workspace", sk13: "UI/UX Principles", sk14: "API Integration",
+                    sk15: "Kinyarwanda (Natif)", sk16: "Anglais (Courant)", sk17: "Français (Intermédiaire)",
+                    sk18: "Communication", sk19: "Travail d'Équipe", sk20: "Résolution", sk21: "Gestion du Temps", sk22: "Créativité", sk23: "Adaptabilité",
+                    certTitle: "Certifications", certSub: "Des titres qui soutiennent l'expertise.",
+                    projectsTitle: "Mes Projets", projectsSub: "Des outils réels, en utilisation réelle.",
+                    p1Title: "iMENA CV BUILDER", p1Desc: "Créateur de CV professionnels avec aperçu en temps réel.", p1Btn: "Voir",
+                    p2Title: "iMENA Trinity College", p2Desc: "Site web scolaire présentant les programmes et réalisations.", p2Btn: "Voir",
+                    p3Title: "Boîte à Outils Enseignant", p3Desc: "Outils numériques pour les éducateurs.", p3Btn: "Voir le Code",
+                    contactTitle: "Me Contacter", contactSub: "Connectons-nous pour créer des solutions éducatives.",
+                    cEmail: "Email", cPhone: "Téléphone / WhatsApp", cLocation: "Localisation", cEdu: "Éducation",
+                    formTitle: "Envoyer un Message", fName: "Votre Nom", fEmail: "Votre Email", fSubject: "Sujet", fMsg: "Votre Message", fSend: "Envoyer",
                     copyright: "© 2026 TUYISENGE Jean Chrisostom — Construit avec ❤️ au Rwanda.",
                     formSuccess: "Message préparé ! Redirection…",
                     formChoice: "Comment envoyer ?\n\nOK = Email, Cancel = WhatsApp.",
-                    paypalTitle: "Soutenir Mon Travail",
-                    paypalDesc: "Aidez-moi à construire plus d'outils éducatifs pour les enseignants et étudiants rwandais.",
-                    paypalBtn: "Faire un don PayPal",
+                    bmcTitle: "Soutenir Mon Travail", bmcDesc: "Aidez-moi à construire plus d'outils éducatifs pour les enseignants et étudiants rwandais.", bmcBtnText: "Offrez-moi un café",
                     navSupport: "Soutenir"
                 }
             };
@@ -2128,18 +1823,19 @@
                         }
                     }
                 });
-                // PayPal translations
-                const paypalTitle = document.querySelector('.paypal-section h4 span');
-                const paypalDesc = document.querySelector('.paypal-section p');
-                const paypalBtn = document.getElementById('paypalBtnText');
+                
+                // Buy Me a Coffee Translations
+                const bmcTitle = document.getElementById('bmcTitle');
+                const bmcDesc = document.getElementById('bmcDesc');
+                const bmcBtnText = document.getElementById('bmcBtnText');
                 const navSupportBtn = document.querySelector('.nav-support-btn span');
                 const mobileSupportBtn = document.getElementById('mobileSupportBtn');
-                if (paypalTitle) paypalTitle.textContent = data.paypalTitle || 'Support My Work';
-                if (paypalDesc) paypalDesc.textContent = data.paypalDesc || 'Help me build more educational tools.';
-                if (paypalBtn) paypalBtn.textContent = data.paypalBtn || 'Donate with PayPal';
+                
+                if (bmcTitle) bmcTitle.textContent = data.bmcTitle || 'Support My Work';
+                if (bmcDesc) bmcDesc.textContent = data.bmcDesc || 'Help me build more educational tools.';
+                if (bmcBtnText) bmcBtnText.textContent = data.bmcBtnText || 'Buy Me a Coffee';
                 if (navSupportBtn) navSupportBtn.textContent = data.navSupport || 'Support';
-                if (mobileSupportBtn) mobileSupportBtn.innerHTML =
-                    `<i class="fab fa-paypal"></i> ${data.navSupport || 'Support'} My Work`;
+                if (mobileSupportBtn) mobileSupportBtn.innerHTML = `<i class="fas fa-coffee"></i> ${data.navSupport || 'Support'} My Work`;
 
                 const navKeys = ['Home', 'About', 'Journey', 'Skills', 'Projects', 'Contact'];
                 document.querySelectorAll('.nav-links a:not(.nav-support-btn), .mobile-nav-links a').forEach((a, i) => {
@@ -2149,8 +1845,7 @@
                 langOpts.forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
             }
 
-            langBtn.addEventListener('click', e => { e.stopPropagation();
-                langDropdown.classList.toggle('active'); });
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('active'); });
             langOpts.forEach(o => {
                 o.addEventListener('click', () => {
                     applyLang(o.dataset.lang);
@@ -2164,13 +1859,10 @@
             const mobileBtn = document.getElementById('mobileBtn');
             const mobileNav = document.getElementById('mobileNav');
             const closeBtn = document.getElementById('closeBtn');
-            mobileBtn.addEventListener('click', () => { mobileNav.classList.add('active');
-                document.body.style.overflow = 'hidden'; });
-            closeBtn.addEventListener('click', () => { mobileNav.classList.remove('active');
-                document.body.style.overflow = ''; });
+            mobileBtn.addEventListener('click', () => { mobileNav.classList.add('active'); document.body.style.overflow = 'hidden'; });
+            closeBtn.addEventListener('click', () => { mobileNav.classList.remove('active'); document.body.style.overflow = ''; });
             document.querySelectorAll('.mobile-nav-links a').forEach(a => {
-                a.addEventListener('click', () => { mobileNav.classList.remove('active');
-                    document.body.style.overflow = ''; });
+                a.addEventListener('click', () => { mobileNav.classList.remove('active'); document.body.style.overflow = ''; });
             });
 
             // ─── HEADER SCROLL ───
@@ -2190,10 +1882,8 @@
                 const subject = document.getElementById('subject').value;
                 const msg = document.getElementById('message').value;
 
-                const mailto =
-                    `mailto:tuyisengejeanchrisostome@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
-                const waMsg =
-                    `*New Message from 3D Portfolio*\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n\n*Message:*\n${msg}`;
+                const mailto = `mailto:tuyisengejeanchrisostome@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
+                const waMsg = `*New Message from 3D Portfolio*\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n\n*Message:*\n${msg}`;
                 const waLink = `https://wa.me/250796717230?text=${encodeURIComponent(waMsg)}`;
 
                 fb.style.display = 'block';
@@ -2213,20 +1903,16 @@
                 }, 600);
             });
 
-            // ─── PAYPAL DONATE BUTTONS (NAV + CONTEXT + MOBILE) ───
-            function openPayPal() {
-                // Replace with your actual PayPal donation link
-                const paypalUrl = 'https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID';
-                window.open(paypalUrl, '_blank');
+            // ─── BUY ME A COFFEE SUPPORT BUTTONS ───
+            function openBuyMeACoffee() {
+                window.open('https://buymeacoffee.com/chrisostom', '_blank');
             }
 
             const navSupportBtn = document.getElementById('navSupportBtn');
             const mobileSupportBtn2 = document.getElementById('mobileSupportBtn');
-            const paypalDonateBtn = document.getElementById('paypalDonateBtn');
 
-            if (navSupportBtn) navSupportBtn.addEventListener('click', openPayPal);
-            if (mobileSupportBtn2) mobileSupportBtn2.addEventListener('click', openPayPal);
-            if (paypalDonateBtn) paypalDonateBtn.addEventListener('click', openPayPal);
+            if (navSupportBtn) navSupportBtn.addEventListener('click', openBuyMeACoffee);
+            if (mobileSupportBtn2) mobileSupportBtn2.addEventListener('click', openBuyMeACoffee);
 
             // ─── SCROLL PANELS ───
             const cards = document.querySelectorAll('.panel-card');
@@ -2306,8 +1992,7 @@
                 const t = i / SEGS;
                 const rBot = 0.9 - t * 0.75;
                 const rTop = 0.9 - (i + 1) / SEGS * 0.75;
-                const g = new THREE.CylinderGeometry(Math.max(rTop, 0.05), Math.max(rBot, 0.05), segH * (0.9 + Math.random() *
-                    0.2), 7 + Math.floor(Math.random() * 4));
+                const g = new THREE.CylinderGeometry(Math.max(rTop, 0.05), Math.max(rBot, 0.05), segH * (0.9 + Math.random() * 0.2), 7 + Math.floor(Math.random() * 4));
                 const m = new THREE.Mesh(g, trunkMat);
                 m.position.y = i * segH + segH / 2 + (Math.random() - 0.5) * 0.2;
                 m.rotation.z = (Math.random() - 0.5) * 0.04;
@@ -2522,8 +2207,7 @@
             let targetAngle = 0;
             let currentY = 2;
             let currentAngle = 0;
-            let mouseX = 0,
-                mouseY = 0;
+            let mouseX = 0, mouseY = 0;
 
             document.addEventListener('mousemove', e => {
                 mouseX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -2606,6 +2290,18 @@
             });
 
         });
+    </script>
+
+    <!-- ─── BUY ME A COFFEE FLOATING WIDGET ─── -->
+    <script data-name="BMC-Widget" data-cfasync="false"
+        src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="chrisostom"
+        data-description="Support me on Buy me a coffee!"
+        data-message="Thank you for supporting my work!"
+        data-color="#f5b042"
+        data-position="Right"
+        data-x_margin="18"
+        data-y_margin="18">
     </script>
 
 </body>
